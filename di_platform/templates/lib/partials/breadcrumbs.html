@@ -1,0 +1,54 @@
+{% if 'section' in request.get_full_path %}
+<nav id="breadcrumbs">
+    <ul>
+        <li><a href="/courses"><i class="icon-feather-home"></i></a></li>
+        <li><a href="/courses/collection/{{ collection.id }}">{{ collection.title }}</a></li>
+        <li><a href="/courses/collection/{{ collection.id }}/course/{{course.id}}">{{ course.title }}</a></li>
+        <li><a href="/courses/collection/{{ collection.id }}/course/{{course.id}}/section/{{section.id}}">{{ section.title }}</a></li>
+        <li><a href="/courses/collection/{{ collection.id }}/course/{{course.id}}/section/{{section.id}}/chapter/{{chapter.id}}">{{ chapter.title }}</a></li>
+    </ul>
+</nav>
+{%elif 'collection' in request.get_full_path %}
+<nav id="breadcrumbs">
+    <ul>
+        <li><a href="/courses"><i class="icon-feather-home"></i></a></li>
+        <li><a href="/courses/collection/{{ collection.id }}">{{ collection.title }}</a></li>
+    </ul>
+</nav>
+{%elif 'courses' in request.get_full_path %}
+<nav id="breadcrumbs">
+    <ul>
+        <li><a href="/courses"><i class="icon-feather-home"></i></a></li>
+    </ul>
+</nav>
+{%elif 'leaderboards' in request.get_full_path %}
+<nav id="breadcrumbs">
+    <ul>
+        <li><a href="/courses"><i class="icon-feather-home"></i></a></li>
+        <li><a href="/leaderboards">Leaderboards</a></li>
+    </ul>
+</nav>
+{%elif 'leaderboard' in request.get_full_path %}
+<nav id="breadcrumbs">
+    <ul>
+        <li><a href="/courses"><i class="icon-feather-home"></i></a></li>
+        <li><a href="/leaderboards">Leaderboards</a></li>
+        <li><a href="/leaderboard/{{ program.id }}">{{program.name}}</a></li>
+    </ul>
+</nav>
+{%elif 'profile/edit' in request.get_full_path %}
+<nav id="breadcrumbs">
+    <ul>
+        <li><a href="/courses"><i class="icon-feather-home"></i></a></li>
+        <li><a href="/profile">Profile</a></li>
+        <li><a href="/profile/edit">Edit Profile</a></li>
+    </ul>
+</nav>
+{%elif 'profile' in request.get_full_path %}
+<nav id="breadcrumbs">
+    <ul>
+        <li><a href="/courses"><i class="icon-feather-home"></i></a></li>
+        <li><a href="/profile">Profile</a></li>
+    </ul>
+</nav>
+{% endif %}

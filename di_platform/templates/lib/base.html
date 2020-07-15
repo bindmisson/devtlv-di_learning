@@ -1,0 +1,127 @@
+{% load static %} 
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <title>Developers Institute</title>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Developers Institute - Global Software Development Bootcamp">
+
+    <!-- Favicon -->
+    <link href="{% static 'theme/images/favicon.png' %}" rel="icon" type="image/png">
+
+    <!-- javaScripts (async defer )
+    ================================================== -->
+    <script async defer src="{% static 'theme/js/framework.js' %}"></script>
+    <script async defer src="{% static 'theme/js/jquery-3.3.1.min.js' %}"></script>
+    <script async defer src="{% static 'theme/js/simplebar.js' %}"></script>
+    <script async defer src="{% static 'theme/js/main.js' %}"></script>
+    <script async defer src="{% static 'theme/js/bootstrap-select.min.js' %}"></script>
+    <script async defer src="{% static 'lib/js/script.js' %}"></script> 
+    {% block javascript-top %}
+    {% endblock %}
+    <!-- CSS 
+    ================================================== -->
+    <link rel="stylesheet" href="{% static 'theme/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'theme/css/night-mode.css' %}">
+    <link rel="stylesheet" href="{% static 'theme/css/framework.css' %}">
+    <link rel="stylesheet" href="{% static 'theme/css/bootstrap.css' %}">
+
+    {% block css %}
+    {% endblock %}
+
+
+    <!-- icons
+    ================================================== -->
+    <link rel="stylesheet" href="{% static 'theme/css/icons.css' %}">
+
+    {% block extra %}
+    {% endblock %}
+
+    </head>
+
+<body>
+    <div id="wrapper">
+
+        {% block header %}
+            {% include 'lib/partials/header.html' %}
+        {% endblock %}
+
+        {% block side-nav %}
+            {% include 'lib/partials/side-nav.html' %}
+        {% endblock %}
+        
+        {% block page-content %}
+        {% endblock %}
+
+    </div>
+
+
+
+    <style>
+        .flex-wrapper {
+            display: flex;
+            flex-flow: row nowrap;
+        }
+
+        .single-chart {
+            width: 33%;
+            justify-content: space-around;
+        }
+
+        .circular-chart {
+            display: block;
+            margin: 10px auto;
+            max-width: 80%;
+            max-height: 250px;
+        }
+
+        .circle-bg {
+            fill: none;
+            stroke: #eee;
+            stroke-width: 3.8;
+        }
+
+        .circle {
+            fill: none;
+            stroke-width: 2.8;
+            stroke-linecap: round;
+            animation: progress 1s ease-out forwards;
+        }
+
+        @keyframes progress {
+            0% {
+                stroke-dasharray: 0 100;
+            }
+        }
+
+        .circular-chart.orange .circle {
+            stroke: #ff9f00;
+        }
+
+        .circular-chart.green .circle {
+            stroke: #4CC790;
+        }
+
+        .circular-chart.blue .circle {
+            stroke: #3c9ee5;
+        }
+
+        .percentage {
+            fill: #666;
+            font-family: sans-serif;
+            font-size: 0.5em;
+            text-anchor: middle;
+        }
+    </style>
+
+    {% block javascript-bottom %}
+    {% endblock %}
+</body>
+
+</html>

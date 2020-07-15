@@ -1,0 +1,71 @@
+{% load static %}
+{% load user_group_check %}
+<header class="header header-transparent" uk-sticky="top:20 ; cls-active:header-sticky;">
+
+    <div class="container">
+        <nav uk-navbar>
+
+            <!-- left Side Content -->
+            <div class="uk-navbar-left">
+
+                <span class="btn-mobile" uk-toggle="target: #wrapper ; cls: mobile-active"></span>
+
+                <!-- breadcrumbs -->
+                {% block breadcrumbs %}
+                    {% include 'lib/partials/breadcrumbs.html'%}
+                {% endblock %}
+            </div>
+
+
+            <!--  Right Side Content   -->
+            <div class="uk-navbar-right">
+
+                <div class="header-widget">
+                    <!-- User icons close mobile-->
+                    <span class="icon-feather-x icon-small uk-hidden@s" uk-toggle="target: .header-widget ; cls: is-active"> </span>
+
+                    <!-- profile-icon-->
+                    <a href="#" class="header-widget-icon profile-icon">
+                        <img src="{% static user.profile.get_profile_picture %}" alt="" class="header-profile-icon" style="width: 37px; height:37px">
+                    </a>
+
+                    <div uk-dropdown="pos: top-right ;mode:click" class="dropdown-notifications small">
+
+                        <!-- User Name / Avatar -->
+                        <a style="cursor:default">
+                            <div class="dropdown-user-details">
+                                <div class="dropdown-user-avatar">
+                                    <img src="{% static user.profile.get_profile_picture %}" alt=""  style="width: 37px; height:37px">
+                                </div>
+                                <div class="dropdown-user-name">
+                                    {{ user.first_name }} {{user.last_name }} 
+                                    {% if request.user|has_group:"admin" %}
+                                    <span>Administrator</span>
+                                    {% elif  request.user|has_group:"teacher"%}
+                                    <span>Teacher</span>
+                                    {% else %}
+                                    <span>Student</span>
+                                    {% endif%}
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- User menu -->
+                        <ul class="dropdown-user-menu">
+                            <li><a href="/courses"><i class="uil-layers"></i>My Courses</a></li>
+                            <li><a href="/profile"><i class="icon-feather-user"></i> Profile Settings</a></li>
+                            <li class="menu-divider"><li>
+                            <li><a href="/profile/logout/"><i class="icon-feather-log-out"></i> Log Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- User icons -->
+                <a href="#" class="uil-user icon-small uk-hidden@s" uk-toggle="target: .header-widget ; cls: is-active"></a>
+
+            </div>
+            <!-- End Right Side Content / End -->
+        </nav>
+    </div>
+</header>
+

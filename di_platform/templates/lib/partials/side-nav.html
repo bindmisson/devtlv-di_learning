@@ -1,0 +1,63 @@
+{% load static %}
+{% load user_group_check %}
+<div class="side-nav uk-animation-slide-left-medium">
+
+    <div class="side-nav-bg"></div>
+
+    <!-- logo -->
+    <div class="logo uk-visible@s">
+        <ul>
+            <li>
+                <a href="/courses"><img src="{% static 'lib/images/logo_di.png' %}" alt=""> <span class="tooltips"> My Courses</span> </a>
+            </li>
+        </ul>
+    </div>
+
+    <ul>
+        <li><a href="/leaderboards"> <i class="icon-feather-star"></i> <span class="tooltips">Leaderboard</span></a></li>
+        <li><a href="http://slack.developers.institute" target="_blank"> <i class="icon-feather-slack"></i> <span class="tooltips">Slack</span></a></li>
+        <li><a href="http://blog.developers.institute" target="_blank"> <i class="uil-file-alt"></i> <span class="tooltips">Blog</span></a></li>
+        <li>
+            <a href="#"> <i class="uil-books"></i> </a>
+            <div class="side-menu-slide">
+                <div class="side-menu-slide-content">
+                    <ul uk-accordion>
+                        <li style="padding-top: 15px;">
+                                <a><h6>Learn More</h6></a>
+                                <a href="https://developers.institute/index.php/portfolios/coding-bootcamp-tlv/" target="_blank">Full Stack Python</a>
+                                <a href="https://developers.institute/index.php/portfolios/online-live-bootcamp/" target="_blank">Full Stack JavaScript</a>
+                                <a href="https://developers.institute/index.php/portfolios/summer-camp-2020/" target="_blank">Summer Camp</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </li>
+        <li>
+            <a href="#"><i class="uil-question-circle"></i></a>
+            <div class="side-menu-slide">
+                <div class="side-menu-slide-content">
+                    <ul uk-accordion>
+                        <li style="padding-top: 15px;">
+                                <a><h6>About DI</h6></a>
+                                <a href="https://developers.institute/" target="_blank">Home page </a>
+                                <a href="https://developers.institute/en/our-coding-bootcamp-courses-tel-aviv-coding-bootcamp-full-stack/" target="_blank">Our Courses</a>
+                                <a href="https://developers.institute/index.php/dates-tuition/" target="_blank">Dates & Tuition </a>
+                                <a href="https://developers.institute/index.php/blog/" target="_blank">Blog</a>
+                                <a href="/terms" target="_blank">Terms & Conditions</a>
+                                <a href="/privacy" target="_blank">Privacy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </li>
+    </ul>
+    {% if request.user|has_group:"admin" %}
+    <ul class="uk-position-bottom">
+        <li>
+            <a href="/admin">
+                <span class="uil-cog"></span>
+            </a>
+        </li>
+    </ul>
+    {% endif %}
+</div>
