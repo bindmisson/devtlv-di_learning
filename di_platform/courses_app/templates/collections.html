@@ -1,0 +1,73 @@
+{% extends 'lib/base.html' %}
+{% load static %}
+{% load user_group_check %}
+
+
+
+{% block page-content %}
+<div class="page-content">
+    <div class="home-hero" data-src="{% static 'theme/images/home-hero.png' %}" uk-img>
+        <div class="uk-width-1-1">
+            <div class="page-content-inner uk-position-z-index">
+                <h1>Learn HTML , CSS , iphone <br> Apps & More</h1>
+                <h4 class="my-lg-4"> Learn how to build websites & apps <br> write a code or start a business </h4>
+                <a href="#" class="btn btn-default">Free trailer </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- course card resume sliders  -->
+        {% for collection in collections|dictsort:"title" %}
+        <div class="section-small">
+
+            <div uk-slider="finite: true" class="course-grid-slider">
+
+                <div class="grid-slider-header">
+                    <div>
+                        <a href="/courses/collection/{{ collection.id }}">
+                            <h4 class="uk-text-truncate">{{ collection.title }}</h4>
+                        </a>
+                    </div>
+                    <div class="grid-slider-header-link">
+                        <a href="#" class="slide-nav-prev" uk-slider-item="previous"></a>
+                        <a href="#" class="slide-nav-next" uk-slider-item="next"></a>
+                    </div>
+                </div>
+
+                <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-5@m uk-grid">
+                    {% for collection_course in collection.collectioncourse_set.all|dictsort:"sort" %}
+                    <li>
+                        <a href="/courses/collection/{{collection.id}}/course/{{ collection_course.course.id }}">
+                            <div class="course-card-resume">
+                                <div class="course-card-resume-thumbnail">
+                                    <img src="{% static collection_course.course.get_thumbnail %}" alt="Course Image">
+                                </div>
+                                <div class="course-card-resume-body">
+                                    <h5 style="color: red">{% if forloop.counter <= collection.total_weeks %}Week {{ forloop.counter }}{% endif %}&nbsp</h5>
+                                    <h5>{{ collection_course.course.title }}</h5>
+                                    <span class="number"> 3/20 </span>
+                                    <div class="course-progressbar">
+                                        <div class="course-progressbar-filler" style="width:65%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        {% if request.user|has_group:"admin" %}
+                        <sub><a href="{% url 'admin:courses_app_course_change' collection_course.course.id %}" class="edit-content" >Edit Course</a></sub>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+        </div>
+        {% endfor %}
+
+        {% block footer %}
+            {% include 'lib/partials/footer-large.html'%}
+        {% endblock %}
+    </div>
+
+</div>
+{% endblock %}

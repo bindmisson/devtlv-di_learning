@@ -1,0 +1,26 @@
+{% extends 'lib/base.html' %}
+{% load static %}
+{% load user_group_check %}
+{% load split_csv %}
+{% load martortags %}
+
+
+
+{% block page-content %}
+<div class="page-content">
+    <div class="container" style="margin-top:70px;">
+		<div class="mt-lg-4">
+			<h2>Leaderboards</h2>
+			<ol class="list-group">
+			{% for program in program_list %}
+				<a href="{% url 'main_app:pk_leaderboard' program.id%}" class="list-group-item">{{program.name}} Leaderboard</a>
+			{% endfor %}
+			</ol>
+		</div>
+	{% block footer %}
+	{% include 'lib/partials/footer-small.html'%}
+	{% endblock %}
+	</div>
+</div>
+
+{% endblock %}

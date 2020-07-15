@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+
+{% block title %} Attendance {% endblock %}
+
+{% block content %}
+<div class="container_fluid">
+    <h2><b>{{program.name}} </b>Planning</h2>
+    <div class="row">
+<!--        The planning table-->
+        <div class="col col-md-9">
+            {% if program.id == 1 %}
+                <div class="table-responsive sailorTableArea" >
+                    <br><table class="table table-striped table-bordered sailorTable" width="100%">
+
+                    <thead>
+                    <tr>
+                        <th><span class="btn btn-primary">AM</span></th>
+                        <th>Hours</th>
+                        {% for element in list_am %}
+                        <th>Week {{element.week_num}}</th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>SUNDAY</td>
+                        <td>3</td>
+                        {% for element in list_am %}
+                        <td>{{element.prof}}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>MONDAY</td>
+                        <td>3</td>
+                        {% for element in list_am %}
+                        <td>{{element.prof}}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>TUESDAY</td>
+                        <td>3</td>
+                        {% for element in list_am %}
+                        <td>{{element.prof}}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>WEDNESDAY</td>
+                        <td>3</td>
+                        {% for element in list_am %}
+                        <td>{{element.prof}}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>THURSDAY</td>
+                        <td>3</td>
+                        {% for element in list_am %}
+                        <td>{{element.prof}}</td>
+                        {% endfor %}
+                    </tr>
+                    </tbody>
+                </table>
+                </div><br>
+                <div class="table-responsive sailorTableArea">
+                    <br><table class="table table-striped table-bordered sailorTable" width="100%">
+
+                        <thead>
+                            <tr>
+                                <th><span class="btn btn-success">PM</span></th>
+                                <th>Hours</th>
+                                {% for element in list_pm %}
+                                <th>Week {{element.week_num}}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>SUNDAY</td>
+                                <td>3</td>
+                                {% for element in list_pm %}
+                                <td>{{element.prof}}</td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <td>MONDAY</td>
+                                <td>3</td>
+                                {% for element in list_pm %}
+                                <td>{{element.prof}}</td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <td>TUESDAY</td>
+                                <td>3</td>
+                                {% for element in list_pm %}
+                                <td>{{element.prof}}</td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <td>WEDNESDAY</td>
+                                <td>3</td>
+                                {% for element in list_pm %}
+                                <td>{{element.prof}}</td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <td>THURSDAY</td>
+                                <td>3</td>
+                                {% for element in list_pm %}
+                                <td>{{element.prof}}</td>
+                                {% endfor %}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="table-responsive sailorTableArea" >
+                    <br><table class="table table-striped table-bordered sailorTable" width="100%">
+
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Hours</th>
+                        {% for element in list %}
+                        <th>Week {{element.week_num}}</th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>SUNDAY</td>
+                        <td>3</td>
+                        {% for element in list %}
+                        <td>{{element.prof}}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>MONDAY</td>
+                        <td>3</td>
+                        {% for element in list %}
+                        <td>{{element.prof}}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>TUESDAY</td>
+                        <td>3</td>
+                        {% for element in list %}
+                        <td>{{element.prof}}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>WEDNESDAY</td>
+                        <td>3</td>
+                        {% for element in list %}
+                        <td>{{element.prof}}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>THURSDAY</td>
+                        <td>3</td>
+                        {% for element in list %}
+                        <td>{{element.prof}}</td>
+                        {% endfor %}
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+            {% endif %}
+        </div>
+
+<!--        The form to modify or insert modifications-->
+        <div class="col col-md-3">
+            <h3>Modifications</h3>
+            <small>Hint: If you're going to apply this everywhere, no need to fill the week and the day.</small>
+            <form method="post" action="{% url 'main_app:planning_teacher' program.id %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                Apply this for all the weeks ?<input type="checkbox" name="for_all" value="Yes">
+                <input type="submit" value="Save">
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .sailorTableArea{
+    max-height: 300px;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+.sailorTable{
+    white-space: normal;
+}
+tbody {
+    display:block;
+    height:200px;
+    overflow:auto;
+}
+thead, tbody tr {
+    display:table;
+    width:1500px;
+    table-layout:fixed;
+}
+</style>
+
+{% endblock %}

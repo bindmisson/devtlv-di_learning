@@ -1,0 +1,99 @@
+/* CHAPTERS AND SECTIONS */
+
+p {
+    overflow-x: auto;
+}
+
+.chapter-title {
+    font-size: 14px;
+}
+
+.chapter-attributes {
+    margin-top: -5px;
+}
+
+
+.vidlist-3 li {
+    max-width: 99%;
+    overflow-x: hidden;
+}
+
+.vidlist-3 li>a span {
+    font-size: 12px;
+    font-weight: 600;
+    color: black;
+}
+.vidlist-3 li>a:before{
+    width: 26px;
+    height: 26px;
+}
+
+.vidlist-3 li>a.chapter_notes:before {
+    background: url(../images/course.png);
+    background-size: contain;
+   
+}
+
+.vidlist-3 li>a.chapter_exercise:before {
+    background: url(../images/exercise.png);
+    background-size: contain;
+}
+.vidlist-3 li>a.chapter_video:before {
+    background: url(../images/remote.png);
+    background-size: contain;
+}
+.vidlist-3 li>a.chapter_daily_challenge:before {
+    background: url(../images/challenge.png);
+    background-size: contain;
+}
+
+.vidlist-3 li.chapter-active {
+    background: linear-gradient(80deg, rgb(122, 140, 156) 0, rgb(156, 178, 197) 100%) !important;
+}
+.vidlist-3 li.chapter-active a {
+    color: white;
+}
+
+
+
+.badge-outline-primary {
+    background-color: white;
+    color: #007bff !important;
+    border: #007bff solid 2px;
+    font-weight: bold;
+}
+
+.badge-outline-secondary {
+    background-color: white;
+    color: #6c757d !important;
+    border: #6c757d solid 2px;
+    font-weight: bold;
+}
+
+.badge-outline-success {
+    background-color: white;
+    color: #28a745 !important;
+    border: #28a745 solid 2px;
+    font-weight: bold;
+}
+
+.badge-outline-info {
+    background-color: white;
+    color: #17a2b8 !important;
+    border: #17a2b8 solid 2px;
+    font-weight: bold;
+}
+
+.badge-outline-warning {
+    background-color: white;
+    color: #ffc107 !important;
+    border: #ffc107 solid 2px;
+    font-weight: bold;
+}
+
+.badge-outline-danger {
+    background-color: white;
+    color: #dc3545 !important;
+    border: #dc3545 solid 2px;
+    font-weight: bold;
+}

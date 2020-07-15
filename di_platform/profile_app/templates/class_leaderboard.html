@@ -1,0 +1,44 @@
+{% extends 'lib/base.html' %}
+{% load static %}
+{% load user_group_check %}
+{% load split_csv %}
+{% load martortags %}
+
+
+
+{% block page-content %}
+<div class="page-content">
+    <div class="container" style="margin-top:70px;">
+		<div class="mt-lg-4">
+			<h2>Leaderboards</h2>
+			<h1> {{program.name}}</h1>
+			<div class="bg-white">
+				<table class="table table-striped">
+					<thead class="thead-dark">
+					<tr style="font-size: 1.2em;">
+						<th scope="col">Position</th>
+						<th scope="col">Name</th>
+						<th scope="col">XP</th>
+					</tr>
+					</thead>
+					<tbody>
+					{% for key, participant in program_participants.items %}
+					<tr class="{% if participant.user == request.user %}bg-info{% endif %}">
+						<td>{{key}}</td>
+						<td>{{participant.user.get_full_name}}</td>
+						<td>{{participant.total_points}}</td>
+					</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	{% block footer %}
+	{% include 'lib/partials/footer-small.html'%}
+	{% endblock %}
+	</div>
+</div>
+		
+
+
+{% endblock %}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Attendance</title>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+  Student: {{ student }}<br>
+        For the <b>{{ program.name }}</b><br>
+	<div class="row">
+		<div class="span5">
+            <a href="{% url 'main_app:export_csv_student' program.id student.id %}"><button class="btn btn-success">Export to csv</button></a>
+            <table class="table table-striped table-condensed">
+                  <thead>
+                  <tr>
+                      <th>Day</th>
+                      <th>Status</th>
+                      <th>Session</th>
+                  </tr>
+              </thead>
+              <tbody>
+              {% for attend in attendance %}
+                <tr>
+                    <td>{{attend.date }}</td>
+                    <td>
+                          {% if attend.status == "Present" %}
+                          <span class="label label-success">{{attend.status}} </span>
+                          {% elif attend.status == "Absent" %}
+                          <span class="label label-important">{{attend.status}}</span>
+                          {% else %}
+                          <span class="label label-warning">{{attend.status}}</span>
+                          {% endif %}
+                    </td>
+                    <td><span>{{attend.session}}</span></td>
+                </tr>
+               {% endfor %}
+              </tbody>
+            </table>
+            </div>
+	</div>
+</div>
+</body>
+</html>

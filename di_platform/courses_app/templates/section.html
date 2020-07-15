@@ -1,0 +1,420 @@
+{% extends 'lib/base.html' %}
+{% load user_group_check %}
+{% load static %}
+{% load martortags %}
+
+{%block css %}
+<link rel="stylesheet" href="{% static 'courses_app/css/courses_app.css' %}">
+
+
+{% endblock %}
+
+{% block header %}
+<!-- To clear the header loaded in base -->
+{% endblock %}
+
+{% block extra %}
+<!-- Syntax Highlighter -->
+<link rel="stylesheet" type="text/css" href="{% static 'lib/syntax-highlighter/styles/shCore.css' %}" media="all">
+<link rel="stylesheet" type="text/css" href="{% static 'lib/syntax-highlighter/styles/shCoreMidnight.css' %}" media="all">
+<style>
+    .gutter,
+    .toolbar {
+        display: none
+    }
+
+    .syntaxhighlighter {
+        padding: 15px 20px;
+    }
+
+    .syntaxhighlighter {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        padding: 0 !important;
+        padding-top: 18px !important;
+    }
+</style>
+{% endblock %}
+
+{% block page-content %}
+<div class="page-content">
+    
+    <div class="uk-grid-collapse" uk-grid>
+        <div class="uk-width-3-4@m bg-white">
+            
+            <!-- video description contents -->
+            <div class="p-lg-5 p-3">
+                
+                {% block breadcrumbs %}
+                <div style="margin-top:-27px; margin-bottom:23px;">
+                    {% include 'lib/partials/breadcrumbs.html'%}
+                </div>
+                {% endblock %}
+
+                <div style="display: flex;">
+                    <div style="width: 80%;">
+                        {% if chapter.id %}
+                        <h2>{{ chapter.title }}</h2>
+                        {% else %}
+                        <h2>{{ section.title }}</h2>
+                        {% endif %}
+                    </div>
+                    {% if chapter.id and request.user.profile.program %}
+                    <div style="width: 20%; display: flex; justify-content: flex-end; align-items: center;">
+                        {% if chapter.id in done_chapters %}
+                        <span class="btn btn-success" id="chapter-done" chapter-id="{{chapter.id}}" done="1">Done</span>
+                        {% else %}
+                        <span class="btn btn-secondary" id="chapter-done" chapter-id="{{chapter.id}}" done="0">Not Completed</span>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div style="width: 20%;">
+                    {% if request.user|has_group:"admin" and not chapter.id %}
+                    <sup><a href="{% url 'admin:courses_app_section_change' section.id %}" class="edit-content" >Edit Section</a></sup>
+                    {% elif request.user|has_group:"admin" and chapter.id %}
+                    <sup><a href="{% url 'admin:courses_app_chapter_change' chapter.id %}" class="edit-content" >Edit Chapter</a></sup>
+                    {% endif %}
+                </div>
+
+                <hr class="my-2">
+                <div  uk-toggle="cls: uk-flex uk-flex-between@m uk-flex-middle; mode: media; media: @m"><div>
+            </div>
+        </div>
+
+        <div>
+            {% if not chapter%}
+            <h4 class="mt-4"> Description</h4>
+            <p class="lead">{{ section.description|safe_markdown }}</p>
+            {% endif %}
+
+            {% if chapter.description %}
+            <h4 class="mt-4"> Description</h4>
+            <p class="lead">{{ chapter.description|safe_markdown }}</p><br>
+            {% endif %}
+
+            {% if chapter.text %}
+            <h4 class="mt-4"> Text</h4>
+            <p class="lead">{{ chapter.text|safe_markdown }}</p><br>
+            {% endif %}
+
+            {% if chapter.code %}
+            <h4 class="mt-4"> Code</h4>
+            <p class="lead">{{ chapter.code|safe_markdown }}</p><br>
+            {% endif %}
+
+            {% if chapter.exercise %}
+            <h4 class="mt-4"> Exercise</h4>
+            <p class="lead">{{ chapter.exercise|safe_markdown }}</p><br>
+            {% endif %}
+        </div>
+    </div>
+    
+    {% block footer %}
+    {% include 'lib/partials/footer-small.html'%}
+    {% endblock %}
+</div>
+
+<div class="uk-width-1-4@m uk-overflow-hidden vidlist-3-container">
+    <div uk-sticky >
+        <h5 class="bg-gradient-grey text-white py-4 p-3 mb-0">{{ section.title }}</h5>
+        <ul class="uk-child-width-expand mb-0"
+            uk-switcher="animation: uk-animation-slide-right-small, uk-animation-slide-left-small"
+            uk-tab>
+            <li class="uk-active"></li>
+        </ul>
+
+        <ul class="uk-switcher uk-overflow-hidden">
+
+            <li>
+                <div class="vidlist-3-content" data-simplebar>
+                    <ul class="vidlist-3-section" uk-accordion>
+                        <li>
+                            <a class="uk-accordion-title" href="#"> Course Notes </a>
+                            <div class="uk-accordion-content">
+                                <!-- vidlist -->
+                                
+                                <ul class="vidlist-3" >
+                                    {% for section_chapter in section.sectionchapter_set.all|dictsort:"sort" %}
+                                    {% if section_chapter.chapter.group == 'CO' %}
+                                    <li>
+                                        <a class="chapter_notes" href={% url 'courses_app:chapter' collection_id=collection.id course_id=course.id section_id=section.id chapter_id=section_chapter.chapter.id %}>
+                                            <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
+                                            <div class="chapter-attributes">
+                                                <span class="badge"> </span>
+                                                {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
+                                                {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger">Mandatory</span>{% endif %}
+                                                {% if section_chapter.chapter.id in done_chapters %}
+                                                <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success">Done</span>
+                                                {% else %}
+                                                <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary">Not Completed</span>
+                                                {% endif%}
+                                            </div> 
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                    {% endfor %}
+                                
+                                    {% for section_chapter in section.sectionchapter_set.all|dictsort:"sort" %}
+                                    {% if section_chapter.chapter.group == 'SR' %}
+                                    <li>
+                                        <a class="chapter_notes" href={% url 'courses_app:chapter' collection_id=collection.id course_id=course.id section_id=section.id chapter_id=section_chapter.chapter.id %}>
+                                            <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
+                                            <div class="chapter-attributes">
+                                                <span class="badge"> </span>
+                                                {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
+                                                {% if section_chapter.chapter.mandatory %}
+                                                <span class="badge badge-outline-danger">Mandatory</span>
+                                                {% endif %}
+                                                {% if section_chapter.chapter.id in done_chapters %}
+                                                <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success">Done</span>
+                                                {% else %}
+                                                <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary">Not Completed</span>
+                                                {% endif%}
+                                            </div> 
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </li>
+                        
+                        <li>
+                            <a class="uk-accordion-title" href="#"> Exercices </a>
+                            <div class="uk-accordion-content">
+                                <ul class="vidlist-3">
+                                    {% for section_chapter in section.sectionchapter_set.all|dictsort:"sort" %}
+                                        {% if section_chapter.chapter.group == 'XP' %}
+                                        <li>
+                                            <a class="chapter_exercise" href={% url 'courses_app:chapter' collection_id=collection.id course_id=course.id section_id=section.id chapter_id=section_chapter.chapter.id %}>
+                                                <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
+                                                <div class="chapter-attributes">
+                                                    <span class="badge"> </span>
+                                                    {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% else %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
+                                                    <span class="badge badge-outline-warning">XP</span>
+                                                    {% if section_chapter.chapter.mandatory %}
+                                                    <span class="badge badge-outline-danger">Mandatory</span>
+                                                    {% endif %}
+                                                    {% if section_chapter.chapter.id in done_chapters %}
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success">Done</span>
+                                                    {% else %}
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary">Not Completed</span>
+                                                    {% endif%}
+                                                </div> 
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% for section_chapter in section.sectionchapter_set.all|dictsort:"sort" %}
+                                        {% if section_chapter.chapter.group == 'XPG' %}
+                                        <li>
+                                            <a class="chapter_exercise" href={% url 'courses_app:chapter' collection_id=collection.id course_id=course.id section_id=section.id chapter_id=section_chapter.chapter.id %}>
+                                                <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
+                                                <div class="chapter-attributes">
+                                                    <span class="badge"> </span>
+                                                    {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
+                                                    <span class="badge badge-outline-warning">XP Gold</span>
+                                                    {% if section_chapter.chapter.mandatory %}
+                                                    <span class="badge badge-outline-danger">Mandatory</span>
+                                                    {% endif %}
+                                                    {% if section_chapter.chapter.id in done_chapters %}
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success">Done</span>
+                                                    {% else %}
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary">Not Completed</span>
+                                                    {% endif%}
+                                                </div> 
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% for section_chapter in section.sectionchapter_set.all|dictsort:"sort" %}
+                                        {% if section_chapter.chapter.group == 'XPN' %}
+                                        <li>
+                                            <a class="chapter_exercise" href={% url 'courses_app:chapter' collection_id=collection.id course_id=course.id section_id=section.id chapter_id=section_chapter.chapter.id %}>
+                                                <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
+                                                <div class="chapter-attributes">
+                                                    <span class="badge"> </span>
+                                                    {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
+                                                    <span class="badge badge-outline-warning">XP Ninja</span>
+                                                    {% if section_chapter.chapter.mandatory %}
+                                                    <span class="badge badge-outline-danger">Mandatory</span>
+                                                    {% endif %}
+                                                    {% if section_chapter.chapter.id in done_chapters %}
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success">Done</span>
+                                                    {% else %}
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary">Not Completed</span>
+                                                    {% endif%}
+                                                </div> 
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% for section_chapter in section.sectionchapter_set.all|dictsort:"sort" %}
+                                        {% if section_chapter.chapter.group == 'HW' %}
+                                        <li>
+                                            <a class="chapter_exercise"href={% url 'courses_app:chapter' collection_id=collection.id course_id=course.id section_id=section.id chapter_id=section_chapter.chapter.id %}>
+                                                <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
+                                                <div class="chapter-attributes">
+                                                    <span class="badge"> </span>
+                                                    {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
+                                                    {% if section_chapter.chapter.mandatory %}
+                                                    <span class="badge badge-outline-danger">Mandatory</span>
+                                                    {% endif %}
+                                                    {% if section_chapter.chapter.id in done_chapters %}
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success">Done</span>
+                                                    {% else %}
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary">Not Completed</span>
+                                                    {% endif%}
+                                                </div> 
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% for section_chapter in section.sectionchapter_set.all|dictsort:"sort" %}
+                                        {% if section_chapter.chapter.group == 'MP' %}
+                                        <li>
+                                            <a class="chapter_exercise" href={% url 'courses_app:chapter' collection_id=collection.id course_id=course.id section_id=section.id chapter_id=section_chapter.chapter.id %}>
+                                                <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
+                                                <div class="chapter-attributes">
+                                                    <span class="badge"> </span>
+                                                    {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
+                                                    {% if section_chapter.chapter.mandatory %}
+                                                    <span class="badge badge-outline-danger">Mandatory</span>
+                                                    {% endif %}
+                                                    {% if section_chapter.chapter.id in done_chapters %}
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success">Done</span>
+                                                    {% else %}
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary">Not Completed</span>
+                                                    {% endif%}
+                                                </div> 
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li>
+                            <a class="uk-accordion-title" href="#"> Online Learning </a>
+                            <div class="uk-accordion-content">
+                                <ul class="vidlist-3">
+                                    {% for section_chapter in section.sectionchapter_set.all|dictsort:"sort" %}
+                                        {% if section_chapter.chapter.group == 'RL' %}
+                                        <li>
+                                            <a class="chapter_video" href={% url 'courses_app:chapter' collection_id=collection.id course_id=course.id section_id=section.id chapter_id=section_chapter.chapter.id %}>
+                                                <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
+                                                <div class="chapter-attributes">
+                                                    <span class="badge"> </span>
+                                                    {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
+                                                    {% if section_chapter.chapter.mandatory %}
+                                                    <span class="badge badge-outline-danger">Mandatory</span>
+                                                    {% endif %}
+                                                    {% if section_chapter.chapter.id in done_chapters %}
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success">Done</span>
+                                                    {% else %}
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary">Not Completed</span>
+                                                    {% endif%}
+                                                </div> 
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% for section_chapter in section.sectionchapter_set.all|dictsort:"sort" %}
+                                        {% if section_chapter.chapter.group == 'RF' %}
+                                        <li>
+                                            <a class="chapter_video" href={% url 'courses_app:chapter' collection_id=collection.id course_id=course.id section_id=section.id chapter_id=section_chapter.chapter.id %}>
+                                                <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
+                                                <div class="chapter-attributes">
+                                                    <span class="badge"> </span>
+                                                    {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
+                                                    {% if section_chapter.chapter.mandatory %}
+                                                    <span class="badge badge-outline-danger">Mandatory</span>
+                                                    {% endif %}
+                                                    {% if section_chapter.chapter.id in done_chapters %}
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success">Done</span>
+                                                    {% else %}
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary">Not Completed</span>
+                                                    {% endif%}
+                                                </div> 
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li>
+                            <a class="uk-accordion-title" href="#"> Daily Challenge </a>
+                            <div class="uk-accordion-content">
+                                <ul class="vidlist-3">
+                                    {% for section_chapter in section.sectionchapter_set.all|dictsort:"sort" %}
+                                        {% if section_chapter.chapter.group == 'DC' %}
+                                        <li>
+                                            <a class="chapter_daily_challenge" href={% url 'courses_app:chapter' collection_id=collection.id course_id=course.id section_id=section.id chapter_id=section_chapter.chapter.id %}>
+                                                <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
+                                                <div class="chapter-attributes">
+                                                    <span class="badge"> </span>
+                                                    {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
+                                                    {% if section_chapter.chapter.mandatory %}
+                                                    <span class="badge badge-outline-danger">Mandatory</span>
+                                                    {% endif %}
+                                                    {% if section_chapter.chapter.id in done_chapters %}
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success">Done</span>
+                                                    {% else %}
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary">Not Completed</span>
+                                                    {% endif%}
+                                                </div> 
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- small device icon video sidebar -->
+<span class="btn-vidlist-3" uk-toggle="target: #wrapper; cls: is-open"></span>
+
+<script>
+    // Update Markdown Tables to Bootstrap Tables - Jonathan
+    [].forEach.call(document.getElementsByTagName("table"), function (el) {el.className += "table table-striped"});
+
+</script>
+
+<script>
+    // To trigger a click on the correct chapter. This will open the accordion to correct location.
+    let run_target = function(){
+        chapter_id="{{chapter.id}}"
+        if (chapter_id == "None") 
+            return;
+        click_target = document.getElementById('chapter_id_'+chapter_id)
+        click_target.closest("li").classList.add('chapter-active');
+        click_target.closest(".uk-accordion-content").previousElementSibling.click();
+    }    
+    //  DOMContentLoaded isn't reliable here. Probably because of this weird theme javascript.
+    //  So I'm fudging it using a setTimeout.
+    //  - Jonathan
+    window.setTimeout(function(){run_target()}, 0)
+</script>
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="../assets/syntax-highlighter/scripts/shCore.js"></script>
+<script type="text/javascript" src="../assets/syntax-highlighter/scripts/shBrushJScript.js"></script>
+<script type="text/javascript" src="../assets/syntax-highlighter/scripts/shBrushXml.js"></script>
+<script type="text/javascript">
+    SyntaxHighlighter.all()
+</script>
+{% endblock %}

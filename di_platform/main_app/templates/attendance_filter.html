@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %} Attendance {% endblock %}
+
+{% block content %}
+
+<h1>Chose attendance requirements</h1>
+
+<h2>What session are you taking the attendance for?</h2>
+<form method="post" id="attendance_form">
+    {% csrf_token %}
+    <input type="radio" name="gender" value="AM" checked>AM<br>
+    <input type="radio" name="gender" value="PM">PM<br>
+
+    <h2>What course are you taking the attendance for</h2>
+
+    <select name="program_choice">
+        {% for program in program_options %}
+        <option value="{{ program.id }}">{{ program }}</option>
+        {% endfor %}
+    </select>
+</form>
+<br>
+<input type="submit" form="attendance_form" value="Take this classe's attendance">
+
+
+{% endblock %}

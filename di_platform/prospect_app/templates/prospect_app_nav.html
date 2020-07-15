@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>{%block title %}{% endblock %}</title>
+
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/night-mode_new.css' %}">
+    <link rel="stylesheet" href="{% static 'css/framework.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    {%block css %} {% endblock %}
+
+    <!-- Favicon -->
+    <link href="{% static 'images/media/favicon.jsvg' %}" rel="icon" type="image/png">
+
+    <!-- icons
+    ================================================== -->
+    <link rel="stylesheet" href="{% static 'css/icons.css' %}">
+
+
+</head>
+<body>
+
+    <!-- Header Container
+        ================================================== -->
+        <header class="header header-horizontal header uk-light">
+
+            <div class="container">
+                <nav uk-navbar>
+
+                     <!-- left Side Content -->
+                    <div class="uk-navbar-left" style="margin-right: 18vw;">
+
+                        <!-- logo -->
+                        <a href="/prospect/dashboard" class="logo">
+                            <img src="{% static 'images/media/DI_icon.png' %}" alt="">
+                            <span> Courseplus</span>
+                        </a>
+
+                        <!-- Main Navigation -->
+
+                        <nav id="navigation">
+                            <ul id="responsive">
+                                <li><a href="/prospect/dashboard">Home</a> </li>
+                                <li><a href="#">Explore Our Bootcamp</a>
+                                    <ul class="dropdown-nav nav-large nav-courses">
+
+                                        <li><a href="/prospect/intro-fullstack-python/">
+                                                <i class="icon-brand-python" style="color: #b1b172;"></i> Full Stack Bootcamp - Python </a>
+
+                                        <li><a href="/prospect/intro-fullstack-js/">
+                                                <i class="icon-brand-js-square" style="color: #f7df1e;"></i> Full Stack Bootcamp - JavaScript
+                                            </a>
+                                        </li>
+                                        <li><a href="#">
+                                                <i class="icon-brand-html5" style="color: #b1b172;"></i> Online Front-end Bootcamp</a>
+
+                                        <li><a href="/prospect/intro-html-css/">
+                                                <i class="icon-brand-html5" style=" color:#f0653f"></i> Free Course HTML & CSS </a></li>
+
+                                    </ul>
+                                </li>
+                                <li><a href="#" class="nav-active">Free Course</a> </li>
+                                <li><a href="/prospect/apply">Apply</a> </li>
+                                </li>
+                            </ul>
+                        </nav>
+                        <!-- Main Navigation / End -->
+
+                    </div>
+
+
+                    <!--  Right Side Content   -->
+
+                    <div class="uk-navbar-right">
+
+                        <div class="header-widget">
+
+                            <div class="searchbox uk-visible@s" style="background: #f2f3f5; border-radius: 36px;">
+
+                                <input class="uk-search-input" type="search" placeholder="Search..." style="font-weight: 600; color: black;">
+                                <button class="btn-searchbox"> </button>
+
+                            </div>
+                            <!-- Search box dropdown -->
+                            <div uk-dropdown="pos: top;mode:click;animation: uk-animation-slide-bottom-small"
+                                class="dropdown-search">
+                                <div class="erh BR9 MIw"
+                                    style="top: -27px;position: absolute ; left: 24px;fill: currentColor;height: 24px;pointer-events: none;color: #f5f5f5;">
+                                    <svg width="22" height="22">
+                                        <path d="M0 24 L12 12 L24 24"></path>
+                                    </svg></div>
+                                <!-- User menu -->
+
+                                <ul class="dropdown-search-list">
+                                    <li class="list-title">
+                                        Recent Searches
+                                    </li>
+                                    <li>
+                                        <a href="course-intro.html">
+                                            Ultimate Web Designer And Developer Course</a>
+                                    </li>
+                                    <li><a href="course-intro.html">
+                                            The Complete Ruby on Rails Developer Course </a>
+                                    </li>
+                                    <li><a href="course-intro.html">
+                                            Bootstrap 4 From Scratch With 5 Real Projects </a>
+                                    </li>
+                                    <li> <a href="course-intro.html">
+                                            The Complete 2020 Web Development Bootcamp </a>
+                                    </li>
+                                    <li class="menu-divider">
+                                    <li><a href="course-intro.html">
+                                            Bootstrap 4 From Scratch With 5 Real Projects </a>
+                                    </li>
+                                    <li> <a href="course-intro.html">
+                                            The Complete 2020 Web Development Bootcamp </a>
+                                    </li>
+                                </ul>
+
+                            </div>
+
+
+
+
+                            <!-- profile-icon-->
+                        <a href="/profile/login" class="header-widget-icon"
+                            uk-tooltip="pos: bottom ;offset:21">
+                            <i class="icon-feather-user"></i>
+                        </a>
+
+                        <div uk-dropdown="pos: top-right ;mode:click" class="dropdown-notifications small">
+                            <!-- User menu -->
+
+                            <ul class="dropdown-user-menu">
+                                <li>
+                                    <a href="/prospect/pricing">Pricing</a>
+                                </li>
+                                <li>
+                                    <a href="/prospect/privacy/">Privacy Policy</a>
+                                </li>
+                                <li>
+                                    <a href="/prospect/terms/">Terms & Conditions</a>
+                                </li>
+                                <li class="menu-divider">
+                                <li>
+                                    <a href="/profile/login">Profile / Login</a>
+                                </li>
+                                <li>
+                                    <a href="/profile/signup/">Signup</a>
+                                </li>
+                            </ul>
+
+
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+                    <!-- End Right Side Content / End -->
+
+                </nav>
+
+            </div>
+            <!-- container  / End -->
+
+        </header>
+
+
+
+
+    <!-- javaScripts
+    ================================================== -->
+    <script src="{% static 'js/framework_new.js' %}"></script>
+    <script src="{% static 'js/jquery-3.3.1.min_new.js' %}"></script>
+    <script src="{% static 'js/simplebar_new.js' %}"></script>
+    <script src="{% static 'js/main_new.js' %}"></script>
+    <script src="{% static 'js/bootstrap-select.min_new.js' %}"></script>
+
+</body>
+</html>

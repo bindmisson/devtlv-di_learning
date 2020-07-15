@@ -1,0 +1,43 @@
+{% extends 'base_new.html' %}
+{% load static %}
+
+{% block title %} Courses {% endblock %}
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <title>Developers Institute DI Learning Platform</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Developers Institute DI Learning Platform">
+
+{% block content %}
+
+{% include 'left-side-nav_new.html' %}
+
+<div class="page-content">
+    <div class="container">
+        {% for collection in collections.all %}
+        <div class="section-small">
+            <div uk-slider="finite: true" class="course-grid-slider">
+                <div class="grid-slider-header">
+                    <div>
+                        <h1 class="uk-text-truncate">Collection: {{ collection.title }}</a></h1>
+                        {% for collection_course in collection.collectioncourse_set.all|dictsort:"sort" %}
+                        <h2>Course: {{ collection_course.course.title }}</h2>
+                            {% for course_section in collection_course.course.coursesection_set.all|dictsort:"sort" %}
+                            <h3>Section: {{ course_section.section.title }}</h3>
+                            
+                                {% for section_chapter in course_section.section.sectionchapter_set.all|dictsort:"sort" %}
+                                <h4>Chapter: {{ section_chapter.chapter.title }}</h4><br/>
+                                {% endfor %}
+
+                            {%endfor%}
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr style="border-color:navy;">
+        {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %} Attendance {% endblock %}
+
+{% block content %}
+{% load static %}
+<main class="container">
+    <h2>Attendance resume of the program <b>{{program.name}}</b></h2>
+    <a href="{% url 'main_app:export_to_csv' program.id %}"><button class="btn btn-outline-warning">Export to csv</button></a>
+    <table class="table table-bordered table-definition mb-5">
+            <thead class="table-warning ">
+                    <tr>
+                        <th> </th>
+                        <th>Full Name</th>
+                        <th>Total Presences</th>
+                        <th>Total Absences</th>
+                        <th>Total Late</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+            <tbody>
+                    {% for item in att_list %}
+                        <tr>
+                            <td>
+                                <img src=" {% static item.0.get_profile_picture %}" width="45" height="35">
+                            </td>
+                            <td>
+                                {{item.0.user.first_name}} {{item.0.user.last_name}}
+                            </td>
+                            <td>
+                                {{ item.1 }}
+                            </td>
+                            <td>
+                               {{ item.2 }}
+                            </td>
+                            <td>
+                               {{ item.3 }}
+                            </td>
+                            <td><a href="{% url 'main_app:student_attendance' student_id=item.0.id program_id=program.id %}" onclick="return popitup('{% url 'main_app:student_attendance' student_id=item.0.id program_id=program.id %}')" data-toggle="modal" data-target="#myModal">
+                                Attendance details for this student
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            <tfoot>
+                    <tr>
+                        <th></th>
+                        <th colspan="4">
+                        </th>
+                    </tr>
+                </tfoot>
+        </table>
+</main>
+
+<style>
+    .table {
+    border: none;
+}
+
+.table-definition thead th:first-child {
+    pointer-events: none;
+    background: white;
+    border: none;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.page-item > * {
+    border: none;
+}
+
+</style>
+
+<script>
+  function popitup(url) {
+    newwindow=window.open(url,'{{title}}','height=220,width=320');
+    if (window.focus) {newwindow.focus()}
+    return false;
+}
+</script>
+
+{% endblock %}

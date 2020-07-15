@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>{%block title %}{% endblock %}</title>
+
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/night-mode_new.css' %}">
+    <link rel="stylesheet" href="{% static 'css/framework.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    {%block css %} {% endblock %}
+
+    <!-- Favicon -->
+    <link href="{% static 'images/media/favicon.jsvg' %}" rel="icon" type="image/png">
+
+    <!-- icons
+    ================================================== -->
+    <link rel="stylesheet" href="{% static 'css/icons.css' %}">
+
+
+</head>
+<body>
+
+    {% block content %}{% endblock %}
+
+
+    <!-- javaScripts
+    ================================================== -->
+    <script src="{% static 'js/framework_new.js' %}"></script>
+    <script src="{% static 'js/jquery-3.3.1.min_new.js' %}"></script>
+    <script src="{% static 'js/simplebar_new.js' %}"></script>
+    <script src="{% static 'js/main_new.js' %}"></script>
+    <script src="{% static 'js/bootstrap-select.min_new.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %} Attendance {% endblock %}
+
+{% block content %}
+
+
+<h1>Attendance sheet</h1>
+<br>
+
+
+
+<div id="divCheckAll">
+<input type="checkbox" name="checkall" id="checkall" onClick="check_uncheck_checkbox(this.checked);" />All present</div>
+<br>
+<h2>Students</h2>
+<div id="divCheckboxList">
+    <form method="post" id="student_teacher/5/attendance_form" name="attendance">
+    {% csrf_token %}
+    {% for student in students %}
+    <div class="divCheckboxItem"><input type="checkbox" name="checked" value="{{ student }}">{{ student }}</div>
+    {% endfor %}
+</form>
+</div>
+
+<script>
+    function check_uncheck_checkbox(isChecked) {
+	if(isChecked) {
+		$('input[name="checked"]').each(function() {
+			this.checked = true;
+		});
+	} else {
+		$('input[name="checked"]').each(function() {
+			this.checked = false;
+		});
+	}
+}
+</script>
+
+
+<br>
+<input formaction="{% url 'main_app:attendance' program.id session %}" type="submit" form="student_attendance_form" value="Take this {{ program }} {{ session}} class attendance">
+<br>
+<a href="{% url 'main_app:attendance_filter' %}">Go back and change class</a>
+
+{% endblock %}

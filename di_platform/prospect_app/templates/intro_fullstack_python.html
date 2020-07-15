@@ -1,0 +1,1028 @@
+{% extends 'prospect_app_base.html' %}
+{% load static %}
+
+{% block title %}Developers Institute - DI Learning Platform{% endblock %}
+
+{% block content %}
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+    {% include 'prospect_app_nav.html' %}
+
+    <!-- Content
+            ================================================== -->
+    <div class="page-content">
+
+
+
+        <div class="course-details-wrapper topic-1 uk-light">
+            <div class="container p-sm-0">
+
+                <div uk-grid>
+                    <div class="uk-width-2-3@m">
+
+                        <div class="course-details">
+                            <h1> Learn Full Stack Development - Python</h1>
+                            <p> Master Python with the most complete course! Projects
+                                Excellent
+                                course. we
+                                explain the core concepts in Python that are usually glossed over in other
+                                courses </p>
+
+                            <div class="course-details-info mt-4">
+                                <ul>
+                                    <li>
+                                        <div class="star-rating"><span class="avg"> 4.9 </span> <span
+                                                class="star"></span><span class="star"></span><span
+                                                class="star"></span><span class="star"></span><span class="star"></span>
+                                        </div>
+                                    </li>
+                                    <li> <i class="icon-feather-users"></i> 400 Enrolled </li>
+                                </ul>
+                            </div>
+
+                            <div class="course-details-info">
+
+                                <ul>
+                                    <li> Created by <a href="#"> Developers Institute </a> </li>
+                                    <li> Last updated 04/2020</li>
+                                </ul>
+
+                            </div>
+                        </div>
+                        <nav class="responsive-tab style-5">
+                            <ul
+                                uk-switcher="connect: #course-intro-tab ;animation: uk-animation-slide-right-medium, uk-animation-slide-left-medium">
+                                <li><a href="#">Curriculum</a></li>
+                                <li><a href="#">Overview</a></li>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="#">Announcement</a></li>
+                                <li><a href="#">Reviews</a></li>
+                            </ul>
+                        </nav>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container">
+
+            <div class="uk-grid-large mt-4" uk-grid>
+                <div class="uk-width-2-3@m">
+                    <ul id="course-intro-tab" class="uk-switcher mt-4">
+
+                        <!-- course Curriculum-->
+                        <li>
+
+                            <ul class="course-curriculum" uk-accordion="multiple: true">
+
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" href="#"> Week 1 - Html/CSS/Bootstrap </a>
+                                    <div class="uk-accordion-content">
+
+                                        <!-- course-video-list -->
+                                        <ul class="course-curriculum-list">
+                                            <li> What is HTML <span> 1 day </span>
+                                            <li> What is CSS <span> 23 min </span> </li>
+                                            <li> Your First Web Page <a href="#trailer-modal" uk-toggle> Preview
+                                                </a> <span> 23 min </span>
+                                            </li>
+                                            <li> Git & GitHub <span> 23 min </span> </li>
+                                            <li> Bootstrap <span> 23 min </span> </li>
+                                            <li> CSS Grid + CSS Layout <span> 23 min </span> </li>
+                                            <li> Mini- project day <span> 23 min </span> </li>
+                                            <li> Workout <span> 30mn/day </span> </li>
+                                        </ul>
+
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <a class="uk-accordion-title" href="#"> Week 2 - JavaScript   </a>
+                                    <div class="uk-accordion-content">
+
+                                        <!-- course-video-list -->
+                                        <ul class="course-curriculum-list">
+                                            <li> Intro to JavaScript <span> 23 min </span>
+                                            <li> Conditionals <span> 23 min </span> </li>
+                                            <li> Variables <a href="#trailer-modal" uk-toggle>
+                                                    Preview
+                                                </a> <span> 23 min
+                                                </span>
+                                            </li>
+                                            <li> Objects & Loops <span> 23 min </span> </li>
+                                            <li> Data Structures <span> 23 min </span> </li>
+                                            <li> Control Flow <span> 23 min </span> </li>
+                                            <li> Functions <span> 23 min </span> </li>
+                                            <li> Live Preview Feature <span> 23 min </span> </li>
+                                            <li> Mini-Project Day <span> 23 min </span> </li>
+                                            <li> Workout <span> 30mn/day </span> </li>
+                                        </ul>
+
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <a class="uk-accordion-title" href="#"> Week 3 - DOM Manipulation  </a>
+                                    <div class="uk-accordion-content">
+
+                                        <!-- course-video-list -->
+                                        <ul class="course-curriculum-list">
+                                            <li> DOM Basics <span> 23 min </span> </li>
+                                            <li> The break tag <a href="#trailer-modal" uk-toggle> Preview </a>
+                                                <span> 23 min </span> </li>
+                                            <li> DOM Tree <span> 23 min </span> </li>
+                                            <li> DOM Attributes <span> 23 min </span>
+                                            <li> DOM Selectors <span> 23 min </span>
+                                            <li> DOM Events <span> 23 min </span>
+                                            <li> DOM Animations <span> 23 min </span>
+                                            <li> Developer fundamentals<span> 23 min </span>
+                                            <li> Your first Hackathon <span> 23 min </span>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <a class="uk-accordion-title" href="#"> Week 4 - Python and Web Programming   </a>
+                                    <div class="uk-accordion-content">
+
+                                        <!-- course-video-list -->
+                                        <ul class="course-curriculum-list">
+                                            <li> Installing Python<span> 23 min </span> </li>
+                                            <li> Starting with Python Basics <span> 23 min </span> </li>
+                                            <li> List, iterating and formatting data <a href="#trailer-modal" uk-toggle> Preview
+                                                </a><span> 23 min </span> </li>
+                                            <li> Dictionaries<span> 23 min </span> </li>
+                                            <li> Functions <span> 23 min </span> </li>
+                                            <li> Mini-Projects <span> 23 min </span> </li>
+                                            <li> Coding challenge <span> 23 min </span> </li>
+                                        </ul>
+
+                                    </div>
+                                </li>
+
+
+
+                                <li>
+                                    <a class="uk-accordion-title" href="#"> Week 5 - OOP   </a>
+                                    <div class="uk-accordion-content">
+
+                                        <!-- course-video-list -->
+                                        <ul class="course-curriculum-list">
+                                            <li> Intro to OOP<span> 23 min </span> </li>
+                                            <li> OOP Intermediate <span> 23 min </span> </li>
+                                            <li> Dunder Methods <a href="#trailer-modal" uk-toggle> Preview
+                                                </a><span> 23 min </span> </li>
+                                            <li> More about inheritance <span> 23 min </span> </li>
+                                            <li> Decorators <span> 23 min </span> </li>
+                                            <li> Mini Project <span> 23 min </span> </li>
+                                        </ul>
+
+                                    </div>
+                                </li>
+
+
+                                <li>
+                                    <a class="uk-accordion-title" href="#"> Week 6 - Flask   </a>
+                                    <div class="uk-accordion-content">
+
+                                        <!-- course-video-list -->
+                                        <ul class="course-curriculum-list">
+                                            <li> Intro to Flask <span> 23 min </span> </li>
+                                            <li> Flask templates <span> 23 min </span> </li>
+                                            <li> Json database forms <a href="#trailer-modal" uk-toggle> Preview
+                                                </a><span> 23 min </span> </li>
+                                            <li> Flask project structure <span> 23 min </span> </li>
+                                            <li> Some important things <span> 23 min </span> </li>
+                                            <li> Build a portfolio <span> 23 min </span> </li>
+                                            <li> Coding challenge <span> 23 min </span> </li>
+                                        </ul>
+
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <a class="uk-accordion-title" href="#"> Week 7 - Databases   </a>
+                                    <div class="uk-accordion-content">
+
+                                        <!-- course-video-list -->
+                                        <ul class="course-curriculum-list">
+                                            <li> Intro to Database<span> 23 min </span> </li>
+                                            <li> Database Conjunctive Operators <span> 23 min </span> </li>
+                                            <li> Request on Database <a href="#trailer-modal" uk-toggle> Preview
+                                                </a><span> 23 min </span> </li>
+                                            <li> Databse relationship<span> 23 min </span> </li>
+                                            <li> Your second Hacakthon <span> 23 min </span> </li>
+                                        </ul>
+
+                                    </div>
+                                </li>
+
+
+                                <li>
+                                    <a class="uk-accordion-title" href="#"> Week 8 - Django   </a>
+                                    <div class="uk-accordion-content">
+
+                                        <!-- course-video-list -->
+                                        <ul class="course-curriculum-list">
+                                            <li> Getting started with Django<span> 23 min </span> </li>
+                                            <li> Views <span> 23 min </span> </li>
+                                            <li> Django project structure <a href="#trailer-modal" uk-toggle> Preview
+                                                </a><span> 23 min </span> </li>
+                                            <li> Applications & templates <span> 23 min </span> </li>
+                                            <li> Mini-Project <span> 23 min </span> </li>
+                                        </ul>
+
+                                    </div>
+                                </li>
+
+
+                                <li>
+                                    <a class="uk-accordion-title" href="#"> Week 9 - Django   </a>
+                                    <div class="uk-accordion-content">
+
+                                        <!-- course-video-list -->
+                                        <ul class="course-curriculum-list">
+                                            <li> Custom admin<span> 23 min </span> </li>
+                                            <li> Forms <span> 23 min </span> </li>
+                                            <li> Reusability <a href="#trailer-modal" uk-toggle> Preview
+                                                </a><span> 23 min </span> </li>
+                                            <li> Authentification system <span> 23 min </span> </li>
+                                            <li> Mini-Project <span> 23 min </span> </li>
+                                        </ul>
+
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <a class="uk-accordion-title" href="#"> Week 10 - Django Project   </a>
+                                    <div class="uk-accordion-content">
+
+                                        <!-- course-video-list -->
+                                        <ul class="course-curriculum-list">
+                                            <li> Something to Ponder<span> 23 min </span> </li>
+                                            <li> Tables <span> 23 min </span> </li>
+                                            <li> HTML Entities <a href="#trailer-modal" uk-toggle> Preview
+                                                </a><span> 23 min </span> </li>
+                                            <li> HTML Iframes <span> 23 min </span> </li>
+                                            <li> Some important things <span> 23 min </span> </li>
+                                        </ul>
+
+                                    </div>
+                                </li>
+
+
+                                <li>
+                                    <a class="uk-accordion-title" href="#"> Week 11 - Final project   </a>
+                                    <div class="uk-accordion-content">
+
+                                        <!-- course-video-list -->
+                                        <ul class="course-curriculum-list">
+                                            <li> Start your final project<span> 23 min </span> </li>
+                                            <li> Agile methodology <span> 23 min </span> </li>
+                                            <li> Create your Github portfolio <a href="#trailer-modal" uk-toggle> Preview
+                                                </a><span> 23 min </span> </li>
+                                            <li> Interview preparation<span> 23 min </span> </li>
+                                            <li> Job market search <span> 23 min </span> </li>
+                                            <li> Technical assessment preparation<span> 23 min </span> </li>
+                                        </ul>
+
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <a class="uk-accordion-title" href="#"> Week 12 - Final project   </a>
+                                    <div class="uk-accordion-content">
+
+                                        <!-- course-video-list -->
+                                        <ul class="course-curriculum-list">
+                                            <li> Deployment in production<span> 23 min </span> </li>
+                                            <li> Final project Support <span> 23 min </span> </li>
+                                            <li> Some important things <span> 23 min </span> </li>
+                                        </ul>
+
+                                    </div>
+                                </li>
+
+
+
+
+                            </ul>
+
+                        </li>
+
+                        <!-- course description -->
+                        <li class="course-description-content">
+
+                            <h4> Description </h4>
+                            <p> Want to become a web developer? This is how it’s done. In this intensive, fully immersive, English-speaking course, we'll teach you everything you need to know to unlock your spot in one of the fastest-growing industries in Israel.
+
+                            Don’t worry if you don't have previous experience - beginners are welcome.
+
+                            Our program will provide you with mentorship, a data-driven curriculum and a top notch learning environment that will launch you into your first developer role. Your work starts with our prep course (2 weeks duration) before the course officially starts. On day one, we hit full speed and don’t stop until you graduate.</p>
+
+                            <b>Learn from experts:</b> Receive instruction and mentorship from top web developers and connect with Developers.Institute's thriving community of pros and peers.
+
+                            <b>Develop new skills:</b> build real websites while collaborating with classmates on a range of projects.
+
+
+
+                            <h4> What you’ll learn </h3>
+
+                            <p> We teach the skills you need to kick-start your career as a developer and a lifelong learner. From programming fundamentals to launching full-stack web apps, you'll learn to solve problems with code while applying industry best practices in a collaborative environment.
+
+                            Our immersive Full-stack Python course emphasizes the Python coding language.  We chose to focus on Python due to its speed and analytical capabilities, while also being simple. Python has consistently been ranked the highest paid coding language for recent bootcamp grads by Course Report.</p>
+
+                                <div class="uk-child-width-1-2@s" uk-grid>
+                                    <div>
+                                        <ul class="list-2">
+                                            <li>Programming fundamentals </li>
+                                            <li>Advanced HTML Practices</li>
+                                            <li>Build a portfolio website</li>
+                                            <li>Responsive Designs</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <ul class="list-2">
+                                            <li>Python immersive</li>
+                                            <li>Flask & Django Framework</li>
+                                            <li>Start building beautiful websites</li>
+                                            <li>Build a portfolio website</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+
+                                <h4> Requirements </h4>
+                                <ul class="list-1">
+                                    <li>Beginners accepted</li>
+                                    <li>Any computer will work: Windows, macOS or Linux</li>
+                                    <li>Basic programming HTML and CSS.</li>
+
+                                </ul>
+
+                                <h4> Unlimited Bootcamps </h4>
+                                <p> The world of programming is never ending. New technologies are constantly being crafted and you, as a future developer, need to keep up with such advancements.
+                                This is why we offer lifetime access to our courses both onsite and online. We call it Unlimited Bootcamp. With this unique value-added benefit, graduates of Developers.Institute  have access to our courses for life. Graduates can return at any time to learn a new technology or refresh their expertise on an existing technology— and in most cases there is no charge whatsoever.
+
+                                <b>It’s a free software upgrade for your knowledge and skills.</b> </p>
+
+
+                                <h4> Career Guidance</h4>
+                                Master new skills and put them to work. All of our immersive graduates receive a career coach, job-readiness training, and direct access to employers and professionals.
+
+                                Job & career coaching
+                                Connection to resources
+                                Networking opportunities
+
+                                Our in-house career coaches provide resources and guidance to get you on track for an exciting career.</p>
+
+
+                                <h4> Mindset Classes </h4>
+                                Throughout the bootcamp, we offer extra-curricular lectures and workshops to help you learn the startup mindset, prepare for job searches, develop entrepreneur thought processes and more. These are all optional, but highly recommended!</p>
+
+
+                                 <h4> Experience </h4>
+
+                                After completing a course, we offer our graduates help securing an optional 2-month (unpaid) internship, so that you will be able to add real-world experience to your CV.
+                                </p>
+
+
+
+                        </li>
+
+                        <!-- course Faq-->
+                        <li>
+
+                            <h4 class="my-4"> Course Faq</h4>
+
+                            <ul class="course-faq" uk-accordion>
+
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" href="#"> Html Introduction </a>
+                                    <div class="uk-accordion-content">
+                                        <p> The primary goal of this quick start guide is to introduce you to
+                                            Unreal
+                                            Engine 4`s (UE4) development environment. By the end of this guide,
+                                            you`ll
+                                            know how to set up and develop C++ Projects in UE4. This guide shows
+                                            you
+                                            how
+                                            to create a new Unreal Engine project, add a new C++ class to it,
+                                            compile
+                                            the project, and add an instance of a new class to your level. By
+                                            the
+                                            time
+                                            you reach the end of this guide, you`ll be able to see your
+                                            programmed
+                                            Actor
+                                            floating above a table in the level. </p>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <a class="uk-accordion-title" href="#"> Your First webpage</a>
+                                    <div class="uk-accordion-content">
+                                        <p> The primary goal of this quick start guide is to introduce you to
+                                            Unreal
+                                            Engine 4`s (UE4) development environment. By the end of this guide,
+                                            you`ll
+                                            know how to set up and develop C++ Projects in UE4. This guide shows
+                                            you
+                                            how
+                                            to create a new Unreal Engine project, add a new C++ class to it,
+                                            compile
+                                            the project, and add an instance of a new class to your level. By
+                                            the
+                                            time
+                                            you reach the end of this guide, you`ll be able to see your
+                                            programmed
+                                            Actor
+                                            floating above a table in the level. </p>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <a class="uk-accordion-title" href="#"> Some Special Tags </a>
+                                    <div class="uk-accordion-content">
+                                        <p> The primary goal of this quick start guide is to introduce you to
+                                            Unreal
+                                            Engine 4`s (UE4) development environment. By the end of this guide,
+                                            you`ll
+                                            know how to set up and develop C++ Projects in UE4. This guide shows
+                                            you
+                                            how
+                                            to create a new Unreal Engine project, add a new C++ class to it,
+                                            compile
+                                            the project, and add an instance of a new class to your level. By
+                                            the
+                                            time
+                                            you reach the end of this guide, you`ll be able to see your
+                                            programmed
+                                            Actor
+                                            floating above a table in the level. </p>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <a class="uk-accordion-title" href="#"> Html Introduction </a>
+                                    <div class="uk-accordion-content">
+                                        <p> The primary goal of this quick start guide is to introduce you to
+                                            Unreal
+                                            Engine 4`s (UE4) development environment. By the end of this guide,
+                                            you`ll
+                                            know how to set up and develop C++ Projects in UE4. This guide shows
+                                            you
+                                            how
+                                            to create a new Unreal Engine project, add a new C++ class to it,
+                                            compile
+                                            the project, and add an instance of a new class to your level. By
+                                            the
+                                            time
+                                            you reach the end of this guide, you`ll be able to see your
+                                            programmed
+                                            Actor
+                                            floating above a table in the level. </p>
+                                    </div>
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+                        <!-- course Announcement-->
+                        <li>
+                            <h4> Announcement </h4>
+
+                            <div class="user-details-card">
+                                <div class="user-details-card-avatar">
+                                    <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                </div>
+                                <div class="user-details-card-name">
+                                    Stella Johnson <span> Instructor <span> 1 year ago </span> </span>
+                                </div>
+                            </div>
+
+
+
+                            <article class="uk-article">
+
+                                <p class="lead"> Nam liber tempor cum soluta nobis eleifend option
+                                    congue </p>
+
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                    tempor
+                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                                    nostrud
+                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+                                    aute
+                                    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                                    nulla
+                                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+                                    officia
+                                    deserunt mollit anim id est laborum.</p>
+
+                                <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+                                    nibh
+                                    euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi
+                                    enim ad
+                                    minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl
+                                    ut
+                                    aliquip ex ea commodo consequat. Nam liber tempor cum soluta nobis eleifend
+                                    option congue nihil imperdiet doming id quod mazim placerat facer possim
+                                    assum.
+                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+                                    nibh
+                                    euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi
+                                    enim ad
+                                    minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl
+                                    ut
+                                    aliquip ex ea commodo consequat.</p>
+
+
+                            </article>
+                        </li>
+
+                        <!-- course Reviews-->
+                        <li>
+
+                            <div class="review-summary">
+                                <h4 class="review-summary-title"> Student feedback </h4>
+                                <div class="review-summary-container">
+                                    <div class="review-summary-avg">
+                                        <div class="avg-number">
+                                            4.8
+                                        </div>
+                                        <div class="review-star">
+                                            <div class="star-rating"><span class="star"></span><span
+                                                    class="star"></span><span class="star"></span><span
+                                                    class="star"></span><span class="star half"></span></div>
+                                        </div>
+                                        <span>Course Rating</span>
+                                    </div>
+
+
+                                    <div class="review-summary-rating">
+                                        <div class="review-summary-rating-wrap">
+                                            <div class="review-bars">
+                                                <div class="full_bar">
+                                                    <div class="bar_filler" style="width:95%"></div>
+                                                </div>
+                                            </div>
+                                            <div class="review-stars">
+                                                <div class="star-rating"><span class="star"></span><span
+                                                        class="star"></span><span class="star"></span><span
+                                                        class="star"></span><span class="star"></span></div>
+                                            </div>
+                                            <div class="review-avgs">
+                                                95 %
+                                            </div>
+                                        </div>
+                                        <div class="review-summary-rating-wrap">
+                                            <div class="review-bars">
+                                                <div class="full_bar">
+                                                    <div class="bar_filler" style="width:80%"></div>
+                                                </div>
+                                            </div>
+                                            <div class="review-stars">
+                                                <div class="star-rating"><span class="star"></span><span
+                                                        class="star"></span><span class="star"></span><span
+                                                        class="star"></span><span class="star empty"></span>
+                                                </div>
+                                            </div>
+                                            <div class="review-avgs">
+                                                80 %
+                                            </div>
+                                        </div>
+                                        <div class="review-summary-rating-wrap">
+                                            <div class="review-bars">
+                                                <div class="full_bar">
+                                                    <div class="bar_filler" style="width:60%"></div>
+                                                </div>
+                                            </div>
+                                            <div class="review-stars">
+                                                <div class="star-rating"><span class="star"></span><span
+                                                        class="star"></span><span class="star"></span><span
+                                                        class="star empty"></span><span class="star empty"></span>
+                                                </div>
+                                            </div>
+                                            <div class="review-avgs">
+                                                60 %
+                                            </div>
+                                        </div>
+                                        <div class="review-summary-rating-wrap">
+                                            <div class="review-bars">
+                                                <div class="full_bar">
+                                                    <div class="bar_filler" style="width:45%"></div>
+                                                </div>
+                                            </div>
+                                            <div class="review-stars">
+                                                <div class="star-rating"><span class="star"></span><span
+                                                        class="star"></span><span class="star empty"></span><span
+                                                        class="star empty"></span><span class="star empty"></span>
+                                                </div>
+                                            </div>
+                                            <div class="review-avgs">
+                                                45 %
+                                            </div>
+                                        </div>
+                                        <div class="review-summary-rating-wrap">
+                                            <div class="review-bars">
+                                                <div class="full_bar">
+                                                    <div class="bar_filler" style="width:25%"></div>
+                                                </div>
+                                            </div>
+                                            <div class="review-stars">
+                                                <div class="star-rating"><span class="star"></span><span
+                                                        class="star empty"></span><span class="star empty"></span><span
+                                                        class="star empty"></span><span class="star empty"></span>
+                                                </div>
+                                            </div>
+                                            <div class="review-avgs">
+                                                25 %
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="comments">
+                                <h4>Reviews <span class="comments-amount"> (4610) </span> </h4>
+
+                                <ul>
+                                    <li>
+                                        <div class="comments-avatar"><img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                        </div>
+                                        <div class="comment-content">
+                                            <div class="comment-by">Michael Deutsch<span>Full Stack Coding Bootcamp - Python</span>
+                                                <div class="comment-stars">
+                                                    <div class="star-rating"><span class="star"></span><span
+                                                            class="star"></span><span class="star"></span><span
+                                                            class="star"></span><span class="star"></span></div>
+                                                </div>
+                                            </div>
+                                            <b>"Developers Institute is a Bootcamp that Cares"</b>
+                                            <p>The very best thing about attending Developers Institute is how much the founders truly care about the satisfaction of all attendees.
+                                            In addition to "mandatory" reviews every week, asking what was good and what could be improved upon, whenever anyone came with a specific request or comment, there was a desire to implement it as soon as possible.
+                                            <br>
+                                            <br>
+                                            Overall, I do think some people begin a bootcamp with an unclear or unrealistic idea about what to expect, and how much a bootcamp can help them getting started in a job in the development field. A bootcamp WILL NOT simply teach you to code by merely attending. You still need to put in tons of work during the course (and possibly afterwards) to get your skills up to a strong level. Whether you attend a bootcamp or not, YOU still have to do a lot of coding and learning to gain experience. However, Developers Institute does a great job of showing you the path, helping you take the steps along it, and correcting you if you're making mistakes. Don't think that just finishing the course will automatically mean you'll find a job right away.
+                                            After a short internship that I did which was set up by Developers Institute, I received a job offer as a full stack developer.
+                                            <br> <br>
+                                            So, do your research. Understand the balance between what a bootcamp provides, and the work and effort you need to commit. And if you decide a bootcamp is for you, Developers Institute is a great choice!
+                                            </p>
+                                            <div class="comment-footer">
+                                                <span> Was this review helpful? </span>
+                                                <button> Yes </button>
+                                                <button> No </button>
+                                                <a href="#"> Report</a>
+                                            </div>
+                                        </div>
+
+                                    </li>
+
+                                    <li>
+                                        <div class="comments-avatar"><img src="../assets/images/avatars/avatar-3.jpg" alt="">
+                                        </div>
+                                        <div class="comment-content">
+                                            <div class="comment-by"> Fabio Scharcansky<span>Full Stack Coding Bootcamp - Python </span>
+                                                <div class="comment-stars">
+                                                    <div class="star-rating"><span class="star"></span><span
+                                                            class="star"></span><span class="star"></span><span
+                                                            class="star"></span><span class="star half"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p> <b>"Learn how to study Full Stack programming in Python" </b>
+                                            <br> <br>
+                                            I have a degree in Computer Science, but for many years I worked as a systems analyst and project manager. In Israel, I felt the need to deepen technical knowledge in Python programming and the Developers Institute proved to be the right choice.
+                                            <br> <br>
+                                            More important than learning how to develop in Python is knowing how to find solutions for your application.
+                                            At the Developers Institute we learn the main fundamentals for a programmer's career and how to deepen them after the end of the course.
+                                            <br> <br>
+                                            If you want the experience of having an extensive course in Israel, with a diploma and good references, with extra complementary activities, gaining confidence, help in making a good CV and looking for a job / internship in Hi-Tech, this is the place.
+                                            </p>
+                                            <div class="comment-footer">
+                                                <span> Was this review helpful? </span>
+                                                <button> Yes </button>
+                                                <button> No </button>
+                                                <a href="#"> Report</a>
+                                            </div>
+                                        </div>
+
+                                    </li>
+
+                                    <li>
+                                        <div class="comments-avatar"><img src="../assets/images/avatars/avatar-3.jpg" alt="">
+                                        </div>
+                                        <div class="comment-content">
+                                            <div class="comment-by"> Raziel Diaz<span>Full Stack Coding Bootcamp - Python</span>
+                                                <div class="comment-stars">
+                                                    <div class="star-rating"><span class="star"></span><span
+                                                            class="star"></span><span class="star"></span><span
+                                                            class="star"></span><span class="star"></span></div>
+                                                </div>
+                                            </div>
+                                            <p> <b>"It was hard and challenging , and I got a job!"</b>>
+                                            <br> <br>
+                                            No Bootcamp is perfect, so don't expect perfection.
+                                            I did the full-time Python Bootcamp, and it wasn't easy. You need to really dedicate yourself to learning so many new things!
+                                                                                        <br> <br>
+                                            The hackathons and the final project were the best learning experiences for me, where I really put myself and my newly aquired knowledge to the test.
+                                            And the best of all, right at the end of the bootcamp I got a job! Developers Institute helps the students write a CV and get an internship (both paid and non paid ).
+                                                                                        <br> <br>
+                                            The people were awesome, both the students and the staff.
+                                            Developers Institute is always asking for feedback from the students, always looking to improve the learning experience, and always willing to help.
+                                            The classes were comprised of 10-15 students.
+                                            So, if you're looking for a career change, this is a great option. But remember, a big part of it is up to you, like how much you dedicate yourself to studying and practicing.
+                                                                                        <br> <br>
+                                            Lastly, Developers Institute offers what they call Unlimited Bootcamp. Pay for one, do them all. If you have the time, that's an incredible opportunity.
+                                            </p>
+                                            <div class="comment-footer">
+                                                <span> Was this review helpful? </span>
+                                                <button> Yes </button>
+                                                <button> No </button>
+                                                <a href="#"> Report</a>
+                                            </div>
+                                        </div>
+
+                                    </li>
+
+                                    <li>
+                                        <div class="comments-avatar"><img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                        </div>
+                                        <div class="comment-content">
+                                            <div class="comment-by">Ari Tsetlin<span>Full Stack Coding Bootcamp - Python</span>
+                                                <div class="comment-stars">
+                                                    <div class="star-rating"><span class="star"></span><span
+                                                            class="star"></span><span class="star"></span><span
+                                                            class="star"></span><span class="star"></span></div>
+                                                </div>
+                                            </div>
+                                            <p> <b>"Super fun, super intense, super satisfying bootcamp."</b>
+                                            <br> <br>
+                                            If you have zero background in computers and want to jump in two feet first, this is your diving board. Knowledgeable teachers and staff, dynamic mix of students from all walks of life, encouraging, uplifting, and supportive classmates, challenging Hack-a-Thons, satisfactory feeling of accomplishment after every weeks project.
+                                                                                        <br> <br>
+                                            I went from not knowing what my computer was meant for, other than watching YouTube videos, to master Terminal, Git, Front End and Back End development, Databases etc.
+                                            Great investment into my own future.
+                                            </p>
+                                            <div class="comment-footer">
+                                                <span> Was this review helpful? </span>
+                                                <button> Yes </button>
+                                                <button> No </button>
+                                                <a href="#"> Report</a>
+                                            </div>
+                                        </div>
+
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
+
+                            <div class="comments">
+                                <h3>Submit Review </h3>
+                                <ul>
+                                    <li>
+                                        <div class="comments-avatar"><img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                        </div>
+                                        <div class="comment-content">
+                                            <form class="uk-grid-small" uk-grid>
+                                                <div class="uk-width-1-2@s">
+                                                    <label class="uk-form-label">Name</label>
+                                                    <input class="uk-input" type="text" placeholder="Name">
+                                                </div>
+                                                <div class="uk-width-1-2@s">
+                                                    <label class="uk-form-label">Email</label>
+                                                    <input class="uk-input" type="text" placeholder="Email">
+                                                </div>
+                                                <div class="uk-width-1-1@s">
+                                                    <label class="uk-form-label">Comment</label>
+                                                    <textarea class="uk-textarea"
+                                                        placeholder="Enter Your Comments her..."
+                                                        style=" height:160px"></textarea>
+                                                </div>
+                                                <div class="uk-grid-margin">
+                                                    <input type="submit" value="submit" class="btn btn-default">
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="uk-width-1-3@m">
+                    <div class="course-card-trailer" uk-sticky="top: 10 ;offset:105 ; media: @m ; bottom:true">
+
+                        <div class="course-thumbnail">
+                            <img src="../assets/images/course/1.png" alt="">
+                            <a class="play-button-trigger show" href="#trailer-modal" uk-toggle> </a>
+                        </div>
+
+                        <!-- video demo model -->
+                        <div id="trailer-modal" uk-modal>
+                            <div class="uk-modal-dialog">
+                                <button class="uk-modal-close-default mt-2  mr-1" type="button" uk-close></button>
+                                <div class="uk-modal-header">
+                                    <h4> Trailer video </h4>
+                                </div>
+                                <div class="video-responsive">
+                                    <iframe src="https://www.youtube.com/embed/nOCXXHGMezU" class="uk-padding-remove"
+                                        uk-video="automute: true" frameborder="0" allowfullscreen
+                                        uk-responsive></iframe>
+                                </div>
+
+                                <div class="uk-modal-body">
+                                    <h3>Build Responsive Websites </h3>
+                                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+                                        dolore
+                                        eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                        proident,
+                                        sunt
+                                        in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-3">
+
+                            <p class="my-3 text-center">
+                                <span class="uk-h1"> ₪26,000 </span>
+
+                            </p>
+
+                            <p> Next session Full time : May 31st</p>
+                            <p> Next session Part time : April 19th</p>
+                            <div class="uk-child-width-1-2 uk-grid-small mb-4" uk-grid>
+                                <div>
+                                    <a href="course-resume.html"
+                                        class="uk-width-1-1 btn btn-default transition-3d-hover">
+                                        <i class="uil-play"></i> Apply <br> NOW </a>
+                                </div>
+                                <div>
+                                    <a href="course-resume.html"
+                                        class="btn btn-danger uk-width-1-1 transition-3d-hover">
+                                        <i class="uil-heart"></i> Get the syllabus </a>
+                                </div>
+                            </div>
+
+                            <p class="uk-text-bold"> This Course Include </p>
+
+                            <div class="uk-child-width-1-2 uk-grid-small" uk-grid>
+                                <div>
+                                    <span><i class="uil-youtube-alt"></i> 366 hours</span>
+                                </div>
+                                <div>
+                                    <span> <i class="uil-award"></i> Certificate </span>
+                                </div>
+                                <div>
+                                    <span> <i class="uil-file-alt"></i> +50 Courses </span>
+                                </div>
+                                <div>
+                                    <span> <i class="uil-video"></i> +200 exercices </span>
+                                </div>
+                                <div>
+                                    <span> <i class="uil-award"></i> Certificate </span>
+                                </div>
+                                <div>
+                                    <span> <i class="uil-clock-five"></i> Lifetime access </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+        </div>
+
+    </div>
+
+
+    </div>
+
+
+     <!-- footer
+        ================================================== -->
+        <div class="footer">
+            <div class="container">
+                <div uk-grid>
+                    <div class="uk-width-1-3@m">
+                        <a href="home.html" class="uk-logo">
+                            <!-- logo icon -->
+                            <i class="uil-graduation-hat"> </i>
+                            Developers Institute
+                        </a>
+                        <p class="footer-description"> Developers.Institute is a selective & intensive coding bootcamp, dedicated to educating the next generation of tech talent in Israel. We offer cutting edge mentored courses in Full Stack Web Development (Python and Javascript), working with the industry’s best professionals to take our fellows from beginner to job-ready developer in 3 months.</p>
+                    </div>
+                    <div class="uk-width-expand@s uk-width-1-2">
+                        <div class="footer-links pl-lg-8">
+                            <h5>Explore </h5>
+                            <ul>
+                                <li><a href="course-path.html"> All our Courses </a></li>
+                                <li><a href="course-intro-full-stack-python.html"> Full stack Bootcamp - Python </a></li>
+                                <li><a href="course-intro-full-stack-javascript-react-nodejs.html"> Full stack Bootcamp - JavaScript </a></li>
+                                <li><a href="course-intro-free-html-css.html"> Free course - HTML - CSS - JavaScript </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="uk-width-expand@s uk-width-1-2">
+                        <div class="footer-links pl-lg-8">
+                            <h5> DI Account </h5>
+                            <ul>
+                                <li><a href="profile-1.html"> Profile </a></li>
+                                <li><a href="../default/form-modern-signup.html"> Sign up </a></li>
+                                <li><a href="../default/form-modern-login.html"> Sign in </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="uk-width-expand@s uk-width-1-2">
+                        <div class="footer-links pl-lg-8">
+                            <h5> Resources</h5>
+                            <ul>
+                                <li><a href="page-contact.html"> Apply NOW </a></li>
+                                <li><a href="page-Privacy.html"> Privacy Policy </a></li>
+                                <li><a href="page-term.html"> Terms of Service </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="uk-grid-collapse" uk-grid>
+                    <div class="uk-width-expand@s uk-first-column">
+                        <p>© 2020 <strong>Developers Institute</strong>. All Rights Reserved. </p>
+                    </div>
+                    <div class="uk-width-auto@s">
+                        <nav class="footer-nav-icon">
+                            <ul>
+                                <li><a href="#"><i class="icon-brand-facebook"></i></a></li>
+                                <li><a href="#"><i class="icon-brand-dribbble"></i></a></li>
+                                <li><a href="#"><i class="icon-brand-youtube"></i></a></li>
+                                <li><a href="#"><i class="icon-brand-twitter"></i></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    <!-- For Night mode -->
+    <script>
+        (function (window, document, undefined) {
+            'use strict';
+            if (!('localStorage' in window)) return;
+            var nightMode = localStorage.getItem('gmtNightMode');
+            if (nightMode) {
+                document.documentElement.className += ' night-mode';
+            }
+        })(window, document);
+
+
+        (function (window, document, undefined) {
+
+            'use strict';
+
+            // Feature test
+            if (!('localStorage' in window)) return;
+
+            // Get our newly insert toggle
+            var nightMode = document.querySelector('#night-mode');
+            if (!nightMode) return;
+
+            // When clicked, toggle night mode on or off
+            nightMode.addEventListener('click', function (event) {
+                event.preventDefault();
+                document.documentElement.classList.toggle('night-mode');
+                if (document.documentElement.classList.contains('night-mode')) {
+                    localStorage.setItem('gmtNightMode', true);
+                    return;
+                }
+                localStorage.removeItem('gmtNightMode');
+            }, false);
+
+        })(window, document);
+    </script>
+
+
+{% endblock %}
