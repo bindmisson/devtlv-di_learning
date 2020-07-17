@@ -94,20 +94,28 @@
             <p class="lead">{{ chapter.description|safe_markdown }}</p><br>
             {% endif %}
 
-            {% if chapter.text %}
-            <h4 class="mt-4"> Text</h4>
-            <p class="lead">{{ chapter.text|safe_markdown }}</p><br>
-            {% endif %}
+            <!-- {% if chapter.description %}
+            <div id="toc">
+                <h3>Table of Contents</h3>
+            </div>
+            <hr/>
+            {% endif %} -->
+            <div id="chapter-contents">
+                {% if chapter.text %}
+                <h4 class="mt-4"> Text</h4>
+                <p class="lead">{{ chapter.text|safe_markdown }}</p><br>
+                {% endif %}
 
-            {% if chapter.code %}
-            <h4 class="mt-4"> Code</h4>
-            <p class="lead">{{ chapter.code|safe_markdown }}</p><br>
-            {% endif %}
+                {% if chapter.code %}
+                <h4 class="mt-4"> Code</h4>
+                <p class="lead">{{ chapter.code|safe_markdown }}</p><br>
+                {% endif %}
 
-            {% if chapter.exercise %}
-            <h4 class="mt-4"> Exercise</h4>
-            <p class="lead">{{ chapter.exercise|safe_markdown }}</p><br>
-            {% endif %}
+                {% if chapter.exercise %}
+                <h4 class="mt-4"> Exercise</h4>
+                <p class="lead">{{ chapter.exercise|safe_markdown }}</p><br>
+                {% endif %}
+            </div>
         </div>
     </div>
     
@@ -137,7 +145,7 @@
                                 
                                 <ul class="vidlist-3" >
                                     {% for section_chapter in section.sectionchapter_set.all|dictsort:"sort" %}
-                                    {% if section_chapter.chapter.group == 'CO' %}
+                                    {% if section_chapter.chapter.enabled and section_chapter.chapter.group == 'CO' %}
                                     <li>
                                         <a class="chapter_notes" href={% url 'courses_app:chapter' collection_id=collection.id course_id=course.id section_id=section.id chapter_id=section_chapter.chapter.id %}>
                                             <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
@@ -157,7 +165,7 @@
                                     {% endfor %}
                                 
                                     {% for section_chapter in section.sectionchapter_set.all|dictsort:"sort" %}
-                                    {% if section_chapter.chapter.group == 'SR' %}
+                                    {% if section_chapter.chapter.enabled and section_chapter.chapter.group == 'SR' %}
                                     <li>
                                         <a class="chapter_notes" href={% url 'courses_app:chapter' collection_id=collection.id course_id=course.id section_id=section.id chapter_id=section_chapter.chapter.id %}>
                                             <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
@@ -186,7 +194,7 @@
                             <div class="uk-accordion-content">
                                 <ul class="vidlist-3">
                                     {% for section_chapter in section.sectionchapter_set.all|dictsort:"sort" %}
-                                        {% if section_chapter.chapter.group == 'XP' %}
+                                        {% if section_chapter.chapter.enabled and section_chapter.chapter.group == 'XP' %}
                                         <li>
                                             <a class="chapter_exercise" href={% url 'courses_app:chapter' collection_id=collection.id course_id=course.id section_id=section.id chapter_id=section_chapter.chapter.id %}>
                                                 <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
@@ -208,7 +216,7 @@
                                         {% endif %}
                                     {% endfor %}
                                     {% for section_chapter in section.sectionchapter_set.all|dictsort:"sort" %}
-                                        {% if section_chapter.chapter.group == 'XPG' %}
+                                        {% if section_chapter.chapter.enabled and section_chapter.chapter.group == 'XPG' %}
                                         <li>
                                             <a class="chapter_exercise" href={% url 'courses_app:chapter' collection_id=collection.id course_id=course.id section_id=section.id chapter_id=section_chapter.chapter.id %}>
                                                 <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
@@ -230,7 +238,7 @@
                                         {% endif %}
                                     {% endfor %}
                                     {% for section_chapter in section.sectionchapter_set.all|dictsort:"sort" %}
-                                        {% if section_chapter.chapter.group == 'XPN' %}
+                                        {% if section_chapter.chapter.enabled and  section_chapter.chapter.group == 'XPN' %}
                                         <li>
                                             <a class="chapter_exercise" href={% url 'courses_app:chapter' collection_id=collection.id course_id=course.id section_id=section.id chapter_id=section_chapter.chapter.id %}>
                                                 <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
@@ -252,7 +260,7 @@
                                         {% endif %}
                                     {% endfor %}
                                     {% for section_chapter in section.sectionchapter_set.all|dictsort:"sort" %}
-                                        {% if section_chapter.chapter.group == 'HW' %}
+                                        {% if section_chapter.chapter.enabled and  section_chapter.chapter.group == 'HW' %}
                                         <li>
                                             <a class="chapter_exercise"href={% url 'courses_app:chapter' collection_id=collection.id course_id=course.id section_id=section.id chapter_id=section_chapter.chapter.id %}>
                                                 <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
@@ -273,7 +281,7 @@
                                         {% endif %}
                                     {% endfor %}
                                     {% for section_chapter in section.sectionchapter_set.all|dictsort:"sort" %}
-                                        {% if section_chapter.chapter.group == 'MP' %}
+                                        {% if section_chapter.chapter.enabled and section_chapter.chapter.group == 'MP' %}
                                         <li>
                                             <a class="chapter_exercise" href={% url 'courses_app:chapter' collection_id=collection.id course_id=course.id section_id=section.id chapter_id=section_chapter.chapter.id %}>
                                                 <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
@@ -302,7 +310,7 @@
                             <div class="uk-accordion-content">
                                 <ul class="vidlist-3">
                                     {% for section_chapter in section.sectionchapter_set.all|dictsort:"sort" %}
-                                        {% if section_chapter.chapter.group == 'RL' %}
+                                        {% if section_chapter.chapter.enabled and section_chapter.chapter.group == 'RL' %}
                                         <li>
                                             <a class="chapter_video" href={% url 'courses_app:chapter' collection_id=collection.id course_id=course.id section_id=section.id chapter_id=section_chapter.chapter.id %}>
                                                 <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
@@ -323,7 +331,7 @@
                                         {% endif %}
                                     {% endfor %}
                                     {% for section_chapter in section.sectionchapter_set.all|dictsort:"sort" %}
-                                        {% if section_chapter.chapter.group == 'RF' %}
+                                        {% if section_chapter.chapter.enabled and section_chapter.chapter.group == 'RF' %}
                                         <li>
                                             <a class="chapter_video" href={% url 'courses_app:chapter' collection_id=collection.id course_id=course.id section_id=section.id chapter_id=section_chapter.chapter.id %}>
                                                 <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
@@ -352,7 +360,7 @@
                             <div class="uk-accordion-content">
                                 <ul class="vidlist-3">
                                     {% for section_chapter in section.sectionchapter_set.all|dictsort:"sort" %}
-                                        {% if section_chapter.chapter.group == 'DC' %}
+                                        {% if section_chapter.chapter.enabled and section_chapter.chapter.group == 'DC' %}
                                         <li>
                                             <a class="chapter_daily_challenge" href={% url 'courses_app:chapter' collection_id=collection.id course_id=course.id section_id=section.id chapter_id=section_chapter.chapter.id %}>
                                                 <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
@@ -390,6 +398,43 @@
     // Update Markdown Tables to Bootstrap Tables - Jonathan
     [].forEach.call(document.getElementsByTagName("table"), function (el) {el.className += "table table-striped"});
 
+    let make_toc = function(){
+        var toc = "";
+        var level = 0;
+
+        document.getElementById("chapter-contents").innerHTML =
+            document.getElementById("chapter-contents").innerHTML.replace(
+                /<h([\d])>([^<]+)<\/h([\d])>/gi,
+                function (str, openLevel, titleText, closeLevel) {
+                    if (openLevel != closeLevel) {
+                        return str;
+                    }
+
+                    if (openLevel > level) {
+                        toc += (new Array(openLevel - level + 1)).join("<ul>");
+                    } else if (openLevel < level) {
+                        toc += (new Array(level - openLevel + 1)).join("</ul>");
+                    }
+
+                    level = parseInt(openLevel);
+
+                    var anchor = titleText.replace(/ /g, "_");
+                    toc += "<li><a href=\"#" + anchor + "\">" + titleText
+                        + "</a></li>";
+
+                    return "<h" + openLevel + "><a name=\"" + anchor + "\">"
+                        + titleText + "</a></h" + closeLevel + ">";
+                }
+            );
+
+        if (level) {
+            toc += (new Array(level + 1)).join("</ul>");
+        }
+
+        document.getElementById("toc").innerHTML += toc;
+    };
+    // window.setTimeout(function(){make_toc()}, 0)
+    
 </script>
 
 <script>

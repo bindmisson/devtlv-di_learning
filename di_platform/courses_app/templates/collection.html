@@ -40,7 +40,7 @@
 
         <ul class="course-path-level" uk-accordion>
             {% for collection_course in collection.collectioncourse_set.all|dictsort:"sort" %}
-            <li class="uk-open">
+            <li class="uk">
                 <a class="uk-accordion-title" id="course_accordion_course_id_{{collection_course.course.id}}" href="#">
                     {% if forloop.counter <= collection.total_weeks %}Week {{ forloop.counter }} - {% endif %}{{ collection_course.course.title }}
                 </a>
@@ -95,9 +95,8 @@
     let run_target = function(){
         course_id="{{course_id}}"
         if (course_id == "None") 
-        return;
+            return;
         scroll_target = document.getElementById('course_accordion_course_id_'+course_id);
-        scroll_target.click(); //to close all other accordians
         scroll_target.click(); //to open current accordian
         scroll_target.scrollIntoView({behavior: "smooth", block: "center"});
     }    
