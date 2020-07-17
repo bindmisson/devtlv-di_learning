@@ -19,34 +19,36 @@ class Chapter(models.Model):
     ]
     title = models.CharField(max_length=38, default='', help_text="(Max 38 Characters)")
     tags = models.CharField(max_length=100, default='', null=True, blank=True, help_text="So admins can identify chapters better")
-    description = models.TextField(null=True, blank=True, default='')
     group = models.CharField(max_length=20, choices=GROUP_CHOICES, default='XP')
     points_value = models.IntegerField(null=True, blank=True, default=5)
     mandatory = models.BooleanField(default=False)
+    description = models.TextField(null=True, blank=True, default='')
     text = models.TextField(null=True, blank=True, default='')
     code = models.TextField(null=True, blank=True, default='')
     exercise = models.TextField(null=True, blank=True, default='')
+    enabled = models.BooleanField(default=True)
 
     def __repr__(self):
         return f'<Chapter {self.title}>'
 
     def __str__(self):
-        return self.title + (f' <Tags> {self.tags}' if self.tags else '')
+        return self.title + (f' <TAGS> {self.tags}' if self.tags else '')
 
 
 class Section(models.Model):
     title = models.CharField(max_length=264, default='')
     tags = models.CharField(max_length=100, default='', null=True, blank=True, help_text="So admins can identify sections better")
-    short_description = models.CharField(max_length=60, default='', help_text="(Max 60 Characters)")
-    description = models.TextField(default='')
     thumbnail = models.ImageField(default='default.jpg', upload_to='images/thumbnails/section', null=True, blank=True)
+    short_description = models.CharField(max_length=60, default='', help_text="(Max 60 Characters)")
+    description = models.TextField(default='', null=True, blank=True)
     chapters = models.ManyToManyField(Chapter, blank=True, related_name="sections", through='SectionChapter')
+    enabled = models.BooleanField(default=True)
 
     def __repr__(self):
         return f'<Section {self.title}>'
 
     def __str__(self):
-        return self.title + (f' <Tags> {self.tags}' if self.tags else '')
+        return self.title + (f' <TAGS> {self.tags}' if self.tags else '')
 
     def get_thumbnail(self):
         image_path = str(self.thumbnail)
@@ -59,15 +61,16 @@ class Section(models.Model):
 class Course(models.Model):
     title = models.CharField(max_length=264, default='')
     tags = models.CharField(max_length=100, default='', null=True, blank=True, help_text="So admins can identify courses better")
-    description = models.TextField(default='')
     thumbnail = models.ImageField(default='', upload_to='images/thumbnails/course', null=True, blank=True)
+    description = models.TextField(default='', null=True, blank=True)
     sections = models.ManyToManyField(Section, blank=True, related_name="courses", through='CourseSection')
+    enabled = models.BooleanField(default=True)
 
     def __repr__(self):
         return f'<Course {self.title}>'
 
     def __str__(self):
-        return self.title + (f' <Tags> {self.tags}' if self.tags else '')
+        return self.title + (f' <TAGS> {self.tags}' if self.tags else '')
 
     def get_thumbnail(self):
         image_path = str(self.thumbnail)
@@ -81,11 +84,14 @@ class Course(models.Model):
 
 class Collection(models.Model):
     title = models.CharField(max_length=264, default='')
-    description = models.TextField(default='')
     topics = models.CharField(max_length=264, default='', blank=True, null=True, help_text="CSV list - Max 12 items")
     total_weeks = models.IntegerField(default=12)
     thumbnail = models.ImageField(default='default.jpg', upload_to='images/thumbnails/collection', null=True, blank=True)
+    description = models.TextField(default='', null=True, blank=True)
     courses = models.ManyToManyField(Course, blank=True, related_name="collections", through="CollectionCourse")
+    enabled = models.BooleanField(default=True)
+
+    
     def __repr__(self):
         return f'<Collection {self.title}>'
 
@@ -114,7 +120,6 @@ class CourseSection(models.Model):
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     sort = models.IntegerField(blank=True, default=0)
-
 
 class CollectionCourse(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
