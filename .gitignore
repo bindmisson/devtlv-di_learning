@@ -46,6 +46,7 @@ env/
 !**/migrations/__init__.py
 
 # Non essential static files
+di_platform/staticfiles/*
 di_platform/media/*
 di_platform/static/images/profile/*/
 di_platform/static/martor/
