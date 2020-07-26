@@ -26,7 +26,7 @@ def user_can_access_collection(user, collection):
     return collection in get_user_collections(user)
 
 def content_file_name(instance, filename=''):
-    return '/'.join(['images/profile_pictures', "{}_{}".format(instance.user.id, instance.user.username), filename])
+    return '/'.join(['staticfiles/media/profile_pictures', "{}_{}".format(instance.user.id, instance.user.username), filename])
 
 
 def compress(image):
@@ -72,7 +72,7 @@ class Profile(models.Model):
         new_image_name = self.get_image_name(str(self.profile_picture))
 
         filename = content_file_name(self, new_image_name)
-        tocheck = '/'.join(['media/images/profile_pictures', "{}_{}".format(self.user.id, self.user.username), old_image_name])
+        tocheck = '/'.join(['staticfiles/media/profile_pictures', "{}_{}".format(self.user.id, self.user.username), old_image_name])
         if os.path.isfile(tocheck):
             os.remove(tocheck)
             new_image = compress(self.profile_picture)
@@ -81,8 +81,8 @@ class Profile(models.Model):
     def get_profile_picture(self):
         filename = self.get_image_name(str(self.profile_picture))
         path = content_file_name(self, filename)
-        if os.path.isfile(os.path.join(settings.MEDIA_ROOT, path)):
-            return path
+        if os.path.isfile(os.path.join(path)):
+            return path.replace("staticfiles",'')
 
         return 'theme/images/avatars/home-profile.jpg'
         

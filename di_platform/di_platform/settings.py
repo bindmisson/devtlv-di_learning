@@ -30,7 +30,7 @@ SECRET_KEY = '5z!@&3*&9kv(1^-1unepmcex0c4kd073$g4!l@u05j_4p@eu0u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -84,22 +84,22 @@ WSGI_APPLICATION = 'di_platform.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'di_course_refactor',
-#         'HOST': 'localhost',
-#         'USER': 'postgres',
-#         'PASSWORD': 'postgres'
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'di_course_refactor',
+        'HOST': 'localhost',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres'
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 
 # Password validation
@@ -148,7 +148,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'media')
+    # os.path.join(BASE_DIR, 'media')
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
@@ -204,5 +204,5 @@ MESSAGE_TAGS = {
     messages.ERROR: '#606A7B',
 }
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'

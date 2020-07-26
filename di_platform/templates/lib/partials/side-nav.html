@@ -14,7 +14,9 @@
     </div>
 
     <ul>
+        {% if request.user|has_group:"admin" or user.profile.program_id %}
         <li><a href="/leaderboards"> <i class="icon-feather-star"></i> <span class="tooltips">Leaderboard</span></a></li>
+        {% endif %}
         <li><a href="http://slack.developers.institute" target="_blank"> <i class="icon-feather-slack"></i> <span class="tooltips">Slack</span></a></li>
         <li><a href="http://blog.developers.institute" target="_blank"> <i class="uil-file-alt"></i> <span class="tooltips">Blog</span></a></li>
         <li>

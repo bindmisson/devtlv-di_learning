@@ -43,7 +43,7 @@
         <div class="uk-width-3-4@m bg-white">
             
             <!-- video description contents -->
-            <div class="p-lg-5 p-3">
+            <div class="p-lg-5 p-3" style="width:80%; margin:auto;">
                 
                 {% block breadcrumbs %}
                 <div style="margin-top:-27px; margin-bottom:23px;">
@@ -52,7 +52,7 @@
                 {% endblock %}
 
                 <div style="display: flex;">
-                    <div style="width: 80%;">
+                    <div style="width: 70%;">
                         {% if chapter.id %}
                         <h2>{{ chapter.title }}</h2>
                         {% else %}
@@ -60,7 +60,7 @@
                         {% endif %}
                     </div>
                     {% if chapter.id and request.user.profile.program %}
-                    <div style="width: 20%; display: flex; justify-content: flex-end; align-items: center;">
+                    <div style="width: 30%; display: flex; justify-content: flex-end; align-items: center;">
                         {% if chapter.id in done_chapters %}
                         <span class="btn btn-success" id="chapter-done" chapter-id="{{chapter.id}}" done="1">Done</span>
                         {% else %}
@@ -84,37 +84,30 @@
         </div>
 
         <div>
-            {% if not chapter%}
-            <h4 class="mt-4"> Description</h4>
-            <p class="lead">{{ section.description|safe_markdown }}</p>
-            {% endif %}
-
+            
             {% if chapter.description %}
-            <h4 class="mt-4"> Description</h4>
-            <p class="lead">{{ chapter.description|safe_markdown }}</p><br>
-            {% endif %}
-
-            <!-- {% if chapter.description %}
             <div id="toc">
                 <h3>Table of Contents</h3>
             </div>
             <hr/>
-            {% endif %} -->
+            {% endif %}
+
             <div id="chapter-contents">
-                {% if chapter.text %}
-                <h4 class="mt-4"> Text</h4>
-                <p class="lead">{{ chapter.text|safe_markdown }}</p><br>
+
+                {% if not chapter%}
+                <p class="lead">{{ section.description|safe_markdown }}</p>
                 {% endif %}
 
-                {% if chapter.code %}
-                <h4 class="mt-4"> Code</h4>
-                <p class="lead">{{ chapter.code|safe_markdown }}</p><br>
+                {% if chapter.content %}
+                <p class="lead">{{ chapter.content|safe_markdown }}</p><br>
                 {% endif %}
 
-                {% if chapter.exercise %}
-                <h4 class="mt-4"> Exercise</h4>
-                <p class="lead">{{ chapter.exercise|safe_markdown }}</p><br>
-                {% endif %}
+                <div>
+                    <hr>
+                    <h1>Feedback</h1>
+                    <p>Tell us what you thought about {% if not chapter%} the section: {{section.title}}{% else %} the chapter: {{chapter.title}}{% endif %}</p>
+                    <div id="feedback" class="cui-embed" style="height: 300px; width: 100%;" data-cui-uid="Gp6szZ" data-cui-avatar="https://images.typeform.com/images/KV5BWnKMavQp" data-cui-mode="widget" data-cui-pill-button-color="#000000"></div><script src="https://public-assets.typeform.com/confab/embed.js" async></script>
+                </div>
             </div>
         </div>
     </div>
@@ -396,8 +389,11 @@
 
 <script>
     // Update Markdown Tables to Bootstrap Tables - Jonathan
-    [].forEach.call(document.getElementsByTagName("table"), function (el) {el.className += "table table-striped"});
+    [].forEach.call(document.getElementsByTagName("table"), function (el) {el.className += "table table-striped table-bordered"});
+</script>
 
+<script>
+    // Auto Build TOC from H1 - H6 Components in 'chapter-contents' div - Jonathan
     let make_toc = function(){
         var toc = "";
         var level = 0;
@@ -433,7 +429,7 @@
 
         document.getElementById("toc").innerHTML += toc;
     };
-    // window.setTimeout(function(){make_toc()}, 0)
+    window.setTimeout(function(){make_toc()}, 0)
     
 </script>
 

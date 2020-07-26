@@ -11,15 +11,7 @@ def get_user_global_info(request):
     if request.user.is_authenticated:
         profile = profile_models.Profile.objects.get(user=request.user)
         collections = course_models.Collection.objects.all()
-
         completion = {}
-#         for collection in collections:
-#             all_chapters = course_models.Chapter.objects.filter(section__course__collection=collection)
-#             done = [chapter for chapter in profile.done_chapters.all() if chapter in all_chapters]
-# # OLD            completion[collection.title] = round(((len(done)/len(all_chapters))*100), 1)
-#             # JMS HACK
-#             completion[collection.title] = round(((len(done)/1)*100), 1)
-
     return {
         'global_profile': profile,
         'global_collections': collections,

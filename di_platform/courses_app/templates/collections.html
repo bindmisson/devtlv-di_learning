@@ -6,12 +6,11 @@
 
 {% block page-content %}
 <div class="page-content">
-    <div class="home-hero" data-src="{% static 'theme/images/home-hero.png' %}" uk-img>
+    <div class="home-hero"  data-src="{% static 'theme/images/home-hero.png' %}" uk-img>
         <div class="uk-width-1-1">
             <div class="page-content-inner uk-position-z-index">
-                <h1>Learn HTML , CSS , iphone <br> Apps & More</h1>
-                <h4 class="my-lg-4"> Learn how to build websites & apps <br> write a code or start a business </h4>
-                <a href="#" class="btn btn-default">Free trailer </a>
+                <h1>Welcome to DI Learning</h1>
+                <h4 class="my-lg-4"> Your learning experience starts here! </h4>
             </div>
         </div>
     </div>
@@ -46,10 +45,10 @@
                                 <div class="course-card-resume-body">
                                     <h5 style="color: red">{% if forloop.counter <= collection.total_weeks %}Week {{ forloop.counter }}{% endif %}&nbsp</h5>
                                     <h5>{{ collection_course.course.title }}</h5>
-                                    <span class="number"> 3/20 </span>
+                                    <!-- <span class="number"> 3/20 </span>
                                     <div class="course-progressbar">
                                         <div class="course-progressbar-filler" style="width:65%"></div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </a>

@@ -22,10 +22,7 @@ class Chapter(models.Model):
     group = models.CharField(max_length=20, choices=GROUP_CHOICES, default='XP')
     points_value = models.IntegerField(null=True, blank=True, default=5)
     mandatory = models.BooleanField(default=False)
-    description = models.TextField(null=True, blank=True, default='')
-    text = models.TextField(null=True, blank=True, default='')
-    code = models.TextField(null=True, blank=True, default='')
-    exercise = models.TextField(null=True, blank=True, default='')
+    content = models.TextField(null=True, blank=True, default='')
     enabled = models.BooleanField(default=True)
 
     def __repr__(self):
@@ -38,7 +35,7 @@ class Chapter(models.Model):
 class Section(models.Model):
     title = models.CharField(max_length=264, default='')
     tags = models.CharField(max_length=100, default='', null=True, blank=True, help_text="So admins can identify sections better")
-    thumbnail = models.ImageField(default='default.jpg', upload_to='images/thumbnails/section', null=True, blank=True)
+    thumbnail = models.ImageField(default='', upload_to='staticfiles/media/thumbnails/section', null=True, blank=True)
     short_description = models.CharField(max_length=60, default='', help_text="(Max 60 Characters)")
     description = models.TextField(default='', null=True, blank=True)
     chapters = models.ManyToManyField(Chapter, blank=True, related_name="sections", through='SectionChapter')
@@ -52,8 +49,8 @@ class Section(models.Model):
 
     def get_thumbnail(self):
         image_path = str(self.thumbnail)
-        if os.path.isfile(os.path.join(settings.MEDIA_ROOT, image_path)):
-            return image_path
+        if os.path.isfile(os.path.join(image_path)):
+            return image_path.replace("staticfiles","")
 
         return 'theme/images/course/1.png'
 
@@ -61,7 +58,7 @@ class Section(models.Model):
 class Course(models.Model):
     title = models.CharField(max_length=264, default='')
     tags = models.CharField(max_length=100, default='', null=True, blank=True, help_text="So admins can identify courses better")
-    thumbnail = models.ImageField(default='', upload_to='images/thumbnails/course', null=True, blank=True)
+    thumbnail = models.ImageField(default='', upload_to='staticfiles/media/thumbnails/course', null=True, blank=True)
     description = models.TextField(default='', null=True, blank=True)
     sections = models.ManyToManyField(Section, blank=True, related_name="courses", through='CourseSection')
     enabled = models.BooleanField(default=True)
@@ -74,8 +71,8 @@ class Course(models.Model):
 
     def get_thumbnail(self):
         image_path = str(self.thumbnail)
-        if os.path.isfile(os.path.join(settings.MEDIA_ROOT, image_path)):
-            return image_path
+        if os.path.isfile(os.path.join(image_path)):
+            return image_path.replace("staticfiles","")
 
         return 'theme/images/course/1.png'
 
@@ -86,7 +83,7 @@ class Collection(models.Model):
     title = models.CharField(max_length=264, default='')
     topics = models.CharField(max_length=264, default='', blank=True, null=True, help_text="CSV list - Max 12 items")
     total_weeks = models.IntegerField(default=12)
-    thumbnail = models.ImageField(default='default.jpg', upload_to='images/thumbnails/collection', null=True, blank=True)
+    thumbnail = models.ImageField(default='', upload_to='staticfiles/media/thumbnails/collection', null=True, blank=True)
     description = models.TextField(default='', null=True, blank=True)
     courses = models.ManyToManyField(Course, blank=True, related_name="collections", through="CollectionCourse")
     enabled = models.BooleanField(default=True)
@@ -100,8 +97,8 @@ class Collection(models.Model):
 
     def get_thumbnail(self):
         image_path = str(self.thumbnail)
-        if os.path.isfile(os.path.join(settings.MEDIA_ROOT, image_path)):
-            return image_path
+        if os.path.isfile(os.path.join(image_path)):
+            return image_path.replace("staticfiles","")
 
         return 'theme/images/course/1.png'
 

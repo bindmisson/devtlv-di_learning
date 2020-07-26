@@ -67,7 +67,7 @@ class ChapterAdmin(admin.ModelAdmin):
   formfield_overrides = {
     models.TextField: { 'widget': AdminMartorWidget },
   }
-  list_display = ('title', 'tags', 'group', 'points_value', 'mandatory', 'description')
+  list_display = ('title', 'tags', 'group', 'points_value', 'mandatory')
   list_editable = ('tags', 'group', 'points_value', 'mandatory')
 
 class CourseAccessAdmin(admin.ModelAdmin):
