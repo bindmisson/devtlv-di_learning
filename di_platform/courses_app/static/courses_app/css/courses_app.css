@@ -23,6 +23,9 @@ td code {
     margin-top: -5px;
 }
 
+iframe {
+    max-width: 100%;
+}
 
 .vidlist-3 li {
     max-width: 99%;
@@ -51,6 +54,10 @@ td code {
 }
 .vidlist-3 li>a.chapter_video:before {
     background: url(../images/remote.png);
+    background-size: contain;
+}
+.vidlist-3 li>a.chapter_survey:before {
+    background: url(../images/survey.png);
     background-size: contain;
 }
 .vidlist-3 li>a.chapter_daily_challenge:before {

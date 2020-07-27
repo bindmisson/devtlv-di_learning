@@ -156,28 +156,6 @@
                                     </li>
                                     {% endif %}
                                     {% endfor %}
-                                
-                                    {% for section_chapter in section.sectionchapter_set.all|dictsort:"sort" %}
-                                    {% if section_chapter.chapter.enabled and section_chapter.chapter.group == 'SR' %}
-                                    <li>
-                                        <a class="chapter_notes" href={% url 'courses_app:chapter' collection_id=collection.id course_id=course.id section_id=section.id chapter_id=section_chapter.chapter.id %}>
-                                            <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
-                                            <div class="chapter-attributes">
-                                                <span class="badge"> </span>
-                                                {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
-                                                {% if section_chapter.chapter.mandatory %}
-                                                <span class="badge badge-outline-danger">Mandatory</span>
-                                                {% endif %}
-                                                {% if section_chapter.chapter.id in done_chapters %}
-                                                <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success">Done</span>
-                                                {% else %}
-                                                <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary">Not Completed</span>
-                                                {% endif%}
-                                            </div> 
-                                        </a>
-                                    </li>
-                                    {% endif %}
-                                    {% endfor %}
                                 </ul>
                             </div>
                         </li>
@@ -343,6 +321,27 @@
                                             </a>
                                         </li>
                                         {% endif %}
+                                    {% endfor %}
+                                    {% for section_chapter in section.sectionchapter_set.all|dictsort:"sort" %}
+                                    {% if section_chapter.chapter.enabled and section_chapter.chapter.group == 'SR' %}
+                                    <li>
+                                        <a class="chapter_survey" href={% url 'courses_app:chapter' collection_id=collection.id course_id=course.id section_id=section.id chapter_id=section_chapter.chapter.id %}>
+                                            <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
+                                            <div class="chapter-attributes">
+                                                <span class="badge"> </span>
+                                                {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
+                                                {% if section_chapter.chapter.mandatory %}
+                                                <span class="badge badge-outline-danger">Mandatory</span>
+                                                {% endif %}
+                                                {% if section_chapter.chapter.id in done_chapters %}
+                                                <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success">Done</span>
+                                                {% else %}
+                                                <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary">Not Completed</span>
+                                                {% endif%}
+                                            </div> 
+                                        </a>
+                                    </li>
+                                    {% endif %}
                                     {% endfor %}
                                 </ul>
                             </div>
