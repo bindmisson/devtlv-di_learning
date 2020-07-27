@@ -1324,8 +1324,9 @@ fieldset {
   padding: 105px 0;
   position: relative;
   background-size: cover;
+  background-repeat: no-repeat;
   height: 530px;
-  background-position: 0px -175px;
+  /* background-position: 0px -175px; */
   align-items: center;
   justify-content: center;
   display: flex;

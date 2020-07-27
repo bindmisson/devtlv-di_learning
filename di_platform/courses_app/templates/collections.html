@@ -6,10 +6,13 @@
 
 {% block page-content %}
 <div class="page-content">
-    <div class="home-hero"  data-src="{% static 'theme/images/home-hero.png' %}" uk-img>
+    <!-- <div class="home-hero"  data-src="{% static 'theme/images/home-hero.png' %}" uk-img> -->
+    <div class="home-hero"  data-src="{% static 'courses_app/images/art.png' %}" uk-img>
         <div class="uk-width-1-1">
             <div class="page-content-inner uk-position-z-index">
-                <h1>Welcome to DI Learning</h1>
+                <h1>Welcome {{request.user.first_name}} <br>To your DI Learning Platform</h1>
+                
+                <h4 class="my-lg-4"> Lifetime Access <br>To our unlimited courses</h4>
                 <h4 class="my-lg-4"> Your learning experience starts here! </h4>
             </div>
         </div>
