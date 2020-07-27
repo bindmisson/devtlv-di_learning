@@ -45,6 +45,7 @@ def can_take_attendance(user):
 class Program(models.Model):
     name = models.CharField(max_length=100)
     collection = models.ForeignKey(Collection, on_delete=models.CASCADE, blank=True, null=True)
+    link = models.URLField(max_length=200, blank=True, null=True)
 
     def __str__(self):
         return self.name

@@ -11,9 +11,11 @@
         <div class="uk-width-1-1">
             <div class="page-content-inner uk-position-z-index">
                 <h1>Welcome {{request.user.first_name}} <br>To your DI Learning Platform</h1>
-                
                 <h4 class="my-lg-4"> Lifetime Access <br>To our unlimited courses</h4>
                 <h4 class="my-lg-4"> Your learning experience starts here! </h4>
+                {% if user.profile.program.link %}
+                <a href="{{user.profile.program.link}}" target="_blank" class="btn btn-danger">Take me to class!</a>
+                {% endif %}
             </div>
         </div>
     </div>
