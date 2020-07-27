@@ -85,7 +85,7 @@
 
         <div>
             
-            {% if chapter.description %}
+            {% if chapter.group == 'CO' %}
             <div id="toc">
                 <h3>Table of Contents</h3>
             </div>
@@ -131,7 +131,7 @@
             <li>
                 <div class="vidlist-3-content" data-simplebar>
                     <ul class="vidlist-3-section" uk-accordion>
-                        <li>
+                        <li class="uk-open">
                             <a class="uk-accordion-title" href="#"> Course Notes </a>
                             <div class="uk-accordion-content">
                                 <!-- vidlist -->
@@ -386,6 +386,19 @@
 
 <!-- small device icon video sidebar -->
 <span class="btn-vidlist-3" uk-toggle="target: #wrapper; cls: is-open"></span>
+
+<script>
+    // Removes empty accordians in right sidebar
+    let accordion_contents = document.getElementsByClassName("uk-accordion-content");
+    //Can't loop through and remove elements from array without controlling for length change
+    for(let i = 0; i < accordion_contents.length; i++){
+        content = accordion_contents[i].getElementsByTagName("li")
+        if (!content.length) {
+            accordion_contents[i].parentNode.remove();
+            i--;  
+        }
+    }
+</script>
 
 <script>
     // Update Markdown Tables to Bootstrap Tables - Jonathan
