@@ -127,11 +127,10 @@
         </ul>
 
         <ul class="uk-switcher uk-overflow-hidden">
-
             <li>
                 <div class="vidlist-3-content" data-simplebar>
                     <ul class="vidlist-3-section" uk-accordion>
-                        <li class="uk-open">
+                        <li>
                             <a class="uk-accordion-title" href="#"> Course Notes </a>
                             <div class="uk-accordion-content">
                                 <!-- vidlist -->
@@ -449,8 +448,11 @@
     // To trigger a click on the correct chapter. This will open the accordion to correct location.
     let run_target = function(){
         chapter_id="{{chapter.id}}"
-        if (chapter_id == "None") 
+        if (chapter_id == "") {
+            let accordion = document.querySelector(".vidlist-3-section > li > a")
+            accordion.click()
             return;
+        }
         click_target = document.getElementById('chapter_id_'+chapter_id)
         click_target.closest("li").classList.add('chapter-active');
         click_target.closest(".uk-accordion-content").previousElementSibling.click();
