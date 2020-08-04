@@ -4,8 +4,8 @@ from courses_app.models import Collection, Chapter
 
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('username', 'full_name', 'program')
-    list_editable = ('program',)
+    list_display = ('username', 'full_name', 'course_access', 'program')
+    list_editable = ('course_access', 'program')
 
     def username(self, obj):
         return f"{obj.user.username}"
