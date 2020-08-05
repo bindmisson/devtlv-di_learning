@@ -31,6 +31,15 @@ def index(request):
 def restricted(request):
     return render(request, 'restricted.html')
 
+def calendar(request):
+    is_admin = request.user.groups.filter(name='admin').exists()
+    if is_admin:
+        programs = Program.objects.all()
+    else:
+        programs = Program.objects.filter(id=request.user.profile.program.id)
+
+    return render(request, 'calendar.html', {'programs': programs})
+
 def leaderboards(request):
     if request.user.groups.filter(name__in=['admin', 'teacher']).exists():
         programs = Program.objects.all()

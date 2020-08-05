@@ -9,6 +9,7 @@ urlpatterns = [
     path('restricted/', views.restricted, name='restricted'),
     path('leaderboard/<int:program_id>/', views.class_leaderboard, name='pk_leaderboard'),
     path('leaderboards/', views.leaderboards, name='leaderboards'),
+    path('calendar/', views.calendar, name='calendar'),
     path('student_attendance/<int:student_id>/<int:program_id>', views.student_attendance, name='student_attendance'),
     path('attendance_table/<int:program_id>', views.attendance_table, name='attendance_table'),
     path('export_to_csv/<int:program_id>', views.export_to_csv, name='export_to_csv'),
