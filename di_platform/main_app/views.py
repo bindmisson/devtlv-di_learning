@@ -70,15 +70,15 @@ def class_leaderboard(request, program_id=None):
     for idx, profile in enumerate(profiles, 1):
         if is_teacher:
             program_participants.update({idx : profile})
-        elif idx < 5:
+        elif idx < 50:
             program_participants.update({idx : profile})
-        elif idx > 5 and request.user.profile not in program_participants.values():
+        elif idx > 50 and request.user.profile not in program_participants.values():
             if profile == request.user.profile:
                 program_participants.update({idx : profile})
                 break
             else:
                 continue
-        elif idx == 5:
+        elif idx == 50:
             if request.user.profile in program_participants.values():
                 program_participants.update({idx : profile})
                 break
