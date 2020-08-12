@@ -38,14 +38,10 @@ class CourseAccessInline(admin.TabularInline):
 
 
 class CollectionAdmin(admin.ModelAdmin):
-  list_display = ('title', 'description','total_weeks', 'jms')
+  list_display = ('title', 'description','total_weeks')
   list_editable = ('total_weeks',)
   inlines = [CollectionCourseInline]
 
-  def jms(self, obj):
-    item = [''] if obj.topics is None else obj.topics.split(',')
-    print(type(item))
-    return item[0]
 
 class CourseAdmin(admin.ModelAdmin):
   formfield_overrides = {
