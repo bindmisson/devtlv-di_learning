@@ -5,9 +5,10 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from profile_app.models import user_can_access_collection, get_user_collections, Program_Done_Chapters
 from django.http import JsonResponse
 from django.db.models import F, Sum
+from di_platform.settings import LOGIN_URL
 
 
-@login_required()
+@login_required(login_url=LOGIN_URL)
 def section(request, collection_id, course_id, section_id, chapter_id=None):
     collection = Collection.objects.get(id=collection_id)
     course = Course.objects.get(id=course_id)
@@ -26,7 +27,7 @@ def section(request, collection_id, course_id, section_id, chapter_id=None):
     else:
         return redirect('/restricted/')
 
-@login_required()
+@login_required(login_url=LOGIN_URL)
 def collection(request, collection_id, course_id=None):
     collection = Collection.objects.filter(id=collection_id).first()
     if user_can_access_collection(request.user, collection):
@@ -34,7 +35,7 @@ def collection(request, collection_id, course_id=None):
     else:
         return redirect('courses_app:collections')
 
-@login_required()
+@login_required(login_url=LOGIN_URL)
 def collections(request):
     return render(request, 'collections.html', {'collections': get_user_collections(request.user)})
 

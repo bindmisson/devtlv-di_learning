@@ -8,9 +8,10 @@ from profile_app.models import Profile
 from profile_app.forms import SignupForm, LoginForm, ProfileEditForm, UserEditForm, ProfilePictureUploadForm
 from courses_app.models import CourseAccess
 from django.contrib.messages import get_messages
+from di_platform.settings import LOGIN_URL
 
 
-@login_required()
+@login_required(login_url=LOGIN_URL)
 # @user_passes_test(can_view_course, login_url='/welcome/')
 def edit_profile_picture(request):
   profile_id = request.user.profile.id
@@ -26,7 +27,7 @@ def edit_profile_picture(request):
   return redirect( 'profile_app:profile-edit' )
 
 
-@login_required()
+@login_required(login_url=LOGIN_URL)
 # @user_passes_test(can_view_course, login_url='/welcome/')
 def edit(request):
   profile = request.user.profile
@@ -64,8 +65,7 @@ def edit(request):
   })
 
 
-@login_required()
-# @user_passes_test(can_view_course, login_url='/welcome/')
+@login_required(login_url=LOGIN_URL)
 def profile(request):
   profile = Profile.objects.get(id=request.user.profile.id)
   return render(request, 'profile.html', context={
@@ -132,8 +132,7 @@ def login_auth(request):
   return render(request, 'login.html', context={ 'login_form': LoginForm(request.POST) })
 
 
-@login_required()
-# @user_passes_test(can_view_course, login_url='/welcome/')
+@login_required(login_url=LOGIN_URL)
 def logout_auth(request):
   logout(request)
   return redirect('profile_app:login')
