@@ -84,6 +84,23 @@
                 </div>
             </div>
         </div>
+
+        <div uk-grid>
+            <div class="uk-width-expand@m">
+                <div class="uk-card-default rounded">
+                    <div class="uk-flex uk-flex-between uk-flex-middle py-3 px-4">
+                        <h6 class="mb-0"> Settings </h6>
+                    </div>
+                    <hr class="m-0">
+                    <div class="uk-child-width-1-1@s uk-grid-small p-4" uk-grid>
+                        <div>
+                            <h6 class="uk-text-bold"> Code Formatting </h6>
+                            {{code_format_value}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     {% block footer %}
     {% include 'lib/partials/footer-small.html'%}
     {% endblock %}

@@ -5,7 +5,8 @@
 
 {%block css %}
 <link rel="stylesheet" href="{% static 'courses_app/css/courses_app.css' %}">
-
+<link rel="stylesheet" href="{% static 'courses_app/css/prism.css' %}">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/{{user.profile.code_formatting}}.min.css">
 
 {% endblock %}
 
@@ -52,7 +53,7 @@
                 {% endblock %}
 
                 <div style="display: flex;">
-                    <div style="width: 70%;">
+                    <div style="width: 80%;">
                         {% if chapter.id %}
                         <h2>{{ chapter.title }}</h2>
                         {% else %}
@@ -465,11 +466,14 @@
 
 {% endblock %}
 
-{% block javascript %}
+{% block javascript-bottom %}
 <script type="text/javascript" src="../assets/syntax-highlighter/scripts/shCore.js"></script>
 <script type="text/javascript" src="../assets/syntax-highlighter/scripts/shBrushJScript.js"></script>
 <script type="text/javascript" src="../assets/syntax-highlighter/scripts/shBrushXml.js"></script>
 <script type="text/javascript">
     SyntaxHighlighter.all()
 </script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 {% endblock %}

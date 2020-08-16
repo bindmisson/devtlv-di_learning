@@ -6,7 +6,7 @@ from profile_app.models import Profile
 class ProfileEditForm(forms.ModelForm):
   class Meta:
     model   = Profile
-    fields  = ('linkedin', 'github', 'bio')
+    fields  = ('linkedin', 'github', 'bio', 'code_formatting')
     widgets = {
       'linkedin': forms.URLInput(attrs={
         'id': 'profile-edit-linkedin',
@@ -25,6 +25,12 @@ class ProfileEditForm(forms.ModelForm):
         'class': 'form-control',
         'placeholder': 'Bio',
         'required': False
+      }),
+      'code_formatting': forms.Select(attrs={
+        'id': 'profile-edit-code_formatting',
+        'class': 'form-control',
+        'required': True,
+        'blank': False
       }),
     }
 

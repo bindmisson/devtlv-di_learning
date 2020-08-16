@@ -5,12 +5,6 @@ p {
     text-align: justify;
 }
 
-code, pre {
-    white-space: pre !important;
-    background-color: #edeff0 !important;
-    color: #f0506e !important;
-}
-
 td code {
     background-color: transparent !important;
 }
@@ -25,6 +19,7 @@ td code {
 
 iframe {
     max-width: 100%;
+    width: 100%;
 }
 
 .vidlist-3 li {

@@ -51,7 +51,24 @@ class Program(models.Model):
     def __str__(self):
         return self.name
 
-
+CODE_FORMATTING_CHOICES = [
+    ('color-brewer', 'Default'),
+    ('monokai-sublime', 'Monokai Sublime'),
+    ('mono-blue', 'Mono Blue'),
+    ('vs', 'VS'),
+    ('atom-one-dark', 'Atom One Dark'),
+    ('atom-one-light', 'Atom One Light'),
+    ('zenburn', 'Zen Burn'),
+    ('agate', 'Agate'),
+    ('androidstudio', 'Android Studio'),
+    ('darcula', 'Darcula'),
+    ('rainbow', 'Rainbow'),
+    ('solarized-dark', 'Solarized Dark'),
+    ('solarized-light', 'Solarized Light'),
+    ('github', 'Github'),
+    ('railscasts', 'Rails Casts'),
+    ('tomorrow', 'Tomorrow'),
+]
 
 
 class Profile(models.Model):
@@ -65,6 +82,7 @@ class Profile(models.Model):
     program = models.ForeignKey(Program, on_delete=models.CASCADE, blank=True, null=True)
     course_access = models.ForeignKey(CourseAccess, on_delete=models.CASCADE, blank=True, null=True)
     bonus_points = models.IntegerField(default=0)
+    code_formatting = models.CharField(max_length=200, choices=CODE_FORMATTING_CHOICES, blank=False, default='color-brewer')
 
     def get_image_name(self, path):
         return os.path.basename(path) 

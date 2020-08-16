@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
-from profile_app.models import Profile
+from profile_app.models import Profile, CODE_FORMATTING_CHOICES
 from profile_app.forms import SignupForm, LoginForm, ProfileEditForm, UserEditForm, ProfilePictureUploadForm
 from courses_app.models import CourseAccess
 from django.contrib.messages import get_messages
@@ -36,6 +36,7 @@ def edit(request):
     profile.bio = request.POST.get('bio')
     profile.linkedin = request.POST.get('linkedin')
     profile.github = request.POST.get('github')
+    profile.code_formatting = request.POST.get('code_formatting')
     profile.save()
 
     request.user.first_name = request.POST.get('first_name')
@@ -48,7 +49,8 @@ def edit(request):
   profile_edit_form = ProfileEditForm(initial={
     'github': profile.github,
     'linkedin': profile.linkedin,
-    'bio': profile.bio
+    'bio': profile.bio,
+    'code_formatting': profile.code_formatting
   })
 
   user_edit_form = UserEditForm(initial={
@@ -67,9 +69,17 @@ def edit(request):
 
 @login_required(login_url=LOGIN_URL)
 def profile(request):
+
   profile = Profile.objects.get(id=request.user.profile.id)
+
+  print(CODE_FORMATTING_CHOICES)
+  for code_format in CODE_FORMATTING_CHOICES:
+    if code_format[0] == profile.code_formatting:
+      code_format_value = code_format[1]
+
   return render(request, 'profile.html', context={
     'profile': profile,
+    'code_format_value': code_format_value
   })
 
 
