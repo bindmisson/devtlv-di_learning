@@ -375,6 +375,27 @@
                                 </ul>
                             </div>
                         </li>
+                        {% if request.user|has_group:"admin" or request.user|has_group:"teacher" %}
+                        <li>
+                            <a class="uk-accordion-title" href="#"> Teachers </a>
+                            <div class="uk-accordion-content">
+                                <ul class="vidlist-3">
+                                    {% for section_chapter in section.sectionchapter_set.all|dictsort:"sort" %}
+                                        {% if section_chapter.chapter.enabled and section_chapter.chapter.group == 'TE' %}
+                                        <li>
+                                            <a class="chapter_notes" href={% url 'courses_app:chapter' collection_id=collection.id course_id=course.id section_id=section.id chapter_id=section_chapter.chapter.id %}>
+                                                <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
+                                                <div class="chapter-attributes">
+                                                    <span class="badge"> </span>
+                                                </div> 
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </li>
+                        {% endif %}
 
                     </ul>
                 </div>

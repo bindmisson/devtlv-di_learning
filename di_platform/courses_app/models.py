@@ -15,7 +15,8 @@ class Chapter(models.Model):
         ('MP', 'Mini Project'),
         ('SR', 'Survey'),
         ('DC', 'Daily Challenge'),
-        ('CO', 'Course')
+        ('CO', 'Course'),
+        ('TE','Teachers')
     ]
     title = models.CharField(max_length=38, default='', help_text="(Max 38 Characters)")
     tags = models.CharField(max_length=100, default='', null=True, blank=True, help_text="So admins can identify chapters better")
