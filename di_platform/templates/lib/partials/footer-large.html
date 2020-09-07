@@ -25,7 +25,9 @@
                     <h5> Resources</h5>
                     <ul>
                         <li><a href="http://referral.developers.institute" target="_blank"> Refer a Friend : Get $$</a></li>
+                        {% if request.user.profile.course_access.name != 'new' %}
                         <li><a href="http://slack.developers.institute/" target="_blank"> Slack </a></li>
+                        {% endif %}
                         <li><a href="https://www.instagram.com/developers.institute/" target="_blank"> Follow us on Instagram </a></li>
                         <li><a href="https://developers.institute" target="_blank"> Developers Institute website </a></li>
                     </ul>
