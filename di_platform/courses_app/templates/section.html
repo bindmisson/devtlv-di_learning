@@ -467,18 +467,12 @@
 </script>
 
 <script>
-    //  "Feedback" element from TypeForm is hijacking focus on load. No way to disable it.
-    //  So I added hidden attribute while it loads and then remove that attribute after 5 seconds
-    //  DOMContentLoaded isn't reliable here. Probably because of this weird theme javascript.
-    //  So I'm fudging it using a setTimeout.
-    //  - Jonathan
-    window.setTimeout(function(){
-        let feedback = document.getElementById("feedback")
-        feedback.removeAttribute("hidden")
-    }, 5000)
-</script>
+    // Typeform element hijacks focus when it loads. No way to control it. 
+    // So we hide it until it has fully loaded, then display it.
+    let load_feedback = function(){
+        document.getElementById("feedback").removeAttribute("hidden")
+    }
 
-<script>
     // To trigger a click on the correct chapter. This will open the accordion to correct location.
     let run_target = function(){
         chapter_id="{{chapter.id}}"
@@ -491,9 +485,14 @@
         click_target.closest("li").classList.add('chapter-active');
         click_target.closest(".uk-accordion-content").previousElementSibling.click();
     }    
-    //  DOMContentLoaded isn't reliable here. Probably because of this weird theme javascript.
-    //  So I'm fudging it using a setTimeout.
-    //  - Jonathan
+
+    window.addEventListener('load',function(){
+        load_feedback()
+    })
+
+    // JMS HACK: DOMContentLoaded isn't reliable here. Probably because of this weird template renders.
+    // And load event is too slow for good UX.
+    // So... fudging it using a setTimeout 0.  Thoughts?
     window.setTimeout(function(){run_target()}, 0)
 </script>
 
