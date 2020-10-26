@@ -86,14 +86,10 @@ WSGI_APPLICATION = 'di_platform.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'di_course_refactor',
-        'HOST': 'localhost',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
@@ -206,3 +202,8 @@ MESSAGE_TAGS = {
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # MEDIA_URL = '/media/'
+
+MJ_APIKEY_PUBLIC = '957bf997ff05943eb075420a000e2503'
+MJ_APIKEY_PRIVATE = '6f655bbac39d8423ec1e9f35cbcf8c7a'
+MJ_SENDER_EMAIL = 'avner@developers.institute'
+LOGIN_URL = 'login'

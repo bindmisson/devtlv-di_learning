@@ -1,0 +1,34 @@
+{% extends "lib/base.html" %}
+{% block page-content %}
+  <div class="row mt-5">
+    <div class="col-4"></div>
+    <div class="col-4">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="text-center">
+            <h2 class="text-center">Forgot Password?</h2>
+            <p>You can reset your password here.</p>
+            {% if messages %}
+                {% for message in messages %}
+                  <li {% if message.tags %} class="list-group-item list-group-item-danger {{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+              {% endif %}
+            <div class="panel-body">
+              <form autocomplete="off" class="form" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                  <div class="input-group">
+                    <input id="email" name="email" placeholder="email address" class="form-control"  type="email">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button name="recover-submit" class="btn btn-lg btn-primary btn-block" type="submit">Reset Password</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
