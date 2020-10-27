@@ -67,15 +67,15 @@
                 </div>
 
                 <div class="mt-4 uk-flex-middle uk-grid-small" uk-grid>
-                    <div class="uk-width-expand@s">
-                        Don't have account? <a href="/profile/signup" tabindex="4" class="text-primary">Sign up</a>
-                        <br>
-                        Forgot your password? <a href="{% url 'profile_app:start_password_reset' %}" tabindex="4" class="text-primary">Click Me!</a>
-
-                    </div>
-
                     <div class="uk-width-auto@s">
                         <button type="submit" class="btn btn-default" tabindex="3">Login</button>
+                    </div> 
+                </div>
+                <div class="mt-4 uk-flex-middle uk-grid-small" uk-grid>
+                    <div class="uk-width-expand@s">
+                        <a href="{% url 'profile_app:start_password_reset' %}" tabindex="5" class="mt-2 small text-primary">Forgot your password?</a>
+                    </div>
+                        <strong>New here? &nbsp<a href="/profile/signup" tabindex="4" class="text-primary">Sign up!</a></strong>
                     </div>
                 </div>
 
