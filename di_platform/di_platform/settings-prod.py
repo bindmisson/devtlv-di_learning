@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR   = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,10 +26,9 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 SECRET_KEY = '5z!@&3*&9kv(1^-1unepmcex0c4kd073$g4!l@u05j_4p@eu0u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['di-learning.com', 'www.di-learning.com', '178.62.202.135', 'localhost']
-
+ALLOWED_HOSTS = ['.di-learning.com', 'www.learn.di-learning.com', '51.210.111.107']
 
 # Application definition
 INSTALLED_APPS = [
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'courses_app',
     'profile_app',
     'main_app',
+    'prospect_app'
 ]
 
 MIDDLEWARE = [
@@ -59,7 +60,7 @@ ROOT_URLCONF = 'di_platform.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -81,14 +82,13 @@ WSGI_APPLICATION = 'di_platform.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'di_learning_platform',
+        'NAME': 'di_learning',
         'USER': 'dilearninguser',
         'PASSWORD': 'O5IJUKZrh4GJTWiwSIekNtrQm7dsmZXD77i2IaDJ8xufswqFCykdvM9Ae62mXyJr',
         'HOST': 'localhost',
         'PORT': '',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -135,9 +135,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    STATIC_DIR,
+    os.path.join(BASE_DIR, 'static'),
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+#LOGIN
+LOGIN_URL = 'login'
+
+#EMAIL
+MJ_APIKEY_PUBLIC = '957bf997ff05943eb075420a000e2503'
+MJ_APIKEY_PRIVATE = '6f655bbac39d8423ec1e9f35cbcf8c7a'
+MJ_SENDER_EMAIL = 'avner@developers.institute'
 
 # Martor Markdown Editor config
 # Project and docs: https://github.com/agusmakmun/django-markdown-editor
@@ -181,6 +189,16 @@ MARTOR_SEARCH_USERS_URL = '/martor/search-user/' # default
 # Markdown Extensions
 MARTOR_MARKDOWN_BASE_EMOJI_URL = 'https://assets-cdn.github.com/images/icons/emoji/' # default
 MARTOR_MARKDOWN_BASE_MENTION_URL = 'https://python.web.id/author/' # default (change this)
+
+
+#Messaging
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: '#606A7B',
+}
 
 #Logging 
 

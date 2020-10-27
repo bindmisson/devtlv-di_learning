@@ -13,13 +13,11 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 from django.contrib.messages import constants as messages
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR   = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE_ROOT  = os.path.dirname(os.path.realpath(__file__))
-# STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -28,10 +26,9 @@ SITE_ROOT  = os.path.dirname(os.path.realpath(__file__))
 SECRET_KEY = '5z!@&3*&9kv(1^-1unepmcex0c4kd073$g4!l@u05j_4p@eu0u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = ['.di-learning.com', 'www.learn.di-learning.com', '51.210.111.107']
 
 # Application definition
 INSTALLED_APPS = [
@@ -67,12 +64,10 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'main_app.context_processors.get_user_global_info',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.static'
             ],
         },
     },
@@ -86,17 +81,14 @@ WSGI_APPLICATION = 'di_platform.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'di_learning',
+        'USER': 'dilearninguser',
+        'PASSWORD': 'O5IJUKZrh4GJTWiwSIekNtrQm7dsmZXD77i2IaDJ8xufswqFCykdvM9Ae62mXyJr',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -144,9 +136,16 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    # os.path.join(BASE_DIR, 'media')
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+#LOGIN
+LOGIN_URL = 'login'
+
+#EMAIL
+MJ_APIKEY_PUBLIC = '957bf997ff05943eb075420a000e2503'
+MJ_APIKEY_PRIVATE = '6f655bbac39d8423ec1e9f35cbcf8c7a'
+MJ_SENDER_EMAIL = 'avner@developers.institute'
 
 # Martor Markdown Editor config
 # Project and docs: https://github.com/agusmakmun/django-markdown-editor
@@ -192,6 +191,7 @@ MARTOR_MARKDOWN_BASE_EMOJI_URL = 'https://assets-cdn.github.com/images/icons/emo
 MARTOR_MARKDOWN_BASE_MENTION_URL = 'https://python.web.id/author/' # default (change this)
 
 
+#Messaging
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
     messages.INFO: 'alert-info',
@@ -200,10 +200,23 @@ MESSAGE_TAGS = {
     messages.ERROR: '#606A7B',
 }
 
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# MEDIA_URL = '/media/'
+#Logging 
 
-MJ_APIKEY_PUBLIC = '957bf997ff05943eb075420a000e2503'
-MJ_APIKEY_PRIVATE = '6f655bbac39d8423ec1e9f35cbcf8c7a'
-MJ_SENDER_EMAIL = 'avner@developers.institute'
-LOGIN_URL = 'login'
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
