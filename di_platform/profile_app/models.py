@@ -21,7 +21,11 @@ def get_user_collections(user):
     if user.groups.filter(name__in=['admin']).exists():
         return Collection.objects.all().order_by('title')
 
-    return user.profile.course_access.collections.all().order_by("courseaccesscollection__sort")
+    course_access = user.profile.course_access
+    try:
+        return user.profile.course_access.collections.all().order_by("courseaccesscollection__sort")
+    except:
+        return []
 
 
 def user_can_access_collection(user, collection):
