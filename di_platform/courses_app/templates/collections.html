@@ -22,7 +22,8 @@
     
     <div class="container">
         <!-- course card resume sliders  -->
-        {% for collection in collections|dictsort:"title" %}
+        
+        {% for collection in collections %}
         <div class="section-small">
 
             <div uk-slider="finite: true" class="course-grid-slider">

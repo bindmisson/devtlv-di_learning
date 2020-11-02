@@ -13,10 +13,15 @@ from django.db.models import F, Sum
 from django.db.models.functions import Coalesce
 
 def get_user_collections(user):
+    """
+    Returns collections for logged in user. 
+    For regular users, this is sorted by their course_access.
+    For admins (who don't have a course_access), this is sorted alphabetically by title.
+    """
     if user.groups.filter(name__in=['admin']).exists():
-        return Collection.objects.all()
+        return Collection.objects.all().order_by('title')
 
-    return user.profile.course_access.collections.all()
+    return user.profile.course_access.collections.all().order_by("courseaccesscollection__sort")
 
 
 def user_can_access_collection(user, collection):
@@ -24,6 +29,7 @@ def user_can_access_collection(user, collection):
         return True
 
     return collection in get_user_collections(user)
+
 
 def content_file_name(instance, filename=''):
     return '/'.join(['staticfiles/media/profile_pictures', "{}_{}".format(instance.user.id, instance.user.username), filename])
