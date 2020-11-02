@@ -60,7 +60,7 @@
                                             <a href="/courses/collection/{{collection.id}}/course/{{ collection_course.course.id }}/section/{{ course_section.section.id }}" class="play-button-trigger "> </a>
                                         </div>
                                         <div class="course-card-body">
-                                            <h4 style="color: red">{% if forloop.counter <= 5 %}Day {{ forloop.counter }}{% endif %}&nbsp </h4>
+                                            <h4 style="color: red">{% if forloop.counter <= collection_course.course.total_days %}Day {{ forloop.counter }}{% endif %}&nbsp</h4>
                                             <h4>{{ course_section.section.title }}</h4>
                                             <p> {{ course_section.section.short_description }}</p>
                                             <div style="position:absolute; bottom: 0">

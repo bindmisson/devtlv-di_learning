@@ -59,6 +59,7 @@ class Section(models.Model):
 class Course(models.Model):
     title = models.CharField(max_length=264, default='')
     tags = models.CharField(max_length=100, default='', null=True, blank=True, help_text="So admins can identify courses better")
+    total_days = models.IntegerField(default=5)
     thumbnail = models.ImageField(default='', upload_to='staticfiles/media/thumbnails/course', null=True, blank=True)
     description = models.TextField(default='', null=True, blank=True)
     sections = models.ManyToManyField(Section, blank=True, related_name="courses", through='CourseSection')
