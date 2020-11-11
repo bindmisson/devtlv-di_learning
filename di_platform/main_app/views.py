@@ -48,10 +48,10 @@ def leaderboards(request):
     return redirect('main_app:pk_leaderboard', program_id=request.user.profile.program.id)
 
 def terms(request):
-    return render(request, 'prospect_terms.html')
+    return render(request, 'terms.html')
 
 def privacy(request):
-    return render(request, 'prospect_privacy.html')
+    return render(request, 'privacy.html')
 
 def class_leaderboard(request, program_id=None):
     is_admin = request.user.groups.filter(name='admin').exists()

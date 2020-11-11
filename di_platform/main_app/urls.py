@@ -16,7 +16,7 @@ urlpatterns = [
     path('export_csv_student/<int:program_id>/<int:student_id>', views.export_csv_student, name='export_csv_student'),
     path('planning_teacher/<int:program_id>', views.planning_teacher, name='planning_teacher'),
     path('take_attendance/<int:program_id>', views.take_attendance, name='take_attendance'),
-    path('terms', views.terms, name='terms'),
-    path('privacy', views.privacy, name='privacy'),
+    path('terms/', views.terms, name='terms'),
+    path('privacy/', views.privacy, name='privacy'),
 ]
 
