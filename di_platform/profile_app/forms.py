@@ -4,10 +4,21 @@ from profile_app.models import Profile
 
 
 class ProfileEditForm(forms.ModelForm):
+
+  def __init__(self, *args, **kwargs):
+    super().__init__(*args, **kwargs)
+    self.fields['mobile'] = forms.CharField(max_length=15, required=False)
+
   class Meta:
     model   = Profile
     fields  = ('linkedin', 'github', 'bio', 'code_formatting')
     widgets = {
+      'mobile': forms.TextInput(attrs={
+        'id': 'profile-edit-mobile',
+        'class': 'form-control',
+        'placeholder': 'Mobile',
+        'required': False
+      }),
       'linkedin': forms.URLInput(attrs={
         'id': 'profile-edit-linkedin',
         'class': 'form-control',
@@ -66,6 +77,11 @@ class UserEditForm(forms.ModelForm):
 
 
 class SignupForm(forms.ModelForm):
+
+  def __init__(self, *args, **kwargs):
+    super().__init__(*args, **kwargs)
+    self.fields['mobile'] = forms.CharField(max_length=15)
+
   class Meta:
     model   = User
     fields  = ('first_name', 'last_name', 'username', 'email', 'password')
@@ -94,6 +110,12 @@ class SignupForm(forms.ModelForm):
         'class': 'form-control',
         'placeholder': 'email',
         'required': True
+      }),
+      'mobile': forms.TextInput(attrs={
+        'id': 'signup-mobile',
+        'class': 'form-control',
+        'placeholder': 'mobile phone',
+        'required': False
       }),
       'password': forms.PasswordInput(attrs={
         'id': 'signup-password',

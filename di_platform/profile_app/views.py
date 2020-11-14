@@ -39,6 +39,7 @@ def edit(request):
 
   if request.method == 'POST':
     profile.bio = request.POST.get('bio')
+    profile.mobile = request.POST.get('mobile')
     profile.linkedin = request.POST.get('linkedin')
     profile.github = request.POST.get('github')
     profile.code_formatting = request.POST.get('code_formatting')
@@ -55,7 +56,8 @@ def edit(request):
     'github': profile.github,
     'linkedin': profile.linkedin,
     'bio': profile.bio,
-    'code_formatting': profile.code_formatting
+    'code_formatting': profile.code_formatting,
+    'mobile': profile.mobile
   })
 
   user_edit_form = UserEditForm(initial={
@@ -112,6 +114,7 @@ def signup(request):
     if user is not None:
       Profile.objects.get_or_create(user=user)
       user.profile.course_access = CourseAccess.objects.get(name="new")
+      user.profile.mobile = request.POST.get('mobile')
       user.profile.save()
       login(request, user)
       return redirect('courses_app:collections')

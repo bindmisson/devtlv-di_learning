@@ -83,6 +83,7 @@ CODE_FORMATTING_CHOICES = [
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    mobile = models.CharField(max_length=15, blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
     linkedin = models.CharField(max_length=264, blank=True, null=True)
     github = models.CharField(max_length=264, blank=True, null=True)
