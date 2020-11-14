@@ -79,7 +79,6 @@ def profile(request):
 
   profile = Profile.objects.get(id=request.user.profile.id)
 
-  print(CODE_FORMATTING_CHOICES)
   for code_format in CODE_FORMATTING_CHOICES:
     if code_format[0] == profile.code_formatting:
       code_format_value = code_format[1]
