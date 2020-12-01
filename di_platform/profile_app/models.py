@@ -3,6 +3,9 @@ import os
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.sessions.models import Session
+from django.contrib.auth import user_logged_in
+
 from io import BytesIO
 from PIL import Image
 from django.core.files import File
@@ -11,6 +14,9 @@ from django.db.models.signals import m2m_changed
 from django.dispatch import receiver
 from django.db.models import F, Sum
 from django.db.models.functions import Coalesce
+
+
+
 
 def get_user_collections(user):
     """
@@ -146,3 +152,21 @@ def done_chapters_changed(sender, **kwargs):
     if action == "post_add" or action == "post_remove":
         profile.points_total = Coalesce(Chapter.objects.filter(done_by=profile).aggregate(Sum('points_value'))['points_value__sum'], 0)
         profile.save()
+
+
+# UserSession and remove_other_sessions
+# Designed to prevent multiple logins on the same account.
+# https://stackoverflow.com/questions/50833980/how-to-prevent-multiple-login-in-django
+
+class UserSession(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    session = models.OneToOneField(Session, on_delete=models.CASCADE)
+
+@receiver(user_logged_in)
+def remove_other_sessions(sender, user, request, **kwargs):
+    Session.objects.filter(usersession__user=user).delete()
+    request.session.save()
+    UserSession.objects.get_or_create(
+        user=user,
+        session=Session.objects.get(pk=request.session.session_key)
+    )
