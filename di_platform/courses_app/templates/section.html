@@ -143,13 +143,15 @@
                                             <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
                                             <div class="chapter-attributes">
                                                 <span class="badge"> </span>
-                                                {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
-                                                {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger">Mandatory</span>{% endif %}
+                                                {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-primary">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
+                                                {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger" data-toggle="tooltip" title="Mandatory"><i class="fa fa-star" aria-hidden="true"></i></span>{% endif %}
                                                 {% if section_chapter.chapter.id in done_chapters %}
-                                                <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success">Done</span>
+                                                <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success" data-toggle="tooltip" title="Done"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                 {% else %}
-                                                <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary">Not Completed</span>
+                                                <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary" data-toggle="tooltip" title="Not Completed"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                 {% endif%}
+                                                {% if section_chapter.chapter.self_learning %}<span class="badge badge-outline-info" data-toggle="tooltip" title="Self Learning"><i class="fa fa-graduation-cap" aria-hidden="true"></i></span>{% endif %}
+                                                {% if section_chapter.chapter.advanced %}<span class="badge badge-outline-warning" data-toggle="tooltip" title="Advanced"><i class="fa fa-diamond" aria-hidden="true"></i></span>{% endif %}
                                             </div> 
                                         </a>
                                     </li>
@@ -170,13 +172,15 @@
                                             <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
                                             <div class="chapter-attributes">
                                                 <span class="badge"> </span>
-                                                {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
-                                                {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger">Mandatory</span>{% endif %}
+                                                {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-primary">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
+                                                {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger" data-toggle="tooltip" title="Mandatory"><i class="fa fa-star" aria-hidden="true"></i></span>{% endif %}
                                                 {% if section_chapter.chapter.id in done_chapters %}
-                                                <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success">Done</span>
+                                                <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success" data-toggle="tooltip" title="Done"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                 {% else %}
-                                                <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary">Not Completed</span>
+                                                <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary" data-toggle="tooltip" title="Not Completed"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                 {% endif%}
+                                                {% if section_chapter.chapter.self_learning %}<span class="badge badge-outline-info" data-toggle="tooltip" title="Self Learning"><i class="fa fa-graduation-cap" aria-hidden="true"></i></span>{% endif %}
+                                                {% if section_chapter.chapter.advanced %}<span class="badge badge-outline-warning" data-toggle="tooltip" title="Advanced"><i class="fa fa-diamond" aria-hidden="true"></i></span>{% endif %}
                                             </div> 
                                         </a>
                                     </li>
@@ -197,16 +201,16 @@
                                                 <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
                                                 <div class="chapter-attributes">
                                                     <span class="badge"> </span>
-                                                    {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% else %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
+                                                    {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-primary">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
                                                     <span class="badge badge-outline-warning">XP</span>
-                                                    {% if section_chapter.chapter.mandatory %}
-                                                    <span class="badge badge-outline-danger">Mandatory</span>
-                                                    {% endif %}
+                                                    {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger" data-toggle="tooltip" title="Mandatory"><i class="fa fa-star" aria-hidden="true"></i></span>{% endif %}
                                                     {% if section_chapter.chapter.id in done_chapters %}
-                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success">Done</span>
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success" data-toggle="tooltip" title="Done"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     {% else %}
-                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary">Not Completed</span>
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary" data-toggle="tooltip" title="Not Completed"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     {% endif%}
+                                                    {% if section_chapter.chapter.self_learning %}<span class="badge badge-outline-info" data-toggle="tooltip" title="Self Learning"><i class="fa fa-graduation-cap" aria-hidden="true"></i></span>{% endif %}
+                                                    {% if section_chapter.chapter.advanced %}<span class="badge badge-outline-warning" data-toggle="tooltip" title="Advanced"><i class="fa fa-diamond" aria-hidden="true"></i></span>{% endif %}
                                                 </div> 
                                             </a>
                                         </li>
@@ -219,16 +223,16 @@
                                                 <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
                                                 <div class="chapter-attributes">
                                                     <span class="badge"> </span>
-                                                    {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
+                                                    {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-primary">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
                                                     <span class="badge badge-outline-warning">XP Gold</span>
-                                                    {% if section_chapter.chapter.mandatory %}
-                                                    <span class="badge badge-outline-danger">Mandatory</span>
-                                                    {% endif %}
+                                                    {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger" data-toggle="tooltip" title="Mandatory"><i class="fa fa-star" aria-hidden="true"></i></span>{% endif %}
                                                     {% if section_chapter.chapter.id in done_chapters %}
-                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success">Done</span>
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success" data-toggle="tooltip" title="Done"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     {% else %}
-                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary">Not Completed</span>
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary" data-toggle="tooltip" title="Not Completed"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     {% endif%}
+                                                    {% if section_chapter.chapter.self_learning %}<span class="badge badge-outline-info" data-toggle="tooltip" title="Self Learning"><i class="fa fa-graduation-cap" aria-hidden="true"></i></span>{% endif %}
+                                                    {% if section_chapter.chapter.advanced %}<span class="badge badge-outline-warning" data-toggle="tooltip" title="Advanced"><i class="fa fa-diamond" aria-hidden="true"></i></span>{% endif %}
                                                 </div> 
                                             </a>
                                         </li>
@@ -241,16 +245,16 @@
                                                 <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
                                                 <div class="chapter-attributes">
                                                     <span class="badge"> </span>
-                                                    {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
+                                                    {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-primary">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
                                                     <span class="badge badge-outline-warning">XP Ninja</span>
-                                                    {% if section_chapter.chapter.mandatory %}
-                                                    <span class="badge badge-outline-danger">Mandatory</span>
-                                                    {% endif %}
+                                                    {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger" data-toggle="tooltip" title="Mandatory"><i class="fa fa-star" aria-hidden="true"></i></span>{% endif %}
                                                     {% if section_chapter.chapter.id in done_chapters %}
-                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success">Done</span>
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success" data-toggle="tooltip" title="Done"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     {% else %}
-                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary">Not Completed</span>
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary" data-toggle="tooltip" title="Not Completed"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     {% endif%}
+                                                    {% if section_chapter.chapter.self_learning %}<span class="badge badge-outline-info" data-toggle="tooltip" title="Self Learning"><i class="fa fa-graduation-cap" aria-hidden="true"></i></span>{% endif %}
+                                                    {% if section_chapter.chapter.advanced %}<span class="badge badge-outline-warning" data-toggle="tooltip" title="Advanced"><i class="fa fa-diamond" aria-hidden="true"></i></span>{% endif %}
                                                 </div> 
                                             </a>
                                         </li>
@@ -263,15 +267,15 @@
                                                 <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
                                                 <div class="chapter-attributes">
                                                     <span class="badge"> </span>
-                                                    {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
-                                                    {% if section_chapter.chapter.mandatory %}
-                                                    <span class="badge badge-outline-danger">Mandatory</span>
-                                                    {% endif %}
+                                                    {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-primary">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
+                                                    {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger" data-toggle="tooltip" title="Mandatory"><i class="fa fa-star" aria-hidden="true"></i></span>{% endif %}
                                                     {% if section_chapter.chapter.id in done_chapters %}
-                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success">Done</span>
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success" data-toggle="tooltip" title="Done"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     {% else %}
-                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary">Not Completed</span>
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary" data-toggle="tooltip" title="Not Completed"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     {% endif%}
+                                                    {% if section_chapter.chapter.self_learning %}<span class="badge badge-outline-info" data-toggle="tooltip" title="Self Learning"><i class="fa fa-graduation-cap" aria-hidden="true"></i></span>{% endif %}
+                                                    {% if section_chapter.chapter.advanced %}<span class="badge badge-outline-warning" data-toggle="tooltip" title="Advanced"><i class="fa fa-diamond" aria-hidden="true"></i></span>{% endif %}
                                                 </div> 
                                             </a>
                                         </li>
@@ -284,15 +288,15 @@
                                                 <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
                                                 <div class="chapter-attributes">
                                                     <span class="badge"> </span>
-                                                    {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
-                                                    {% if section_chapter.chapter.mandatory %}
-                                                    <span class="badge badge-outline-danger">Mandatory</span>
-                                                    {% endif %}
+                                                    {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-primary">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
+                                                    {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger" data-toggle="tooltip" title="Mandatory"><i class="fa fa-star" aria-hidden="true"></i></span>{% endif %}
                                                     {% if section_chapter.chapter.id in done_chapters %}
-                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success">Done</span>
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success" data-toggle="tooltip" title="Done"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     {% else %}
-                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary">Not Completed</span>
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary" data-toggle="tooltip" title="Not Completed"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     {% endif%}
+                                                    {% if section_chapter.chapter.self_learning %}<span class="badge badge-outline-info" data-toggle="tooltip" title="Self Learning"><i class="fa fa-graduation-cap" aria-hidden="true"></i></span>{% endif %}
+                                                    {% if section_chapter.chapter.advanced %}<span class="badge badge-outline-warning" data-toggle="tooltip" title="Advanced"><i class="fa fa-diamond" aria-hidden="true"></i></span>{% endif %}
                                                 </div> 
                                             </a>
                                         </li>
@@ -313,15 +317,15 @@
                                                 <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
                                                 <div class="chapter-attributes">
                                                     <span class="badge"> </span>
-                                                    {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
-                                                    {% if section_chapter.chapter.mandatory %}
-                                                    <span class="badge badge-outline-danger">Mandatory</span>
-                                                    {% endif %}
+                                                    {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-primary">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
+                                                    {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger" data-toggle="tooltip" title="Mandatory"><i class="fa fa-star" aria-hidden="true"></i></span>{% endif %}
                                                     {% if section_chapter.chapter.id in done_chapters %}
-                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success">Done</span>
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success" data-toggle="tooltip" title="Done"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     {% else %}
-                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary">Not Completed</span>
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary" data-toggle="tooltip" title="Not Completed"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     {% endif%}
+                                                    {% if section_chapter.chapter.self_learning %}<span class="badge badge-outline-info" data-toggle="tooltip" title="Self Learning"><i class="fa fa-graduation-cap" aria-hidden="true"></i></span>{% endif %}
+                                                    {% if section_chapter.chapter.advanced %}<span class="badge badge-outline-warning" data-toggle="tooltip" title="Advanced"><i class="fa fa-diamond" aria-hidden="true"></i></span>{% endif %}
                                                 </div> 
                                             </a>
                                         </li>
@@ -334,15 +338,15 @@
                                                 <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
                                                 <div class="chapter-attributes">
                                                     <span class="badge"> </span>
-                                                    {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
-                                                    {% if section_chapter.chapter.mandatory %}
-                                                    <span class="badge badge-outline-danger">Mandatory</span>
-                                                    {% endif %}
+                                                    {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-primary">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
+                                                    {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger" data-toggle="tooltip" title="Mandatory"><i class="fa fa-star" aria-hidden="true"></i></span>{% endif %}
                                                     {% if section_chapter.chapter.id in done_chapters %}
-                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success">Done</span>
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success" data-toggle="tooltip" title="Done"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     {% else %}
-                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary">Not Completed</span>
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary" data-toggle="tooltip" title="Not Completed"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     {% endif%}
+                                                    {% if section_chapter.chapter.self_learning %}<span class="badge badge-outline-info" data-toggle="tooltip" title="Self Learning"><i class="fa fa-graduation-cap" aria-hidden="true"></i></span>{% endif %}
+                                                    {% if section_chapter.chapter.advanced %}<span class="badge badge-outline-warning" data-toggle="tooltip" title="Advanced"><i class="fa fa-diamond" aria-hidden="true"></i></span>{% endif %}
                                                 </div> 
                                             </a>
                                         </li>
@@ -363,15 +367,15 @@
                                                 <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
                                                 <div class="chapter-attributes">
                                                     <span class="badge"> </span>
-                                                    {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
-                                                    {% if section_chapter.chapter.mandatory %}
-                                                    <span class="badge badge-outline-danger">Mandatory</span>
-                                                    {% endif %}
+                                                    {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-primary">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
+                                                    {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger" data-toggle="tooltip" title="Mandatory"><i class="fa fa-star" aria-hidden="true"></i></span>{% endif %}
                                                     {% if section_chapter.chapter.id in done_chapters %}
-                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success">Done</span>
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success" data-toggle="tooltip" title="Done"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     {% else %}
-                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary">Not Completed</span>
+                                                    <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary" data-toggle="tooltip" title="Not Completed"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     {% endif%}
+                                                    {% if section_chapter.chapter.self_learning %}<span class="badge badge-outline-info" data-toggle="tooltip" title="Self Learning"><i class="fa fa-graduation-cap" aria-hidden="true"></i></span>{% endif %}
+                                                    {% if section_chapter.chapter.advanced %}<span class="badge badge-outline-warning" data-toggle="tooltip" title="Advanced"><i class="fa fa-diamond" aria-hidden="true"></i></span>{% endif %}
                                                 </div> 
                                             </a>
                                         </li>
@@ -392,13 +396,15 @@
                                             <div id="chapter_id_{{ section_chapter.chapter.id }}" class="chapter-title">{{ section_chapter.chapter.title }}</div>
                                             <div class="chapter-attributes">
                                                 <span class="badge"> </span>
-                                                {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-info">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
-                                                {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger">Mandatory</span>{% endif %}
+                                                {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-primary">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
+                                                {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger" data-toggle="tooltip" title="Mandatory"><i class="fa fa-star" aria-hidden="true"></i></span>{% endif %}
                                                 {% if section_chapter.chapter.id in done_chapters %}
-                                                <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success">Done</span>
+                                                <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success" data-toggle="tooltip" title="Done"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                 {% else %}
-                                                <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary">Not Completed</span>
+                                                <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary" data-toggle="tooltip" title="Not Completed"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                 {% endif%}
+                                                {% if section_chapter.chapter.self_learning %}<span class="badge badge-outline-info" data-toggle="tooltip" title="Self Learning"><i class="fa fa-graduation-cap" aria-hidden="true"></i></span>{% endif %}
+                                                {% if section_chapter.chapter.advanced %}<span class="badge badge-outline-warning" data-toggle="tooltip" title="Advanced"><i class="fa fa-diamond" aria-hidden="true"></i></span>{% endif %}
                                             </div> 
                                         </a>
                                     </li>

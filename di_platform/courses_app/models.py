@@ -25,6 +25,8 @@ class Chapter(models.Model):
     group = models.CharField(max_length=20, choices=GROUP_CHOICES, default='XP')
     points_value = models.IntegerField(null=True, blank=True, default=5)
     mandatory = models.BooleanField(default=False)
+    self_learning = models.BooleanField(default=False)
+    advanced = models.BooleanField(default=False)
     content = models.TextField(null=True, blank=True, default='')
     enabled = models.BooleanField(default=True)
 

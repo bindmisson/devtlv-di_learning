@@ -60,10 +60,10 @@ $(document).ready(function () {
       
       if ($('#chapter-done').attr('done') == 1) {
         button.removeClass('btn-success').addClass('btn-secondary').attr('done', '0').text('Not Completed');
-        badge.removeClass('badge-outline-success').addClass('badge-outline-secondary').text('Not Completed');
+        badge.removeClass('badge-outline-success').addClass('badge-outline-secondary')
       } else {
         button.removeClass('btn-secondary').addClass('btn-success').attr('done', '1').text('Done');
-        badge.removeClass('badge-outline-secondary').addClass('badge-outline-success').text('Done');
+        badge.removeClass('badge-outline-secondary').addClass('badge-outline-success')
       }
     }
   
