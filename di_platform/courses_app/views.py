@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from profile_app.models import user_can_access_collection, get_user_collections, Program_Done_Chapters, Profile
 from django.http import JsonResponse
 from django.db.models import F, Sum
-from .forms import SubmissionForm
 from di_platform.settings import LOGIN_URL
 import json
 
