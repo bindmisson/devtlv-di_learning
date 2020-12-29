@@ -13,6 +13,12 @@ urlpatterns = [
 
     path('completed_chapter/', views.completed_chapter, name='completed_chapter'),
 
+    path('submit_chapter/', views.submit_chapter, name='submit_chapter'),
+    path('update_submission/', views.update_submission, name='update_submission'),
+    
+    path('collection/<int:collection_id>/course/<int:course_id>/section/<int:section_id>/daily_submissions/', views.daily_submissions, name='daily_submissions'),
+
+
     path('paths/', views.paths, name='paths'),
 
     path('test/', views.test, name='test'),

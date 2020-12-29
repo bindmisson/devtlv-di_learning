@@ -109,7 +109,25 @@ class Collection(models.Model):
         return 'theme/images/course/1.png'
 
 
-        
+class Submission(models.Model):
+    SUBMISSION_STATUS = [
+        ('Pending', 'Pending'),
+        ('Pass', 'Pass'),
+        ('Redo', 'Redo'),
+    ]
+    profile = models.ForeignKey('profile_app.Profile', on_delete=models.CASCADE)
+    collection = models.ForeignKey(Collection, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    section = models.ForeignKey(Section, on_delete=models.CASCADE)
+    chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE)
+    program = models.ForeignKey('profile_app.Program', on_delete=models.CASCADE)
+    url = models.URLField(max_length=200, null=False)
+    difficulty = models.IntegerField(default=5)
+    clarity = models.IntegerField(default=5)
+    relevance = models.IntegerField(default=5)
+    time_taken = models.CharField(max_length=6)
+    comment = models.CharField(max_length=250, null=True)
+    status = models.CharField(max_length=15, default='Not Done')
 
 
 # INTERMEDIATE TABLES

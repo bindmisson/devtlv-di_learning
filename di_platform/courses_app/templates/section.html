@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="{% static 'courses_app/css/courses_app.css' %}">
 <link rel="stylesheet" href="{% static 'courses_app/css/prism.css' %}">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/{{user.profile.code_formatting}}.min.css">
-
+<link rel="stylesheet" href="{% static 'courses_app/css/slider.css' %}">   
 {% endblock %}
 
 {% block header %}
@@ -34,6 +34,7 @@
         padding: 0 !important;
         padding-top: 18px !important;
     }
+
 </style>
 {% endblock %}
 
@@ -45,7 +46,6 @@
             
             <!-- video description contents -->
             <div class="p-lg-5 p-3" style="width:80%; margin:auto;">
-                
                 {% block breadcrumbs %}
                 <div style="margin-top:-27px; margin-bottom:23px;">
                     {% include 'lib/partials/breadcrumbs.html'%}
@@ -62,15 +62,27 @@
                     </div>
                     {% if chapter.id and request.user.profile.program %}
                     <div style="width: 30%; display: flex; justify-content: flex-end; align-items: center;">
-                        {% if chapter.id in done_chapters %}
-                        <span class="btn btn-success" id="chapter-done" chapter-id="{{chapter.id}}" done="1">Done</span>
+                        {% if chapter.mandatory %}
+                            {% if submission_status == "Not Done" %}
+                            <span class="btn btn-secondary border border-danger"  id="chapter-submit" chapter-id="{{chapter.id}}" style="display:none;">Submit</span>
+                            {% elif submission_status == "Pending" %}
+                            <span class="btn btn-warning"  id="chapter-submit" chapter-id="{{chapter.id}}" style="display:none">Pending</span>
+                            {% elif submission_status == "Pass" %}
+                            <span class="btn btn-success"  id="chapter-submit" chapter-id="{{chapter.id}}" style="display:none">Done</span>
+                            {% elif submission_status == "Redo" %}
+                            <span class="btn btn-danger"  id="chapter-submit" chapter-id="{{chapter.id}}" style="display:none">Redo</span>
+                        {% endif %}
                         {% else %}
-                        <span class="btn btn-secondary" id="chapter-done" chapter-id="{{chapter.id}}" done="0">Not Completed</span>
+                            {% if chapter.id in done_chapters %}
+                            <span class="btn btn-success"  id="chapter-done" chapter-id="{{chapter.id}}" done="1" style="display:none">Done</span>
+                            {% else %}
+                            <span class="btn btn-secondary" id="chapter-done" chapter-id="{{chapter.id}}" done="0" style="display:none">Not Completed</span>
+                            {% endif %}
                         {% endif %}
                     </div>
                     {% endif %}
                 </div>
-
+                {% if not submissions_page %}
                 <div style="width: 20%;">
                     {% if request.user|has_group:"admin" and not chapter.id %}
                     <sup><a href="{% url 'admin:courses_app_section_change' section.id %}" class="edit-content" >Edit Section</a></sup>
@@ -78,6 +90,7 @@
                     <sup><a href="{% url 'admin:courses_app_chapter_change' chapter.id %}" class="edit-content" >Edit Chapter</a></sup>
                     {% endif %}
                 </div>
+                {% endif %}
 
                 <hr class="my-2">
                 <div  uk-toggle="cls: uk-flex uk-flex-between@m uk-flex-middle; mode: media; media: @m"><div>
@@ -95,20 +108,26 @@
 
             <div id="chapter-contents">
 
-                {% if not chapter%}
-                <p class="lead">{{ section.description|safe_markdown }}</p>
+                {% if submissions_page %}
+                    {% include 'partials/submissions.html' %}
+                {% else %}    
+
+                    {% if not chapter %}
+                    <p class="lead">{{ section.description|safe_markdown }}</p>
+                    {% endif %}
+
+                    {% if chapter.content %}
+                    <p class="lead">{{ chapter.content|safe_markdown }}</p><br>
+                    {% endif %}
+
+                    <div>
+                        <hr>
+                        <h1>Feedback</h1>
+                        <p>Tell us what you thought about {% if not chapter%} the section: {{section.title}}{% else %} the chapter: {{chapter.title}}{% endif %}</p>
+                        <div hidden id="feedback" class="cui-embed" style="height: 300px; width: 100%;" data-cui-uid="Gp6szZ" data-cui-avatar="https://images.typeform.com/images/KV5BWnKMavQp" data-cui-mode="widget" data-cui-pill-button-color="#000000"></div><script src="https://public-assets.typeform.com/confab/embed.js" async></script>
+                    </div>
                 {% endif %}
 
-                {% if chapter.content %}
-                <p class="lead">{{ chapter.content|safe_markdown }}</p><br>
-                {% endif %}
-
-                <div>
-                    <hr>
-                    <h1>Feedback</h1>
-                    <p>Tell us what you thought about {% if not chapter%} the section: {{section.title}}{% else %} the chapter: {{chapter.title}}{% endif %}</p>
-                    <div hidden id="feedback" class="cui-embed" style="height: 300px; width: 100%;" data-cui-uid="Gp6szZ" data-cui-avatar="https://images.typeform.com/images/KV5BWnKMavQp" data-cui-mode="widget" data-cui-pill-button-color="#000000"></div><script src="https://public-assets.typeform.com/confab/embed.js" async></script>
-                </div>
             </div>
         </div>
     </div>
@@ -436,6 +455,23 @@
                         </li>
                         {% endif %}
 
+                        {% if request.user|has_group:"admin" or request.user|has_group:"teacher" or request.user|has_group:"checker"%}
+                        <li>
+                            <a class="uk-accordion-title" href="#"> Submissions </a>
+                            <div class="uk-accordion-content">
+                                <ul class="vidlist-3">
+                                        <li>
+                                            <a class="chapter_notes" href={% url 'courses_app:daily_submissions' collection_id=collection.id course_id=course.id section_id=section.id %}>
+                                                <div id="" class="chapter-title">Daily Submissions</div>
+                                                <div class="chapter-attributes">
+                                                    <span class="badge"> </span>
+                                                </div> 
+                                            </a>
+                                        </li>
+                                </ul>
+                            </div>
+                        </li>
+                        {% endif %}
                     </ul>
                 </div>
             </li>
@@ -533,8 +569,195 @@
     // And load event is too slow for good UX.
     // So... fudging it using a setTimeout 0.  Thoughts?
     window.setTimeout(function(){run_target()}, 0)
+
+
+
+  /*
+  Checking Course
+  */
+  window.addEventListener('load',function(){
+
+    configure_modal()
+
+    const submit_button = document.getElementById('chapter-submit');
+    if (submit_button) {
+        submit_button.addEventListener('click', ()=>{
+            modal_get_submission()
+        })
+    }
+
+    function configure_modal(){
+        const modal_id = 'submit_exercise'
+        const modal = build_modal({
+            header  : "<h5 class='modal-title'>Mandatory Exercise Submission</h5>", 
+            body    : "<strong>Code Url:</strong>\
+                       <input class='form-control' id='exercise_url' name='exercise_url' placeholder='Enter Github link to your code'> \
+                        <div class='row clearfix justify-content-center mt-4'>\
+                            <div class='col-12'>\
+                                <strong>Difficulty</strong>\
+                                <p class='text-muted'>Was this exercise at the appropriate level for your skillset?</p>\
+                                <div class='slider-container '>\
+                                    <div style='display:flex; justify-content:space-evenly; margin: 0 -15px;'>\
+                                        <span>0</span><span>ı</span><span>ı</span><span>ı</span><span>ı</span><span>5</span><span>ı</span><span>ı</span><span>ı</span><span>ı</span><span>10</span>\
+                                    </div>\
+                                    <input type='range' id='difficulty' name='difficulty' class='slider' min='0' max='10'>\
+                                </div>\
+                            </div>\
+                        </div>\
+                        <div class='row clearfix justify-content-center mt-4'>\
+                            <div class='col-12'>\
+                                <strong>Clarity</strong>\
+                                <p class='text-muted'>Were the instructions and language understandable?</p>\
+                                <div class='slider-container '>\
+                                    <div style='display:flex; justify-content:space-evenly; margin: 0 -15px;'>\
+                                        <span>0</span><span>ı</span><span>ı</span><span>ı</span><span>ı</span><span>5</span><span>ı</span><span>ı</span><span>ı</span><span>ı</span><span>10</span>\
+                                    </div>\
+                                    <input type='range' id='clarity' name='clarity' class='slider' min='0' max='10'>\
+                                </div>\
+                            </div>\
+                        </div>\
+                        <div class='row clearfix justify-content-center mt-4'>\
+                            <div class='col-12'>\
+                                <strong>Relevance</strong>\
+                                <p class='text-muted'>Did this exercise reinforce ideas from today's lesson?</p>\
+                                <div class='slider-container '>\
+                                    <div style='display:flex; justify-content:space-evenly; margin: 0 -15px;'>\
+                                        <span>0</span><span>ı</span><span>ı</span><span>ı</span><span>ı</span><span>5</span><span>ı</span><span>ı</span><span>ı</span><span>ı</span><span>10</span>\
+                                    </div>\
+                                    <input type='range' id='relevance' name='relevance' class='slider' min='0' max='10'>\
+                                </div>\
+                            </div>\
+                        </div>\
+                        <div class='row clearfix justify-content-center mt-4'>\
+                            <div class='col-12'>\
+                                <strong>Time Taken</strong>\
+                                <p class='text-muted'>Approximately how long did you spend on this exercise?</p>\
+                                <select class='form-control' id='time_taken' name='time_taken'>\
+                                    <option value='< 10'>Less than 10 minutes</option>\
+                                    <option value='10-20'>10 - 20 minutes</option>\
+                                    <option value='20-30'>20 - 30 minutes</option>\
+                                    <option value='30-40'>30 - 40 minutes</option>\
+                                    <option value='40-50'>40 - 50 minutes</option>\
+                                    <option value='50-60'>50 minutes to 1 hour</option>\
+                                    <option value='> 60'>More than 1 hour</option>\
+                                </select>\
+                            </div>\
+                        </div>\
+                        <div class='row clearfix  mt-4'>\
+                            <div class='col-12'>\
+                                <strong>Comments</strong>\
+                                <p class='text-muted'>Let us know your thoughts about this exercise. What did you like? What did you dislike? What can we improve??</p>\
+                                <div class='slider-container '>\
+                                    <textarea id='comment' name='comment' rows='4' maxlength='250' style='resize: none;' class='form-control'></textarea>\
+                                </div>\
+                            </div>\
+                        </div>",
+            footer  : "<button id='modal_btn_cancel' class='btn btn-secondary' data-dismiss='modal'>Cancel</button>\
+                    <button id='modal_btn_submit' class='btn btn-success'>Submit</button>", 
+            new_id  : modal_id 
+        })
+
+        modal_get_submission = () => {
+            modal.modal('show');
+        }
+
+        isValidHttpUrl = (string) => {
+            let url;
+            try {
+                url = new URL(string);
+            } catch (_) {
+                return false;  
+            }
+
+            return url.protocol === "http:" || url.protocol === "https:";
+        }
+
+        const yes_callback = () => {
+            const token = '{{csrf_token}}';
+            const chapter_id = $('#chapter-submit').attr('chapter-id')
+            const data = getAllInputValuesInModal(modal_id)
+            data['collection_id'] = "{{collection.id}}";
+            data['course_id'] = "{{course.id}}";
+            data['section_id'] = "{{section.id}}";
+            data['chapter_id'] = "{{chapter.id}}";
+            if (!isValidHttpUrl(data['exercise_url'])) {
+                alert("Please enter a valid URL!")
+                return
+            }
+
+            $.ajax({
+                headers: { "X-CSRFToken": token },
+                url: "{% url 'courses_app:submit_chapter' %}",
+                type: 'POST',
+                data: JSON.stringify(data),
+                success: function (json) {
+                    console.log(json)
+                    submit_button.innerText = "Pending"
+                    submit_button.className='btn btn-warning'
+                    modal.modal('hide');
+                },
+                error: function (xhr, errMsg, err) {
+                    alert('Something went wrong!');
+                    console.log(errMsg, err);
+                }
+            })
+            
+        }
+
+
+        $("#modal_btn_submit").on("click", function(){
+            yes_callback();
+        });
+
+        $("#modal_btn_cancel").on("click", function(){
+            modal.modal('hide');
+        });
+
+    }
+    
+
+    $('#chapter-submit').show()
+    $('#chapter-done').show()
+    
+    $('#chapter-done').on('click', function () {
+      let chapter_id = $('#chapter-done').attr('chapter-id')
+      $.ajax({
+        url: '/courses/completed_chapter/',
+        type: 'POST',
+        data: {
+          chapter_id: chapter_id
+        },
+        success: function (json) {
+          checkOrUncheck(chapter_id);
+        },
+        error: function (xhr, errMsg, err) {
+          alert('Something went wrong!');
+          console.log(errMsg, err);
+        }
+      })
+    })
+  
+    function checkOrUncheck(chapter_id) {
+      let button = $('#chapter-done');
+      let badge = $('#status_chapter_id_' + chapter_id);
+      
+      if ($('#chapter-done').attr('done') == 1) {
+        button.removeClass('btn-success').addClass('btn-secondary').attr('done', '0').text('Not Completed');
+        badge.removeClass('badge-outline-success').addClass('badge-outline-secondary')
+      } else {
+        button.removeClass('btn-secondary').addClass('btn-success').attr('done', '1').text('Done');
+        badge.removeClass('badge-outline-secondary').addClass('badge-outline-success')
+      }
+    }
+  })
+  
 </script>
 
+{% endblock %}
+
+{% block modal %}
+    {{block.super}}
+    {% include "lib/partials/modal.html" %}
 {% endblock %}
 
 {% block javascript-bottom %}

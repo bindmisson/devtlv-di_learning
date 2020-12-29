@@ -1,0 +1,109 @@
+<style>
+    #submissions_table a, .uk-link {
+        color: dodgerblue;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    #submissions_table a:hover,
+    .uk-link:hover,
+    .uk-link-toggle:hover .uk-link,
+    .uk-link-toggle:focus .uk-link {
+        color: blue;
+        text-decoration: none;
+    }
+</style>
+
+{% if submissions %}
+<div style="max-width: 400px;">
+<h1>Submissions</h1>
+<table id="submissions_table" style="font-size: 0.8em;">
+    <thead>
+        <th style="min-width: 160px;">Student<br><sub class="text-muted">&nbsp;</sub></th>
+        <th style="min-width: 160px;">Exercise URL<br><sub class="text-muted">Click to open</sub></th>
+        <th>Status<br><sub class="text-muted">&nbsp;</sub></th>
+        <th class='text-center'>Difficulty<br><sub class="text-muted">(0-10)</sub></th>
+        <th class='text-center'>Clarity<br><sub class="text-muted">(0-10)</sub></th>
+        <th class='text-center'>Relevance<br><sub class="text-muted">(0-10)</sub></th>
+        <th class='text-center' style="min-width: 70px;">Time<br><sub class="text-muted">(Minutes)</sub></th>
+        <th style="min-width: 200px; max-width: 400px;">Comment<br><sub class="text-muted">(Hover to view)</sub></th>
+        <th style="min-width: 160px;"></th>
+    </thead>
+    <tbody>
+        
+            {% for submission in submissions %}
+            <tr>
+                <td>{{submission.profile.user.last_name}}, {{submission.profile.user.first_name}} </td>
+                <td><a href="{{submission.url}}" target="_blank">{{submission.chapter.title}}</a></td>
+                {% if submission.status == 'Pass' %}
+                <td><span class="badge badge-success">{{submission.status}}</span></td>
+                {% elif submission.status == 'Redo' %}
+                <td><span class="badge badge-danger">{{submission.status}}</span></td>
+                {% else %}
+                <td><span class="badge badge-warning">{{submission.status}}</span></td>
+                {% endif%}
+                
+                <td class='text-center'>{{submission.difficulty}}</td>
+                <td class='text-center'>{{submission.clarity}}</td>
+                <td class='text-center'>{{submission.relevance}}</td>
+                <td class='text-center'>{{submission.time_taken}}</td>
+                <td title="{{submission.comment}}">{{submission.comment|slice:":50"}}<strong>&nbsp...</strong></td>
+                <td>
+                    <button profile_id="{{submission.profile.id}}" chapter_id="{{submission.chapter.id}}"  class="substatus_pass substatus_button btn btn-sm btn-success">Pass</button>
+                    <button profile_id="{{submission.profile.id}}" chapter_id="{{submission.chapter.id}}"  class="substatus_redo substatus_button btn btn-sm btn-danger">Redo</button>
+                </td>
+            </tr>
+            {% endfor %}
+
+    </tbody>
+</table>
+</div>
+{% else %}
+    <h1>Submissions</h1>
+    <p>No submissions yet.</p>
+{% endif %}
+<script>
+window.addEventListener('load',function(){
+    const fullpage = document.getElementsByClassName('p-lg-5 p-3')[0]
+    fullpage.style.width='100%'
+    fullpage.style.maxWidth='100%'
+
+    const submissions_table = document.getElementById('submissions_table')
+    submissions_table.addEventListener('click', (event)=>{
+        if (!event.target.classList.contains('substatus_button')) return;
+        const status = event.target.classList.contains('substatus_pass') ? "Pass" : "Redo";
+        data = {
+            'status': status,
+            'profile_id': event.target.getAttribute('profile_id'),
+            'chapter_id': event.target.getAttribute('chapter_id')
+        }
+        
+        $.ajax({
+            headers: { "X-CSRFToken": "{{csrf_token}}" },
+            url: "{% url 'courses_app:update_submission' %}",
+            type: 'POST',
+            data: JSON.stringify(data),
+            success: function (json) {
+                if (json['code'] == 500) return;
+                target = event.target.parentNode.parentNode.getElementsByClassName('badge')[0];
+                target.innerText = status
+                target.classList.remove('badge-warning');
+                target.classList.remove('badge-success');
+                target.classList.remove('badge-danger');
+
+                if (json['status'] === "Pass"){
+                    target.classList.add('badge-success');
+                }
+                if (json['status'] === "Redo"){
+                    target.classList.add('badge-danger');
+                }
+            },
+            error: function (xhr, errMsg, err) {
+                alert('Something went wrong!');
+                console.log(errMsg, err);
+            }
+        })
+    })
+    
+})
+</script>

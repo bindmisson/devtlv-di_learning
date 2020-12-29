@@ -1,0 +1,60 @@
+<!-- To use a modal, simply include this filec and then call buildmodal, passing in your desired options for 
+    header, body, footer, borders_off and new_id (so that it doesn't clash with other modals) -->
+    
+    
+    <div class="modal fade" id="modal" tabindex="-1" data-backdrop="static" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+      </div>
+      
+      <script>
+      
+      build_modal = (options = {}) => {
+          current_id = ('current_id' in options) ? options['current_id'] : "modal"
+          new_id = options['new_id'] ? options['new_id'] : current_id
+          $("#"+current_id).attr('id', new_id)
+      
+          if ('fade' in options && !options['fade']) $("#"+new_id).removeClass('fade')
+      
+          if ('header' in options) $("#"+new_id + " " + ".modal-header").html(options['header'])
+          if ('body' in options) $("#"+new_id + " " + ".modal-body").html(options['body'])
+          if ('footer' in options) $("#"+new_id + " " + ".modal-footer").html(options['footer'])
+          if (options['borders_off']) {
+              $("#"+new_id + " " + ".modal-header").css('border-bottom', 'none')
+              $("#"+new_id + " " + ".modal-footer").css('border-top', 'none')
+          }
+          return $("#"+new_id)
+      }
+      
+      
+      // Helper function to get all data submitted in modal
+      getAllInputValuesInModal = (modal_id) =>  {
+          var obj = {};
+      
+          $('#'+modal_id + ' ' + ':input').each(function(){
+              var key = $(this).attr('id');
+              var type = $(this).prop("type");
+              // checked radios/checkboxes
+              if ((type == "checkbox" || type == "radio") && this.checked) {
+                  obj[key] = $(this).val();
+                  //return arr;
+              }
+              // all other fields, except buttons
+              else if (type != "button" && type != "submit") {
+                  obj[key] = $(this).val();
+                  //return arr;
+              }
+          });
+          return obj;
+      }
+      
+      </script>
+      
