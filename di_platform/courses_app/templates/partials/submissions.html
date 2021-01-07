@@ -33,8 +33,16 @@
         
             {% for submission in submissions %}
             <tr>
-                <td>{{submission.profile.user.last_name}}, {{submission.profile.user.first_name}} </td>
-                <td><a href="{{submission.url}}" target="_blank">{{submission.chapter.title}}</a></td>
+                <td>
+                    <strong>{{submission.profile.user.last_name}}, {{submission.profile.user.first_name}}</strong>
+                    <br>
+                    <small>{{submission.profile.program}}</small>
+                </td>
+                <td>
+                    <strong><a href="{{submission.url}}" target="_blank">{{submission.chapter.title}}</a></strong>
+                    <br>
+                    <small>{{submission.submitted_at}}</small>
+                </td>
                 {% if submission.status == 'Pass' %}
                 <td><span class="badge badge-success">{{submission.status}}</span></td>
                 {% elif submission.status == 'Redo' %}

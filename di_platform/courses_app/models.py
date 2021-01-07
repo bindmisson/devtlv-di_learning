@@ -128,6 +128,7 @@ class Submission(models.Model):
     time_taken = models.CharField(max_length=6)
     comment = models.CharField(max_length=250, null=True)
     status = models.CharField(max_length=15, default='Not Done')
+    submitted_at = models.DateTimeField(auto_now_add=True)
 
 
 # INTERMEDIATE TABLES
