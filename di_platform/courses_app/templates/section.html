@@ -1,9 +1,10 @@
 {% extends 'lib/base.html' %}
 {% load user_group_check %}
+{% load get_progress %}
 {% load static %}
 {% load martortags %}
 
-{%block css %}
+{% block css %}
 <link rel="stylesheet" href="{% static 'courses_app/css/courses_app.css' %}">
 <link rel="stylesheet" href="{% static 'courses_app/css/prism.css' %}">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/{{user.profile.code_formatting}}.min.css">
@@ -61,7 +62,7 @@
                         {% endif %}
                     </div>
                     {% if chapter.id and request.user.profile.program %}
-                    <div style="width: 30%; display: flex; justify-content: flex-end; align-items: center;">
+                    <div section-id="{{section.id}}" style="width: 30%; display: flex; justify-content: flex-end; align-items: center;">
                         {% if chapter.mandatory %}
                             {% if submission_status == "Not Done" %}
                             <span class="btn btn-secondary border border-danger"  id="chapter-submit" chapter-id="{{chapter.id}}" style="display:none;">Submit</span>
@@ -140,6 +141,15 @@
 <div class="uk-width-1-4@m uk-overflow-hidden vidlist-3-container">
     <div uk-sticky >
         <h5 class="bg-gradient-grey text-white py-4 p-3 mb-0">{{ section.title }}</h5>
+        {% if request.user.profile.program.collection == collection and request.user|get_section_progress:section >= 0 %}
+            <div class="progress">
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{request.user|get_section_progress:section}}"
+                    aria-valuemin="0" aria-valuemax="100" style="width:{{request.user|get_section_progress:section}}%; background:#17d292; font-size:1.2em; color: #949393; font-weight:bold;">
+                    <span style="padding-left: 15px;" id="progress-bar-text">{{request.user|get_section_progress:section}}% Complete</span>
+                </div>
+            </div>
+        {% endif %}
+
         <ul class="uk-child-width-expand mb-0"
             uk-switcher="animation: uk-animation-slide-right-small, uk-animation-slide-left-small"
             uk-tab>
@@ -721,22 +731,32 @@
     
     $('#chapter-done').on('click', function () {
       let chapter_id = $('#chapter-done').attr('chapter-id')
+      let section_id = $('#chapter-done').parent().attr('section-id')
+      
       $.ajax({
         url: '/courses/completed_chapter/',
         type: 'POST',
         data: {
-          chapter_id: chapter_id
+          'chapter_id': chapter_id,
+          'section_id': section_id,
         },
-        success: function (json) {
+        success: function (data) {
           checkOrUncheck(chapter_id);
+          updateProgressBar(data['progress']);
         },
         error: function (xhr, errMsg, err) {
-          alert('Something went wrong!');
+          alert('Whoops, something went wrong!\n\nRefresh the page and try again.');
           console.log(errMsg, err);
         }
       })
     })
   
+    function updateProgressBar(progress){
+        const progress_bar = document.getElementsByClassName('progress-bar')[0]
+        progress_bar.style.width = progress+"%"
+        document.getElementById('progress-bar-text').innerText = progress+"% Complete"
+    }
+
     function checkOrUncheck(chapter_id) {
       let button = $('#chapter-done');
       let badge = $('#status_chapter_id_' + chapter_id);

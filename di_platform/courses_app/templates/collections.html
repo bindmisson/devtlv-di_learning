@@ -1,7 +1,7 @@
 {% extends 'lib/base.html' %}
 {% load static %}
 {% load user_group_check %}
-
+{% load get_progress %}
 
 
 {% block page-content %}
@@ -29,6 +29,8 @@
         </div>
     </div>
     
+   {% include 'partials/accomplishments.html'%}
+    
     <div class="container">
         <!-- course card resume sliders  -->
         {% if collections %}
@@ -43,6 +45,7 @@
                                 <h4 class="uk-text-truncate">{{ collection.title }}</h4>
                             </a>
                         </div>
+                        
                         <div class="grid-slider-header-link">
                             <a href="#" class="slide-nav-prev" uk-slider-item="previous"></a>
                             <a href="#" class="slide-nav-next" uk-slider-item="next"></a>
@@ -59,11 +62,15 @@
                                     </div>
                                     <div class="course-card-resume-body">
                                         <h5 style="color: red">{% if forloop.counter <= collection.total_weeks %}Week {{ forloop.counter }}{% endif %}&nbsp</h5>
-                                        <h5>{{ collection_course.course.title }}</h5>
-                                        <!-- <span class="number"> 3/20 </span>
-                                        <div class="course-progressbar">
-                                            <div class="course-progressbar-filler" style="width:65%"></div>
-                                        </div> -->
+                                        <h5 style="height: 42px;">{{ collection_course.course.title }}</h5>
+
+                                        {% if request.user.profile.program.collection == collection and request.user|get_course_progress:collection_course.course >= 0%}
+                                            <h5>{{request.user|get_course_progress:collection_course.course}}% Complete</h5>
+                                            <div class="course-progressbar">
+                                                <div class="course-progressbar-filler" style="width:{{request.user|get_course_progress:collection_course.course}}%"></div>
+                                            </div>
+                                        {% endif %}
+
                                     </div>
                                 </div>
                             </a>
@@ -92,14 +99,14 @@
 {% endblock %}
 
 {% block css %}
-    <style>
-        .switchup-orange {
-            color: #d43e2d
-        }
+<style>
+    .switchup-orange {
+    color: #d43e2d
+}
 
-        .switchup-badge {
-            display: flex; flex-direction: column; align-items: center;
-            padding : 15px 15px 0 15px;
-        }
-    </style>
+.switchup-badge {
+    display: flex; flex-direction: column; align-items: center;
+    padding : 15px 15px 0 15px;
+}
+</style>
 {% endblock %}

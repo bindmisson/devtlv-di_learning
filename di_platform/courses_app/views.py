@@ -7,7 +7,21 @@ from django.http import JsonResponse
 from django.db.models import F, Sum
 from di_platform.settings import LOGIN_URL
 import json
+from math import ceil
 
+def calculate_section_progress(user, section):
+    # All chapters in the section excluding group COurses and TEachers.
+    section_total_points = section.chapters.all().exclude(group__in=["CO", "TE"]).aggregate(Sum('points_value'))
+    # Which of the above has the user completed?
+    section_chapters_completed = section.chapters.all().exclude(group__in=["CO", "TE"]) & user.profile.done_chapters.filter(program_done_chapters__program=user.profile.program)
+    # Add the points of completed
+    section_done_points = section_chapters_completed.aggregate(Sum('points_value')) 
+
+    section_total_points = section_total_points["points_value__sum"] or -1 # In case of "None"
+    section_done_points = section_done_points["points_value__sum"] or 0 # In case of "None"
+    
+    return (section_done_points, section_total_points)
+   
 
 @login_required(login_url=LOGIN_URL)
 def section(request, collection_id, course_id, section_id, chapter_id=None):
@@ -27,6 +41,7 @@ def section(request, collection_id, course_id, section_id, chapter_id=None):
         if submission:
             submission_status = submission[0].status
 
+    
     if user_can_access_collection(request.user, collection):
         return render(request, 'section.html', context={
             'collection': collection,
@@ -34,6 +49,7 @@ def section(request, collection_id, course_id, section_id, chapter_id=None):
             'course': course,
             'chapter': chapter,
             'done_chapters': done_chapters,
+            # 'progress': calculate_section_progress(request.user, section),
             'submission_status':submission_status
         })
     else:
@@ -43,6 +59,8 @@ def section(request, collection_id, course_id, section_id, chapter_id=None):
 def collection(request, collection_id, course_id=None):
     collection = Collection.objects.filter(id=collection_id).first()
     if user_can_access_collection(request.user, collection):
+        
+
         return render(request, 'collection.html', {'collection': collection, 'course_id':course_id})
     else:
         return redirect('courses_app:collections')
@@ -56,6 +74,7 @@ def collections(request):
 def completed_chapter(request):
     user_profile = request.user.profile
     chapter_id = request.POST.get('chapter_id')
+    section_id = request.POST.get('section_id')
     chapter = Chapter.objects.get(id=chapter_id)
 
     if chapter in user_profile.done_chapters.all():
@@ -65,7 +84,10 @@ def completed_chapter(request):
         done_chapter = Program_Done_Chapters(profile = user_profile, program = user_profile.program, chapter = chapter)
         done_chapter.save()
 
-    return JsonResponse({'code': 200})
+    section_done_points, section_total_points = calculate_section_progress(request.user, Section.objects.get(id=section_id))
+    progress = ceil(100*section_done_points / section_total_points) if section_total_points > 0 else -1
+
+    return JsonResponse({'code': 200, 'progress':progress})
 
 
 @login_required
@@ -135,6 +157,10 @@ def update_submission(request):
 
 @login_required(login_url=LOGIN_URL)
 def daily_submissions(request, collection_id, course_id, section_id):
+
+    # This will show all submissions per section FOR EVERY PROGAM. (past programs)   
+    # TODO: Need to show submissions on a particular section for a particular program!
+
     collection = Collection.objects.get(id=collection_id)
     course = Course.objects.get(id=course_id)
     section = Section.objects.get(id=section_id)
@@ -146,7 +172,6 @@ def daily_submissions(request, collection_id, course_id, section_id):
 
     user_groups_queryset = request.user.groups.values_list('name',flat = True)
     user_groups = list(user_groups_queryset)  
-
     if 'admin' not in user_groups and 'teacher' not in user_groups and 'checker' not in user_groups:
         return redirect('/restricted/')
     
@@ -166,48 +191,3 @@ def daily_submissions(request, collection_id, course_id, section_id):
 
 def paths(request):
     return render(request, 'paths.html')
-
-
-# JMS
-
-
-def test(request):
-    collections = Collection.objects.all()
-    for collection in collections:
-        print("COLLECTION")
-        print(collection)
-        collectioncourses = collection.collectioncourse_set.all()
-        for collectioncourse in collectioncourses:
-            course = collectioncourse.course
-            print("COURSE")
-            print(course)
-            coursesections = course.coursesection_set.all()
-            for coursesection in coursesections:
-                section = coursesection.section
-                print("SECTION")
-                print(section)
-                sectionchapters = section.sectionchapter_set.all()
-                for sectionchapter in sectionchapters:
-                    chapter = sectionchapter.chapter
-                    print("CHAPTER")
-                    print(chapter)
-            
-
-    return render(request, 'test.html', {'collections': collections })
-
-
-def test2(request):
-    collection = Collection.objects.get(id=1)
-    #all courses belonging to collection 1
-    courses = collection.courses.all()
-
-    course1 = Course.objects.get(id=1)
-    course1.collectioncourse_set.get(collection_id=2).collection.title
-
-    # courses2 = Course.objects.filter(collection=collection_id).all()
-    print(courses)
-    
-    return render(request, 'test.html', {'collections': collection })
-
-
-# JMS END

@@ -23,7 +23,7 @@ class Chapter(models.Model):
     title = models.CharField(max_length=38, default='', help_text="(Max 38 Characters)")
     tags = models.CharField(max_length=100, default='', null=True, blank=True, help_text="So admins can identify chapters better")
     group = models.CharField(max_length=20, choices=GROUP_CHOICES, default='XP')
-    points_value = models.IntegerField(null=True, blank=True, default=5)
+    points_value = models.IntegerField(null=True, blank=True, default=0)
     mandatory = models.BooleanField(default=False)
     self_learning = models.BooleanField(default=False)
     advanced = models.BooleanField(default=False)

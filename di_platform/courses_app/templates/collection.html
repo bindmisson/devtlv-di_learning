@@ -2,6 +2,7 @@
 {% load static %}
 {% load user_group_check %}
 {% load split_csv %}
+{% load get_progress %}
 {% load martortags %}
 
 
@@ -18,8 +19,17 @@
                 <p class="my-0 uk-text-small">Collection</p>
                 <h3 class="mt-0">{{ collection.title }}</h3>
                 {% if request.user|has_group:"admin" %}
-                <sup><a href="{% url 'admin:courses_app_collection_change' collection.id %}" class="edit-content" >Edit Collection</a></sup>
+                    <sup><a href="{% url 'admin:courses_app_collection_change' collection.id %}" class="edit-content" >Edit Collection</a></sup>
                 {% endif %}
+                {% if request.user.profile.program.collection == collection and request.user|get_collection_progress:collection >= 0 %}
+                <div style="width:200px;">
+                    <strong style="color:#949393">{{request.user|get_collection_progress:collection}}% Complete</strong>
+                    <div class="course-progressbar">
+                        <div class="course-progressbar-filler" style="width:{{request.user|get_collection_progress:collection}}%;"></div>
+                    </div>
+                </div>
+                {% endif %}
+                <br>
                 <p>{{ collection.description }}</p>
             </div>
         </div>
@@ -37,8 +47,9 @@
             </ul>
             {% endif %}
         </div>
-
+         
         <ul class="course-path-level" uk-accordion>
+            
             {% for collection_course in collection.collectioncourse_set.all|dictsort:"sort" %}
             <li class="uk">
                 <a class="uk-accordion-title" id="course_accordion_course_id_{{collection_course.course.id}}" href="#">
@@ -59,15 +70,21 @@
                                             <img src="{% static course_section.section.get_thumbnail %}">
                                             <a href="/courses/collection/{{collection.id}}/course/{{ collection_course.course.id }}/section/{{ course_section.section.id }}" class="play-button-trigger "> </a>
                                         </div>
+                                        
                                         <div class="course-card-body">
                                             <h4 style="color: red">{% if forloop.counter <= collection_course.course.total_days %}Day {{ forloop.counter }}{% endif %}&nbsp</h4>
                                             <h4>{{ course_section.section.title }}</h4>
-                                            <p> {{ course_section.section.short_description }}</p>
-                                            <div style="position:absolute; bottom: 0">
+                                            <p style="height: 40px;"> {{ course_section.section.short_description }} </p>
                                             {% if request.user|has_group:"admin" %}
                                                 <p><sub><a style="font-size: 0.8em !important;" href="{% url 'admin:courses_app_section_change' course_section.section.id %}" class="edit-content">Edit Section</a></sub></p>
+                                            {% elif request.user.profile.program.collection == collection and request.user|get_section_progress:course_section.section >= 0 %}
+                                                <strong style="color:#949393">{{request.user|get_section_progress:course_section.section}}% Complete</strong>
+                                                <div class="course-progressbar">
+                                                    <div class="course-progressbar-filler" style="width:{{request.user|get_section_progress:course_section.section}}%;"></div>
+                                                </div>
                                             {% endif %}
                                         </div>
+                                        
                                     </div>
                                 </li>
                                 {% endfor %}

@@ -23,14 +23,18 @@ class CourseSectionInline(admin.TabularInline):
 
 class SectionChapterInline(admin.TabularInline):
     model = SectionChapter
-    fields = ('chapter', 'chapter_group', 'chapter_tags', 'sort', )
-    readonly_fields = ['chapter_tags', 'chapter_group']
+    fields = ('chapter', 'chapter_points_value', 'chapter_group', 'chapter_tags', 'sort', )
+    readonly_fields = ['chapter_points_value', 'chapter_tags', 'chapter_group']
 
+    def chapter_points_value(self, obj):
+      return obj.chapter.points_value
+    
     def chapter_tags(self, obj):
       return obj.chapter.tags
     
     def chapter_group(self, obj):
       return obj.chapter.group
+    
 
 class CourseAccessInline(admin.TabularInline):
     model = CourseAccessCollection   

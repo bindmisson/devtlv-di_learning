@@ -21,6 +21,4 @@ urlpatterns = [
 
     path('paths/', views.paths, name='paths'),
 
-    path('test/', views.test, name='test'),
-    path('test2/', views.test2, name='test2'),
 ]
