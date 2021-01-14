@@ -6,6 +6,7 @@ from courses_app.models import Collection, Chapter
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('username', 'full_name', 'course_access', 'program')
     list_editable = ('course_access', 'program')
+    search_fields = ['user__first_name', 'user__last_name', 'user__username']
 
     def username(self, obj):
         return f"{obj.user.username}"
