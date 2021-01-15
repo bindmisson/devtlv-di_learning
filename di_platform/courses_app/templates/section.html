@@ -39,6 +39,11 @@
 </style>
 {% endblock %}
 
+{% block modal %}
+    {{block.super}}
+    {% include "lib/partials/modal.html" %}
+{% endblock %}
+
 {% block page-content %}
 <div class="page-content">
     
@@ -797,10 +802,7 @@
 
 {% endblock %}
 
-{% block modal %}
-    {{block.super}}
-    {% include "lib/partials/modal.html" %}
-{% endblock %}
+
 
 {% block javascript-bottom %}
 <script type="text/javascript" src="../assets/syntax-highlighter/scripts/shCore.js"></script>

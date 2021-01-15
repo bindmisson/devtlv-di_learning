@@ -15,17 +15,7 @@
     <!-- Favicon -->
     <link href="{% static 'theme/images/favicon.png' %}" rel="icon" type="image/png">
 
-    <!-- javaScripts (async defer )
-    ================================================== -->
-    <script async defer src="{% static 'theme/js/framework.js' %}"></script>
-    <script async defer src="{% static 'theme/js/jquery-3.3.1.min.js' %}"></script>
-    <script async defer src="{% static 'theme/js/simplebar.js' %}"></script>
-    <script async defer src="{% static 'theme/js/main.js' %}"></script>
-    <script async defer src="{% static 'theme/js/bootstrap-select.min.js' %}"></script>
-    <script async defer src="{% static 'lib/js/bootstrap.min.js' %}"></script> 
-    <script async defer src="{% static 'lib/js/script.js' %}"></script> 
-    {% block javascript-top %}
-    {% endblock %}
+    
     <!-- CSS 
     ================================================== -->
     <link rel="stylesheet" href="{% static 'theme/css/style.css' %}">
@@ -125,6 +115,16 @@
             text-anchor: middle;
         }
     </style>
+
+    <!-- javaScripts (async defer )
+    ================================================== -->
+    <script src="{% static 'theme/js/framework.js' %}"></script>
+    <script src="{% static 'theme/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'theme/js/simplebar.js' %}"></script>
+    <script src="{% static 'theme/js/main.js' %}"></script>
+    <script src="{% static 'theme/js/bootstrap-select.min.js' %}"></script>
+    <script src="{% static 'lib/js/bootstrap.min.js' %}"></script> 
+    <script src="{% static 'lib/js/script.js' %}"></script> 
 
     {% block javascript-bottom %}
     {% endblock %}
