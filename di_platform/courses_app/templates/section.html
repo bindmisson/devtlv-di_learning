@@ -587,6 +587,26 @@
   */
   window.addEventListener('load',function(){
 
+    // Cookie is supposed to be added before every ajax request
+    // This happens in lib/js/script.js in the Ajax setup "beforSend"
+    // But its buggy and doesn't always send. I tested it by making the target view csrf exempt
+    //... so I'm explicitly adding the cookie in the ajax data body
+    function getCookie(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = jQuery.trim(cookies[i]);
+          if (cookie.substring(0, name.length + 1) == (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+
     configure_modal()
 
     const submit_button = document.getElementById('chapter-submit');
@@ -690,6 +710,7 @@
             data['course_id'] = "{{course.id}}";
             data['section_id'] = "{{section.id}}";
             data['chapter_id'] = "{{chapter.id}}";
+            data['csrfmiddlewaretoken'] = '{{ csrf_token }}';
             if (!isValidHttpUrl(data['exercise_url'])) {
                 alert("Please enter a valid URL!")
                 return
@@ -725,10 +746,6 @@
 
     }
     
-
-    $('#chapter-submit').show()
-    $('#chapter-done').show()
-    
     $('#chapter-done').on('click', function () {
       let chapter_id = $('#chapter-done').attr('chapter-id')
       let section_id = $('#chapter-done').parent().attr('section-id')
@@ -739,6 +756,7 @@
         data: {
           'chapter_id': chapter_id,
           'section_id': section_id,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
         },
         success: function (data) {
           checkOrUncheck(chapter_id);
@@ -769,6 +787,10 @@
         badge.removeClass('badge-outline-secondary').addClass('badge-outline-success')
       }
     }
+
+    // Show the buttons when ready
+    $('#chapter-submit').show()
+    $('#chapter-done').show()
   })
   
 </script>
