@@ -55,7 +55,8 @@
                 <td class='text-center'>{{submission.clarity}}</td>
                 <td class='text-center'>{{submission.relevance}}</td>
                 <td class='text-center'>{{submission.time_taken}}</td>
-                <td title="{{submission.comment}}">{{submission.comment|slice:":50"}}<strong>&nbsp...</strong></td>
+                <!-- <td title="{{submission.comment}}">{{submission.comment|slice:":50"}}<strong>&nbsp...</strong></td> -->
+                <td title="{{submission.comment}}">{{submission.comment}}</td>
                 <td>
                     <button profile_id="{{submission.profile.id}}" chapter_id="{{submission.chapter.id}}"  class="substatus_pass substatus_button btn btn-sm btn-success">Pass</button>
                     <button profile_id="{{submission.profile.id}}" chapter_id="{{submission.chapter.id}}"  class="substatus_redo substatus_button btn btn-sm btn-danger">Redo</button>
