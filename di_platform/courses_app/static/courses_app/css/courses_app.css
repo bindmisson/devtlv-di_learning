@@ -110,3 +110,24 @@ iframe {
     border: #dc3545 solid 2px;
     font-weight: bold;
 }
+
+
+/* unvisited link */
+a.hi-vis:link {
+color: #007bff;
+}
+
+/* visited link */
+a.hi-vis:visited {
+color: #007bff;
+}
+
+/* mouse over link */
+a.hi-vis:hover {
+color: blue;
+}
+
+/* selected link */
+a.hi-vis:active {
+color: lightblue;
+}
