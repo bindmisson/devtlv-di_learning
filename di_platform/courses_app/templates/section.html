@@ -126,12 +126,17 @@
                     <p class="lead">{{ chapter.content|safe_markdown }}</p><br>
                     {% endif %}
 
+                    <div style="display: flex; justify-content: flex-end; align-items: center;">
+                        <a href="#breadcrumbs" class="btn btn-info mb-2">Back to Top</a>
+                    </div>
+
                     <div>
                         <hr>
                         <h1>Feedback</h1>
                         <p>Tell us what you thought about {% if not chapter%} the section: {{section.title}}{% else %} the chapter: {{chapter.title}}{% endif %}</p>
                         <div hidden id="feedback" class="cui-embed" style="height: 300px; width: 100%;" data-cui-uid="Gp6szZ" data-cui-avatar="https://images.typeform.com/images/KV5BWnKMavQp" data-cui-mode="widget" data-cui-pill-button-color="#000000"></div><script src="https://public-assets.typeform.com/confab/embed.js" async></script>
                     </div>
+                    
                 {% endif %}
 
             </div>
