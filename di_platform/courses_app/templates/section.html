@@ -66,26 +66,28 @@
                         <h2>{{ section.title }}</h2>
                         {% endif %}
                     </div>
-                    {% if chapter.id and request.user.profile.program %}
-                    <div section-id="{{section.id}}" style="width: 30%; display: flex; justify-content: flex-end; align-items: center;">
-                        {% if chapter.mandatory %}
-                            {% if submission_status == "Not Done" %}
-                            <span class="btn btn-secondary border border-danger"  id="chapter-submit" chapter-id="{{chapter.id}}" style="display:none;">Submit</span>
-                            {% elif submission_status == "Pending" %}
-                            <span class="btn btn-warning"  id="chapter-submit" chapter-id="{{chapter.id}}" style="display:none">Pending</span>
-                            {% elif submission_status == "Pass" %}
-                            <span class="btn btn-success"  id="chapter-submit" chapter-id="{{chapter.id}}" style="display:none">Done</span>
-                            {% elif submission_status == "Redo" %}
-                            <span class="btn btn-danger"  id="chapter-submit" chapter-id="{{chapter.id}}" style="display:none">Redo</span>
+                    {% if chapter.id %}
+                        {% if collection == request.user.profile.program.collection %}
+                            <div section-id="{{section.id}}" style="width: 30%; display: flex; justify-content: flex-end; align-items: center;">
+                                {% if chapter.mandatory %}
+                                    {% if submission_status == "Not Done" %}
+                                    <span class="btn btn-secondary border border-danger"  id="chapter-submit" chapter-id="{{chapter.id}}" style="display:none;">Submit</span>
+                                    {% elif submission_status == "Pending" %}
+                                    <span class="btn btn-warning"  id="chapter-submit" chapter-id="{{chapter.id}}" style="display:none">Pending</span>
+                                    {% elif submission_status == "Pass" %}
+                                    <span class="btn btn-success"  id="chapter-submit" chapter-id="{{chapter.id}}" style="display:none">Done</span>
+                                    {% elif submission_status == "Redo" %}
+                                    <span class="btn btn-danger"  id="chapter-submit" chapter-id="{{chapter.id}}" style="display:none">Redo</span>
+                                {% endif %}
+                                {% else %}
+                                    {% if chapter.id in done_chapters %}
+                                    <span class="btn btn-success"  id="chapter-done" chapter-id="{{chapter.id}}" done="1" style="display:none">Done</span>
+                                    {% else %}
+                                    <span class="btn btn-secondary" id="chapter-done" chapter-id="{{chapter.id}}" done="0" style="display:none">Not Completed</span>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
                         {% endif %}
-                        {% else %}
-                            {% if chapter.id in done_chapters %}
-                            <span class="btn btn-success"  id="chapter-done" chapter-id="{{chapter.id}}" done="1" style="display:none">Done</span>
-                            {% else %}
-                            <span class="btn btn-secondary" id="chapter-done" chapter-id="{{chapter.id}}" done="0" style="display:none">Not Completed</span>
-                            {% endif %}
-                        {% endif %}
-                    </div>
                     {% endif %}
                 </div>
                 {% if not submissions_page %}
@@ -151,7 +153,7 @@
 <div class="uk-width-1-4@m uk-overflow-hidden vidlist-3-container">
     <div uk-sticky >
         <h5 class="bg-gradient-grey text-white py-4 p-3 mb-0">{{ section.title }}</h5>
-        {% if request.user.profile.program.collection == collection and request.user|get_section_progress:section >= 0 %}
+        {% if collection == request.user.profile.program.collection and request.user|get_section_progress:section >= 0 %}
             <div class="progress">
                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{request.user|get_section_progress:section}}"
                     aria-valuemin="0" aria-valuemax="100" style="width:{{request.user|get_section_progress:section}}%; background:#17d292; font-size:1.2em; color: #949393; font-weight:bold;">
@@ -184,7 +186,7 @@
                                                 <span class="badge"> </span>
                                                 {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-primary">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
                                                 {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger" data-toggle="tooltip" title="Mandatory"><i class="fa fa-star" aria-hidden="true"></i></span>{% endif %}
-                                                {% if section_chapter.chapter.id in done_chapters %}
+                                                {% if collection == request.user.profile.program.collection and collection == request.user.profile.program.collection and section_chapter.chapter.id in done_chapters %}
                                                 <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success" data-toggle="tooltip" title="Done"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                 {% else %}
                                                 <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary" data-toggle="tooltip" title="Not Completed"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
@@ -213,7 +215,7 @@
                                                 <span class="badge"> </span>
                                                 {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-primary">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
                                                 {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger" data-toggle="tooltip" title="Mandatory"><i class="fa fa-star" aria-hidden="true"></i></span>{% endif %}
-                                                {% if section_chapter.chapter.id in done_chapters %}
+                                                {% if collection == request.user.profile.program.collection and collection == request.user.profile.program.collection and section_chapter.chapter.id in done_chapters %}
                                                 <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success" data-toggle="tooltip" title="Done"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                 {% else %}
                                                 <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary" data-toggle="tooltip" title="Not Completed"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
@@ -243,7 +245,7 @@
                                                     {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-primary">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
                                                     <span class="badge badge-outline-warning">XP</span>
                                                     {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger" data-toggle="tooltip" title="Mandatory"><i class="fa fa-star" aria-hidden="true"></i></span>{% endif %}
-                                                    {% if section_chapter.chapter.id in done_chapters %}
+                                                    {% if collection == request.user.profile.program.collection and collection == request.user.profile.program.collection and section_chapter.chapter.id in done_chapters %}
                                                     <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success" data-toggle="tooltip" title="Done"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     {% else %}
                                                     <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary" data-toggle="tooltip" title="Not Completed"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
@@ -265,7 +267,7 @@
                                                     {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-primary">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
                                                     <span class="badge badge-outline-warning">XP Gold</span>
                                                     {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger" data-toggle="tooltip" title="Mandatory"><i class="fa fa-star" aria-hidden="true"></i></span>{% endif %}
-                                                    {% if section_chapter.chapter.id in done_chapters %}
+                                                    {% if collection == request.user.profile.program.collection and collection == request.user.profile.program.collection and section_chapter.chapter.id in done_chapters %}
                                                     <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success" data-toggle="tooltip" title="Done"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     {% else %}
                                                     <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary" data-toggle="tooltip" title="Not Completed"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
@@ -287,7 +289,7 @@
                                                     {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-primary">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
                                                     <span class="badge badge-outline-warning">XP Ninja</span>
                                                     {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger" data-toggle="tooltip" title="Mandatory"><i class="fa fa-star" aria-hidden="true"></i></span>{% endif %}
-                                                    {% if section_chapter.chapter.id in done_chapters %}
+                                                    {% if collection == request.user.profile.program.collection and collection == request.user.profile.program.collection and section_chapter.chapter.id in done_chapters %}
                                                     <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success" data-toggle="tooltip" title="Done"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     {% else %}
                                                     <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary" data-toggle="tooltip" title="Not Completed"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
@@ -308,7 +310,7 @@
                                                     <span class="badge"> </span>
                                                     {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-primary">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
                                                     {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger" data-toggle="tooltip" title="Mandatory"><i class="fa fa-star" aria-hidden="true"></i></span>{% endif %}
-                                                    {% if section_chapter.chapter.id in done_chapters %}
+                                                    {% if collection == request.user.profile.program.collection and collection == request.user.profile.program.collection and section_chapter.chapter.id in done_chapters %}
                                                     <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success" data-toggle="tooltip" title="Done"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     {% else %}
                                                     <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary" data-toggle="tooltip" title="Not Completed"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
@@ -329,7 +331,7 @@
                                                     <span class="badge"> </span>
                                                     {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-primary">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
                                                     {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger" data-toggle="tooltip" title="Mandatory"><i class="fa fa-star" aria-hidden="true"></i></span>{% endif %}
-                                                    {% if section_chapter.chapter.id in done_chapters %}
+                                                    {% if collection == request.user.profile.program.collection and collection == request.user.profile.program.collection and section_chapter.chapter.id in done_chapters %}
                                                     <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success" data-toggle="tooltip" title="Done"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     {% else %}
                                                     <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary" data-toggle="tooltip" title="Not Completed"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
@@ -358,7 +360,7 @@
                                                     <span class="badge"> </span>
                                                     {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-primary">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
                                                     {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger" data-toggle="tooltip" title="Mandatory"><i class="fa fa-star" aria-hidden="true"></i></span>{% endif %}
-                                                    {% if section_chapter.chapter.id in done_chapters %}
+                                                    {% if collection == request.user.profile.program.collection and collection == request.user.profile.program.collection and section_chapter.chapter.id in done_chapters %}
                                                     <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success" data-toggle="tooltip" title="Done"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     {% else %}
                                                     <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary" data-toggle="tooltip" title="Not Completed"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
@@ -379,7 +381,7 @@
                                                     <span class="badge"> </span>
                                                     {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-primary">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
                                                     {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger" data-toggle="tooltip" title="Mandatory"><i class="fa fa-star" aria-hidden="true"></i></span>{% endif %}
-                                                    {% if section_chapter.chapter.id in done_chapters %}
+                                                    {% if collection == request.user.profile.program.collection and collection == request.user.profile.program.collection and section_chapter.chapter.id in done_chapters %}
                                                     <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success" data-toggle="tooltip" title="Done"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     {% else %}
                                                     <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary" data-toggle="tooltip" title="Not Completed"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
@@ -408,7 +410,7 @@
                                                     <span class="badge"> </span>
                                                     {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-primary">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
                                                     {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger" data-toggle="tooltip" title="Mandatory"><i class="fa fa-star" aria-hidden="true"></i></span>{% endif %}
-                                                    {% if section_chapter.chapter.id in done_chapters %}
+                                                    {% if collection == request.user.profile.program.collection and collection == request.user.profile.program.collection and section_chapter.chapter.id in done_chapters %}
                                                     <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success" data-toggle="tooltip" title="Done"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                     {% else %}
                                                     <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary" data-toggle="tooltip" title="Not Completed"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
@@ -437,7 +439,7 @@
                                                 <span class="badge"> </span>
                                                 {% if section_chapter.chapter.points_value %}<span class="badge badge-outline-primary">{{ section_chapter.chapter.points_value }} XP</span>{% endif %}
                                                 {% if section_chapter.chapter.mandatory %}<span class="badge badge-outline-danger" data-toggle="tooltip" title="Mandatory"><i class="fa fa-star" aria-hidden="true"></i></span>{% endif %}
-                                                {% if section_chapter.chapter.id in done_chapters %}
+                                                {% if collection == request.user.profile.program.collection and collection == request.user.profile.program.collection and section_chapter.chapter.id in done_chapters %}
                                                 <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-success" data-toggle="tooltip" title="Done"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                 {% else %}
                                                 <span id="status_chapter_id_{{ section_chapter.chapter.id }}" class="badge badge-outline-secondary" data-toggle="tooltip" title="Not Completed"><i class="fa fa-check-circle" aria-hidden="true"></i></span>

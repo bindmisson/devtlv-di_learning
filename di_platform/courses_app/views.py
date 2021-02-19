@@ -127,13 +127,35 @@ def completed_chapter(request):
     chapter_id = request.POST.get('chapter_id')
     section_id = request.POST.get('section_id')
     chapter = Chapter.objects.get(id=chapter_id)
-    if chapter in user_profile.done_chapters.all():
+    
+    done_chapters = Program_Done_Chapters.objects.filter(profile = user_profile, program = user_profile.program)
+    
+    done_chapter_ids = []
+    for chap in done_chapters:
+        done_chapter_ids.append(int(chap.chapter_id))
+        
+    # print("\n------------------")
+    # print("ORIGINAL STATUS")
+    # print("Done Chapter: ", done_chapter_ids)
+    # print("clicked: ", chapter.id)
+    # print("Updating...")
+    if chapter.id in done_chapter_ids:
+        # print("REMOVING CHAPTER")
         done_chapter = Program_Done_Chapters.objects.filter(profile = user_profile, program = user_profile.program, chapter = chapter)
         done_chapter.delete()
     else:
+        # print("ADDING CHAPTER")
         done_chapter = Program_Done_Chapters(profile = user_profile, program = user_profile.program, chapter = chapter)
         done_chapter.save()
-
+    
+    # print("\nCURRENT STATUS")
+    # done_chapters = Program_Done_Chapters.objects.filter(profile = user_profile, program = user_profile.program)
+    # done_chapter_ids = []
+    # for chap in done_chapters:
+    #     done_chapter_ids.append(int(chap.chapter_id))
+    # print("\nCURRENT STATUS")
+    # print("Done Chapter: ", done_chapter_ids)
+    
     section_done_points, section_total_points = calculate_section_progress(request.user, Section.objects.get(id=section_id))
     progress = ceil(100*section_done_points / section_total_points) if section_total_points > 0 else -1
 

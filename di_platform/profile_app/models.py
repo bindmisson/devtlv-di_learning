@@ -136,6 +136,13 @@ class Program_Done_Chapters(models.Model):
     program = models.ForeignKey(Program, on_delete=models.CASCADE)
     chapter = models.ForeignKey('courses_app.Chapter', on_delete=models.CASCADE)
 
+    # I want to add this, but can't be sure that there arent legacy users with duplicates..(there probably are...)
+    # class Meta:
+    #     unique_together = ('profile', 'program', 'chapter')
+
+    def __repr__(self):
+        return f"<done chapter> id: {self.chapter.id}, title: {self.chapter.title}, profile: {self.profile.id}, program: {self.program.id}" 
+
 
 
 @receiver(m2m_changed, sender=Profile.done_chapters.through)
