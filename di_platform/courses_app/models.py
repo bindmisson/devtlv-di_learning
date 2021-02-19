@@ -166,3 +166,37 @@ class CourseAccessCollection(models.Model):
     course_access = models.ForeignKey(CourseAccess, on_delete=models.CASCADE)
     collection = models.ForeignKey(Collection, on_delete=models.CASCADE)
     sort = models.IntegerField(blank=True, default=0)
+
+
+
+# GAMIFICATION
+
+class TrophyRequirements(models.Model):
+    trophy_name = models.CharField(max_length=50)
+    image = models.ImageField(default='', upload_to='staticfiles/media/thumbnails/trophys', null=True, blank=True)
+    sort_order = models.IntegerField(blank=True, default=0)
+    XP = models.IntegerField(default=0)
+    XPG = models.IntegerField(default=0)
+    XPN = models.IntegerField(default=0)
+    HW = models.IntegerField(default=0)
+    RF = models.IntegerField(default=0)
+    RL = models.IntegerField(default=0)
+    MP = models.IntegerField(default=0)
+    SR = models.IntegerField(default=0)
+    DC = models.IntegerField(default=0)
+    CO = models.IntegerField(default=0)
+    TE = models.IntegerField(default=0)
+    CDD = models.IntegerField(default=0)
+
+    def __repr__(self):
+        return f'<TrophyRequirements {self.trophy_name}>'
+
+    def __str__(self):
+        return self.trophy_name
+
+    @property
+    def get_image(self):
+        image_path = str(self.image)
+        if os.path.isfile(os.path.join(image_path)):
+            return image_path.replace("staticfiles","")
+        return "THIS IS A TEST"

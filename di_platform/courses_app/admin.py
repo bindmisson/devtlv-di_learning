@@ -2,7 +2,7 @@ from django.db import models
 from martor.widgets import AdminMartorWidget
 from django.contrib import admin
 from courses_app.models import Course, Section, Chapter, Collection, CourseAccess
-from courses_app.models import SectionChapter, CourseSection, CollectionCourse, CourseAccessCollection
+from courses_app.models import SectionChapter, CourseSection, CollectionCourse, CourseAccessCollection, TrophyRequirements
 
 
 class CollectionCourseInline(admin.TabularInline):
@@ -76,7 +76,7 @@ class CourseAccessAdmin(admin.ModelAdmin):
   inlines = [CourseAccessInline]
 
 
-
+admin.site.register(TrophyRequirements)
 admin.site.register(Chapter, ChapterAdmin)
 admin.site.register(Section, SectionAdmin)
 admin.site.register(Course, CourseAdmin)

@@ -21,7 +21,54 @@ def calculate_section_progress(user, section):
     section_done_points = section_done_points["points_value__sum"] or 0 # In case of "None"
     
     return (section_done_points, section_total_points)
+
+def calculate_points_by_type(user):
+    # Create dictionary of chapter groups with values 0
+    total_points_by_group = {}
+    for tup in Chapter.GROUP_CHOICES:
+        total_points_by_group[tup[0]] = 0
+
+    # Loop through all done chapters
+    collection = user.profile.program.collection
+    courses = collection.courses.all()
+    for course in courses:
+        sections = course.sections.all()
+        for section in sections:
+            section_chapters_completed = section.chapters.all() & user.profile.done_chapters.filter(program_done_chapters__program=user.profile.program)
+            for chapter in section_chapters_completed:
+                # Increment the points by the chapters points value per group
+                total_points_by_group[chapter.group] += chapter.points_value or 0
+
+    return total_points_by_group
+
+def calculate_awarded_trophies(user):
+    total_points_by_group = calculate_points_by_type(user)
+
+    # pull trophy requirements from DB
+    trophy_requirements = TrophyRequirements.objects.all().order_by('sort_order')
+    user_trophies = []
+
+    for trophy in trophy_requirements:
+        has_requirements = True
+        # compare trophy requirements to total_points_by_group.
+        for tup in Chapter.GROUP_CHOICES:
+            group = tup[0]
+            if total_points_by_group[group] < getattr(trophy, group):
+                has_requirements = False
+                break
+        if has_requirements:
+            user_trophies.append(trophy)
+
+    return user_trophies
+    
+    # profiles should also keep track of acknowledged trophys... (this info also passed to template in some form.)
+
+    # when template is diplayed, if a trophy has not been acknowledged, then pop up "Congratulations"
+    
+
    
+
+
 
 @login_required(login_url=LOGIN_URL)
 def section(request, collection_id, course_id, section_id, chapter_id=None):
@@ -59,15 +106,19 @@ def section(request, collection_id, course_id, section_id, chapter_id=None):
 def collection(request, collection_id, course_id=None):
     collection = Collection.objects.filter(id=collection_id).first()
     if user_can_access_collection(request.user, collection):
-        
-
         return render(request, 'collection.html', {'collection': collection, 'course_id':course_id})
     else:
         return redirect('courses_app:collections')
 
 @login_required(login_url=LOGIN_URL)
 def collections(request):
-    return render(request, 'collections.html', {'collections': get_user_collections(request.user)})
+    if request.user.profile.program:
+        trophies = calculate_awarded_trophies(request.user)
+    else:
+        trophies = None    
+    return render(request, 'collections.html', {
+        'collections': get_user_collections(request.user), 
+        'trophies': trophies})
 
 
 @login_required
@@ -76,7 +127,6 @@ def completed_chapter(request):
     chapter_id = request.POST.get('chapter_id')
     section_id = request.POST.get('section_id')
     chapter = Chapter.objects.get(id=chapter_id)
-
     if chapter in user_profile.done_chapters.all():
         done_chapter = Program_Done_Chapters.objects.filter(profile = user_profile, program = user_profile.program, chapter = chapter)
         done_chapter.delete()

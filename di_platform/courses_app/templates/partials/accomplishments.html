@@ -6,7 +6,6 @@
         <div class="text-center">
             <h1 class="uk-text-truncate">My Accomplishments</h1>
         </div>
-
         <div class="row">
             <div class="col-sm-12">
                 <div class="">
@@ -52,11 +51,19 @@
                     <div class="card-body">
                         <h5 class="card-title text-center">Trophy Cabinet</h5>
                         <div style="text-align:center">
-                            <img src="{% static 'courses_app/images/accomplishments/trophy_bw.png' %}" width=100px; height=100px; alt="Trophy">
+                            <div style="display:flex; justify-content: space-evenly;">
+                            {% if trophies %}
+                                {% for trophy in trophies %}
+                                <div>
+                                    <img src="{% static trophy.get_image %}" width=100px height=100px>
+                                    <p>{{ trophy.trophy_name }}</p>
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                                <p>You have no trophies so far!</p>
+                            {% endif %}
+                            </div>
                         </div>
-                        <p class="text-center">
-                            <sub style="color:#ff5630">Coming soon!</sub>
-                        </p>   
                     </div>
                 </div>
             </div>
