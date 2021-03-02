@@ -34,7 +34,7 @@ class Chapter(models.Model):
         return f'<Chapter {self.title}>'
 
     def __str__(self):
-        return self.title + (f' <TAGS> {self.tags}' if self.tags else '')
+        return f"{self.id}. {self.title}" + (f' <TAGS> {self.tags}' if self.tags else '')
 
 
 class Section(models.Model):
@@ -50,7 +50,7 @@ class Section(models.Model):
         return f'<Section {self.title}>'
 
     def __str__(self):
-        return self.title + (f' <TAGS> {self.tags}' if self.tags else '')
+        return f"{self.id}. {self.title}" + (f' <TAGS> {self.tags}' if self.tags else '')
 
     def get_thumbnail(self):
         image_path = str(self.thumbnail)
@@ -73,7 +73,7 @@ class Course(models.Model):
         return f'<Course {self.title}>'
 
     def __str__(self):
-        return self.title + (f' <TAGS> {self.tags}' if self.tags else '')
+        return f"{self.id}. {self.title}" + (f' <TAGS> {self.tags}' if self.tags else '')
 
     def get_thumbnail(self):
         image_path = str(self.thumbnail)
@@ -99,7 +99,7 @@ class Collection(models.Model):
         return f'<Collection {self.title}>'
 
     def __str__(self):
-        return self.title
+        return f"{self.id}. {self.title}"
 
     def get_thumbnail(self):
         image_path = str(self.thumbnail)
