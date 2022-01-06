@@ -28,7 +28,7 @@ SECRET_KEY = '5z!@&3*&9kv(1^-1unepmcex0c4kd073$g4!l@u05j_4p@eu0u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.di-learning.com', 'www.learn.di-learning.com', '51.210.111.107']
+ALLOWED_HOSTS = ['staging.di-learning.com', 'www.learn.di-learning.com', '51.210.111.107']
 
 # Application definition
 INSTALLED_APPS = [
